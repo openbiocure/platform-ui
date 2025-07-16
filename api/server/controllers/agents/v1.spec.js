@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const { agentSchema } = require('@librechat/data-schemas');
+const { agentSchema } = require('@openbiocure/data-schemas');
 
 // Only mock the dependencies that are not database-related
 jest.mock('~/server/services/Config', () => ({
@@ -44,7 +44,7 @@ jest.mock('~/models/File', () => ({
 const { createAgent: createAgentHandler, updateAgent: updateAgentHandler } = require('./v1');
 
 /**
- * @type {import('mongoose').Model<import('@librechat/data-schemas').IAgent>}
+ * @type {import('mongoose').Model<import('@openbiocure/data-schemas').IAgent>}
  */
 let Agent;
 

@@ -1,4 +1,4 @@
-const { ToolCallTypes } = require('librechat-data-provider');
+const { ToolCallTypes } = require('openbiocure-data-provider');
 const { logger } = require('~/config');
 
 /**

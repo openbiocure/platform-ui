@@ -4,9 +4,9 @@ const {
   envVarRegex,
   FetchTokenConfig,
   extractEnvVariable,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const { Providers } = require('@librechat/agents');
-const { getOpenAIConfig, createHandleLLMNewToken, resolveHeaders } = require('@librechat/api');
+const { getOpenAIConfig, createHandleLLMNewToken, resolveHeaders } = require('@openbiocure/api');
 const { getUserKeyValues, checkUserKeyExpiry } = require('~/server/services/UserService');
 const { getCustomEndpointConfig } = require('~/server/services/Config');
 const { fetchModels } = require('~/server/services/ModelService');

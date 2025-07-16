@@ -1,14 +1,14 @@
 const express = require('express');
 const { nanoid } = require('nanoid');
-const { logger } = require('@librechat/data-schemas');
-const { generateCheckAccess } = require('@librechat/api');
+const { logger } = require('@openbiocure/data-schemas');
+const { generateCheckAccess } = require('@openbiocure/api');
 const {
   SystemRoles,
   Permissions,
   PermissionTypes,
   actionDelimiter,
   removeNullishValues,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const { encryptMetadata, domainParser } = require('~/server/services/ActionService');
 const { updateAction, getActions, deleteAction } = require('~/models/Action');
 const { isActionDomainAllowed } = require('~/server/services/domains');

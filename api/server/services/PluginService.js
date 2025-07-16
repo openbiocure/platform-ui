@@ -1,5 +1,5 @@
-const { logger } = require('@librechat/data-schemas');
-const { encrypt, decrypt } = require('@librechat/api');
+const { logger } = require('@openbiocure/data-schemas');
+const { encrypt, decrypt } = require('@openbiocure/api');
 const { findOnePluginAuth, updatePluginAuth, deletePluginAuth } = require('~/models');
 
 /**

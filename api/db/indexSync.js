@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const { MeiliSearch } = require('meilisearch');
-const { logger } = require('@librechat/data-schemas');
-const { FlowStateManager } = require('@librechat/api');
-const { CacheKeys } = require('librechat-data-provider');
+const { logger } = require('@openbiocure/data-schemas');
+const { FlowStateManager } = require('@openbiocure/api');
+const { CacheKeys } = require('openbiocure-data-provider');
 
 const { isEnabled } = require('~/server/utils');
 const { getLogStores } = require('~/cache');

@@ -3,8 +3,8 @@ import {
   EModelEndpoint,
   isAssistantsEndpoint,
   isAgentsEndpoint,
-} from 'librechat-data-provider';
-import type { TConversation, EndpointSchemaKey } from 'librechat-data-provider';
+} from 'openbiocure-data-provider';
+import type { TConversation, EndpointSchemaKey } from 'openbiocure-data-provider';
 import { getLocalStorageItems } from './localStorage';
 
 const buildDefaultConvo = ({

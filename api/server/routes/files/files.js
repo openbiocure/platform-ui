@@ -10,7 +10,7 @@ const {
   EModelEndpoint,
   isAgentsEndpoint,
   checkOpenAIStorage,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const {
   filterFile,
   processFileUpload,

@@ -1,6 +1,6 @@
 const crypto = require('crypto');
-const { sendEvent } = require('@librechat/api');
-const { getResponseSender, Constants } = require('librechat-data-provider');
+const { sendEvent } = require('@openbiocure/api');
+const { getResponseSender, Constants } = require('openbiocure-data-provider');
 const { sendError } = require('~/server/middleware/error');
 const { saveMessage } = require('~/models');
 

@@ -1,8 +1,8 @@
 const { z } = require('zod');
 const fs = require('fs').promises;
 const { nanoid } = require('nanoid');
-const { logger } = require('@librechat/data-schemas');
-const { agentCreateSchema, agentUpdateSchema } = require('@librechat/api');
+const { logger } = require('@openbiocure/data-schemas');
+const { agentCreateSchema, agentUpdateSchema } = require('@openbiocure/api');
 const {
   Tools,
   Constants,
@@ -11,7 +11,7 @@ const {
   EToolResources,
   actionDelimiter,
   removeNullishValues,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const {
   getAgent,
   createAgent,
@@ -29,7 +29,7 @@ const { updateAgentProjects } = require('~/models/Agent');
 const { getProjectByName } = require('~/models/Project');
 const { revertAgentVersion } = require('~/models/Agent');
 const { deleteFileByFilter } = require('~/models/File');
-const { encryptV3 } = require('@librechat/api');
+const { encryptV3 } = require('@openbiocure/api');
 
 const systemTools = {
   [Tools.execute_code]: true,

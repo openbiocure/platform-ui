@@ -1,8 +1,8 @@
 const rateLimit = require('express-rate-limit');
-const { isEnabled } = require('@librechat/api');
+const { isEnabled } = require('@openbiocure/api');
 const { RedisStore } = require('rate-limit-redis');
-const { logger } = require('@librechat/data-schemas');
-const { ViolationTypes } = require('librechat-data-provider');
+const { logger } = require('@openbiocure/data-schemas');
+const { ViolationTypes } = require('openbiocure-data-provider');
 const ioredisClient = require('~/cache/ioredisClient');
 const logViolation = require('~/cache/logViolation');
 

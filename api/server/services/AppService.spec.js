@@ -8,7 +8,7 @@ const {
   defaultAgentCapabilities,
   deprecatedAzureVariables,
   conflictingAzureVariables,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 
 const AppService = require('./AppService');
 
@@ -78,9 +78,9 @@ jest.mock('./start/turnstile', () => ({
 
 const azureGroups = [
   {
-    group: 'librechat-westus',
+    group: 'openbiocure-westus',
     apiKey: '${WESTUS_API_KEY}',
-    instanceName: 'librechat-westus',
+    instanceName: 'openbiocure-westus',
     version: '2023-12-01-preview',
     models: {
       'gpt-4-vision-preview': {
@@ -102,9 +102,9 @@ const azureGroups = [
     },
   },
   {
-    group: 'librechat-eastus',
+    group: 'openbiocure-eastus',
     apiKey: '${EASTUS_API_KEY}',
-    instanceName: 'librechat-eastus',
+    instanceName: 'openbiocure-eastus',
     deploymentName: 'gpt-4-turbo',
     version: '2024-02-15-preview',
     models: {

@@ -330,7 +330,7 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Built on top of the LibreChat platform
+- Built on top of the openbiocure platform
 - Uses various open-source libraries and tools
 - Community contributors and maintainers
 

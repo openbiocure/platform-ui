@@ -21,12 +21,12 @@ jest.mock('~/models', () => ({
   createUser: jest.fn(),
   updateUser: jest.fn(),
 }));
-jest.mock('@librechat/api', () => ({
-  ...jest.requireActual('@librechat/api'),
+jest.mock('@openbiocure/api', () => ({
+  ...jest.requireActual('@openbiocure/api'),
   isEnabled: jest.fn(() => false),
 }));
-jest.mock('@librechat/data-schemas', () => ({
-  ...jest.requireActual('@librechat/api'),
+jest.mock('@openbiocure/data-schemas', () => ({
+  ...jest.requireActual('@openbiocure/api'),
   logger: {
     info: jest.fn(),
     debug: jest.fn(),

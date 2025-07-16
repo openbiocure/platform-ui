@@ -1,8 +1,8 @@
 const path = require('path');
 const { v4 } = require('uuid');
 const axios = require('axios');
-const { logAxiosError } = require('@librechat/api');
-const { logger } = require('@librechat/data-schemas');
+const { logAxiosError } = require('@openbiocure/api');
+const { logger } = require('@openbiocure/data-schemas');
 const { getCodeBaseURL } = require('@librechat/agents');
 const {
   Tools,
@@ -10,7 +10,7 @@ const {
   FileSources,
   imageExtRegex,
   EToolResources,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const { getStrategyFunctions } = require('~/server/services/Files/strategies');
 const { convertImage } = require('~/server/services/Files/images/convert');
 const { createFile, getFiles, updateFile } = require('~/models/File');
@@ -59,7 +59,7 @@ const processCodeOutput = async ({
       url: `${baseURL}/download/${session_id}/${id}`,
       responseType: 'arraybuffer',
       headers: {
-        'User-Agent': 'LibreChat/1.0',
+        'User-Agent': 'openbiocure/1.0',
         'X-API-Key': apiKey,
       },
       timeout: 15000,
@@ -131,7 +131,7 @@ async function getSessionInfo(fileIdentifier, apiKey) {
         ...queryParams,
       },
       headers: {
-        'User-Agent': 'LibreChat/1.0',
+        'User-Agent': 'openbiocure/1.0',
         'X-API-Key': apiKey,
       },
       timeout: 5000,

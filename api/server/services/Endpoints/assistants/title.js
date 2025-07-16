@@ -1,4 +1,4 @@
-const { CacheKeys } = require('librechat-data-provider');
+const { CacheKeys } = require('openbiocure-data-provider');
 const { saveConvo } = require('~/models/Conversation');
 const getLogStores = require('~/cache/getLogStores');
 const { isEnabled } = require('~/server/utils');

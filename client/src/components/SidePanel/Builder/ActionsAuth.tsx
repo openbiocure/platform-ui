@@ -5,7 +5,7 @@ import {
   AuthTypeEnum,
   AuthorizationTypeEnum,
   TokenExchangeMethodEnum,
-} from 'librechat-data-provider';
+} from 'openbiocure-data-provider';
 import {
   OGDialog,
   OGDialogClose,

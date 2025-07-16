@@ -1,5 +1,5 @@
-import { ContentTypes, Constants } from 'librechat-data-provider';
-import type { TMessage, TMessageContentParts } from 'librechat-data-provider';
+import { ContentTypes, Constants } from 'openbiocure-data-provider';
+import type { TMessage, TMessageContentParts } from 'openbiocure-data-provider';
 
 export const getLengthAndLastTenChars = (str?: string): string => {
   if (typeof str !== 'string' || str.length === 0) {

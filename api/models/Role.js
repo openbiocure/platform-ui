@@ -5,8 +5,8 @@ const {
   PermissionTypes,
   permissionsSchema,
   removeNullishValues,
-} = require('librechat-data-provider');
-const { logger } = require('@librechat/data-schemas');
+} = require('openbiocure-data-provider');
+const { logger } = require('@openbiocure/data-schemas');
 const getLogStores = require('~/cache/getLogStores');
 const { Role } = require('~/db/models');
 

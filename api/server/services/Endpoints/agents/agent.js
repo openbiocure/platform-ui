@@ -1,16 +1,16 @@
 const { Providers } = require('@librechat/agents');
 const {
   primeResources,
-  extractLibreChatParams,
+  extractopenbiocureParams,
   optionalChainWithEmptyCheck,
-} = require('@librechat/api');
+} = require('@openbiocure/api');
 const {
   ErrorTypes,
   EModelEndpoint,
   EToolResources,
   replaceSpecialVars,
   providerEndpointMap,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const generateArtifactsPrompt = require('~/app/clients/prompts/artifacts');
 const { getProviderConfig } = require('~/server/services/Endpoints');
 const { processFiles } = require('~/server/services/Files/process');
@@ -57,7 +57,7 @@ const initializeAgent = async ({
     ),
   );
 
-  const { resendFiles, maxContextTokens, modelOptions } = extractLibreChatParams(_modelOptions);
+  const { resendFiles, maxContextTokens, modelOptions } = extractopenbiocureParams(_modelOptions);
 
   if (isInitialAgent && conversationId != null && resendFiles) {
     const fileIds = (await getConvoFiles(conversationId)) ?? [];

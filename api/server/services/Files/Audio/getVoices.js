@@ -1,4 +1,4 @@
-const { TTSProviders } = require('librechat-data-provider');
+const { TTSProviders } = require('openbiocure-data-provider');
 const { getCustomConfig } = require('~/server/services/Config');
 const { getProvider } = require('./TTSService');
 

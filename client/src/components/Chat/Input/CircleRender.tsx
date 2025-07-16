@@ -1,6 +1,6 @@
 import React from 'react';
 import { CircleIcon, CircleDotsIcon } from '~/components/svg';
-import { ECallState } from 'librechat-data-provider';
+import { ECallState } from 'openbiocure-data-provider';
 
 const CircleRender = ({ rmsLevel, isCameraOn, state }) => {
   const getIconComponent = (state) => {

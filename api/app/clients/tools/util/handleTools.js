@@ -1,5 +1,5 @@
-const { mcpToolPattern } = require('@librechat/api');
-const { logger } = require('@librechat/data-schemas');
+const { mcpToolPattern } = require('@openbiocure/api');
+const { logger } = require('@openbiocure/data-schemas');
 const { SerpAPI } = require('@langchain/community/tools/serpapi');
 const { Calculator } = require('@langchain/community/tools/calculator');
 const { EnvVar, createCodeExecutionTool, createSearchTool } = require('@librechat/agents');
@@ -8,7 +8,7 @@ const {
   EToolResources,
   loadWebSearchAuth,
   replaceSpecialVars,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const {
   availableTools,
   manifestToolMap,

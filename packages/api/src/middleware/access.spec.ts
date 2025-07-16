@@ -4,12 +4,12 @@ import {
   PermissionTypes,
   EModelEndpoint,
   EndpointURLs,
-} from 'librechat-data-provider';
-import type { IRole, IUser } from '@librechat/data-schemas';
+} from 'openbiocure-data-provider';
+import type { IRole, IUser } from '@openbiocure/data-schemas';
 import { checkAccess, generateCheckAccess, skipAgentCheck } from './access';
 
 // Mock logger
-jest.mock('@librechat/data-schemas', () => ({
+jest.mock('@openbiocure/data-schemas', () => ({
   logger: {
     warn: jest.fn(),
     error: jest.fn(),

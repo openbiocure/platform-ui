@@ -1,12 +1,12 @@
 const initializeClient = require('./initialize');
 
-jest.mock('@librechat/api', () => ({
+jest.mock('@openbiocure/api', () => ({
   resolveHeaders: jest.fn(),
   getOpenAIConfig: jest.fn(),
   createHandleLLMNewToken: jest.fn(),
 }));
 
-jest.mock('librechat-data-provider', () => ({
+jest.mock('openbiocure-data-provider', () => ({
   CacheKeys: { TOKEN_CONFIG: 'token_config' },
   ErrorTypes: { NO_USER_KEY: 'NO_USER_KEY', NO_BASE_URL: 'NO_BASE_URL' },
   envVarRegex: /\$\{([^}]+)\}/,
@@ -27,7 +27,7 @@ jest.mock('~/server/services/Config', () => ({
   getCustomEndpointConfig: jest.fn().mockResolvedValue({
     apiKey: 'test-key',
     baseURL: 'https://test.com',
-    headers: { 'x-user': '{{LIBRECHAT_USER_ID}}', 'x-email': '{{LIBRECHAT_USER_EMAIL}}' },
+    headers: { 'x-user': '{{openbiocure_USER_ID}}', 'x-email': '{{openbiocure_USER_EMAIL}}' },
     models: { default: ['test-model'] },
   }),
 }));
@@ -65,10 +65,10 @@ describe('custom/initializeClient', () => {
   });
 
   it('calls resolveHeaders with headers and user', async () => {
-    const { resolveHeaders } = require('@librechat/api');
+    const { resolveHeaders } = require('@openbiocure/api');
     await initializeClient({ req: mockRequest, res: mockResponse, optionsOnly: true });
     expect(resolveHeaders).toHaveBeenCalledWith(
-      { 'x-user': '{{LIBRECHAT_USER_ID}}', 'x-email': '{{LIBRECHAT_USER_EMAIL}}' },
+      { 'x-user': '{{openbiocure_USER_ID}}', 'x-email': '{{openbiocure_USER_EMAIL}}' },
       { id: 'user-123', email: 'test@example.com' },
     );
   });

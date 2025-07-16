@@ -1,7 +1,7 @@
-import { QueryKeys, dataService, EModelEndpoint, defaultOrderQuery } from 'librechat-data-provider';
+import { QueryKeys, dataService, EModelEndpoint, defaultOrderQuery } from 'openbiocure-data-provider';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import type { QueryObserverResult, UseQueryOptions } from '@tanstack/react-query';
-import type t from 'librechat-data-provider';
+import type t from 'openbiocure-data-provider';
 
 /**
  * AGENTS

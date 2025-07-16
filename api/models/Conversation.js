@@ -1,5 +1,5 @@
-const { logger } = require('@librechat/data-schemas');
-const { createTempChatExpirationDate } = require('@librechat/api');
+const { logger } = require('@openbiocure/data-schemas');
+const { createTempChatExpirationDate } = require('@openbiocure/api');
 const getCustomConfig = require('~/server/services/Config/getCustomConfig');
 const { getMessages, deleteMessages } = require('./Message');
 const { Conversation } = require('~/db/models');

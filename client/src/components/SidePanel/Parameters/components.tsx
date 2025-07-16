@@ -1,5 +1,5 @@
-import { ComponentTypes } from 'librechat-data-provider';
-import type { DynamicSettingProps } from 'librechat-data-provider';
+import { ComponentTypes } from 'openbiocure-data-provider';
+import type { DynamicSettingProps } from 'openbiocure-data-provider';
 import {
   DynamicCombobox,
   DynamicDropdown,

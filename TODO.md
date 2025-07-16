@@ -1,6 +1,6 @@
 # TODO: External Agent Feature Implementation
 
-# NOTE: If you set `agents: true` and `modelSelect: false` in librechat.yaml, the agents will NOT appear in the dropdown. This is a current UI/UX limitation/bug.
+# NOTE: If you set `agents: true` and `modelSelect: false` in openbiocure.yaml, the agents will NOT appear in the dropdown. This is a current UI/UX limitation/bug.
 
 ## Completed
 - [x] Add external agent fields (`isExternal`, `externalUrl`, `externalAuth`) to Agent schema and types

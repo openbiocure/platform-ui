@@ -1,9 +1,9 @@
-const { FileSources } = require('librechat-data-provider');
+const { FileSources } = require('openbiocure-data-provider');
 const {
   uploadMistralOCR,
   uploadAzureMistralOCR,
   uploadGoogleVertexMistralOCR,
-} = require('@librechat/api');
+} = require('@openbiocure/api');
 const {
   getFirebaseURL,
   prepareImageURL,

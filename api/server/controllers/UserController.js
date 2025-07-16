@@ -4,8 +4,8 @@ const {
   FileSources,
   webSearchKeys,
   extractWebSearchEnvVars,
-} = require('librechat-data-provider');
-const { logger } = require('@librechat/data-schemas');
+} = require('openbiocure-data-provider');
+const { logger } = require('@openbiocure/data-schemas');
 const {
   getFiles,
   updateUser,

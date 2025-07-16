@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
-const { fileSchema } = require('@librechat/data-schemas');
-const { agentSchema } = require('@librechat/data-schemas');
-const { projectSchema } = require('@librechat/data-schemas');
+const { fileSchema } = require('@openbiocure/data-schemas');
+const { agentSchema } = require('@openbiocure/data-schemas');
+const { projectSchema } = require('@openbiocure/data-schemas');
 const { MongoMemoryServer } = require('mongodb-memory-server');
-const { GLOBAL_PROJECT_NAME } = require('librechat-data-provider').Constants;
+const { GLOBAL_PROJECT_NAME } = require('openbiocure-data-provider').Constants;
 const { getFiles, createFile } = require('./File');
 const { getProjectByName } = require('./Project');
 const { createAgent } = require('./Agent');

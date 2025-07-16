@@ -1,7 +1,7 @@
 const OpenAI = require('openai');
 const { HttpsProxyAgent } = require('https-proxy-agent');
-const { constructAzureURL, isUserProvided, resolveHeaders } = require('@librechat/api');
-const { ErrorTypes, EModelEndpoint, mapModelToAzureConfig } = require('librechat-data-provider');
+const { constructAzureURL, isUserProvided, resolveHeaders } = require('@openbiocure/api');
+const { ErrorTypes, EModelEndpoint, mapModelToAzureConfig } = require('openbiocure-data-provider');
 const {
   getUserKeyValues,
   getUserKeyExpiry,

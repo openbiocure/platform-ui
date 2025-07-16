@@ -1,6 +1,6 @@
 const { ObjectId } = require('mongodb');
-const { logger } = require('@librechat/data-schemas');
-const { SystemRoles, SystemCategories, Constants } = require('librechat-data-provider');
+const { logger } = require('@openbiocure/data-schemas');
+const { SystemRoles, SystemCategories, Constants } = require('openbiocure-data-provider');
 const {
   getProjectByName,
   addGroupIdsToProject,

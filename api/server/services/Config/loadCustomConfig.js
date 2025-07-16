@@ -2,8 +2,8 @@ const path = require('path');
 const axios = require('axios');
 const yaml = require('js-yaml');
 const keyBy = require('lodash/keyBy');
-const { loadYaml } = require('@librechat/api');
-const { logger } = require('@librechat/data-schemas');
+const { loadYaml } = require('@openbiocure/api');
+const { logger } = require('@openbiocure/data-schemas');
 const {
   CacheKeys,
   configSchema,
@@ -11,11 +11,11 @@ const {
   EImageOutputType,
   agentParamSettings,
   validateSettingDefinitions,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const getLogStores = require('~/cache/getLogStores');
 
 const projectRoot = path.resolve(__dirname, '..', '..', '..', '..');
-const defaultConfigPath = path.resolve(projectRoot, 'librechat.yaml');
+const defaultConfigPath = path.resolve(projectRoot, 'openbiocure.yaml');
 
 let i = 0;
 
@@ -45,7 +45,7 @@ async function loadCustomConfig() {
     if (!customConfig) {
       i === 0 &&
         logger.info(
-          'Custom config file missing or YAML format invalid.\n\nCheck out the latest config file guide for configurable options and features.\nhttps://www.librechat.ai/docs/configuration/librechat_yaml\n\n',
+          'Custom config file missing or YAML format invalid.\n\nCheck out the latest config file guide for configurable options and features.\nhttps://www.openbiocure.ai/docs/configuration/openbiocure_yaml\n\n',
         );
       i === 0 && i++;
       return null;
@@ -80,7 +80,7 @@ Please specify a correct \`imageOutputType\` value (case-sensitive).
       - ${EImageOutputType.WEBP}
       
       Refer to the latest config file guide for more information:
-      https://www.librechat.ai/docs/configuration/librechat_yaml`,
+      https://www.openbiocure.ai/docs/configuration/openbiocure_yaml`,
     );
   }
   if (!result.success) {
@@ -100,7 +100,7 @@ ${JSON.stringify(result.error, null, 2)}`;
 The Speech-to-text and Text-to-speech configuration format has recently changed.
 If you're getting this error, please refer to the latest documentation:
 
-https://www.librechat.ai/docs/configuration/stt_tts`);
+https://www.openbiocure.ai/docs/configuration/stt_tts`);
       }
 
       i++;

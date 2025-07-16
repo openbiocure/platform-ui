@@ -1,6 +1,6 @@
-const { logger } = require('@librechat/data-schemas');
-const { isEnabled, getUserMCPAuthMap } = require('@librechat/api');
-const { CacheKeys, EModelEndpoint } = require('librechat-data-provider');
+const { logger } = require('@openbiocure/data-schemas');
+const { isEnabled, getUserMCPAuthMap } = require('@openbiocure/api');
+const { CacheKeys, EModelEndpoint } = require('openbiocure-data-provider');
 const { normalizeEndpointName } = require('~/server/utils');
 const loadCustomConfig = require('./loadCustomConfig');
 const { getCachedTools } = require('./getCachedTools');
@@ -58,7 +58,7 @@ const getCustomEndpointConfig = async (endpoint) => {
  * @param {Object} params
  * @param {string} params.userId
  * @param {GenericTool[]} [params.tools]
- * @param {import('@librechat/data-schemas').PluginAuthMethods['findPluginAuthsByKeys']} params.findPluginAuthsByKeys
+ * @param {import('@openbiocure/data-schemas').PluginAuthMethods['findPluginAuthsByKeys']} params.findPluginAuthsByKeys
  * @returns {Promise<Record<string, Record<string, string>> | undefined>}
  */
 async function getMCPAuthMap({ userId, tools, findPluginAuthsByKeys }) {

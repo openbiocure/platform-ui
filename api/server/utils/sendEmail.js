@@ -4,8 +4,8 @@ const axios = require('axios');
 const FormData = require('form-data');
 const nodemailer = require('nodemailer');
 const handlebars = require('handlebars');
-const { logAxiosError } = require('@librechat/api');
-const { logger } = require('@librechat/data-schemas');
+const { logAxiosError } = require('@openbiocure/api');
+const { logger } = require('@openbiocure/data-schemas');
 const { isEnabled } = require('~/server/utils/handleText');
 
 /**

@@ -1,7 +1,7 @@
 const express = require('express');
-const { logger } = require('@librechat/data-schemas');
-const { generateCheckAccess } = require('@librechat/api');
-const { Permissions, SystemRoles, PermissionTypes } = require('librechat-data-provider');
+const { logger } = require('@openbiocure/data-schemas');
+const { generateCheckAccess } = require('@openbiocure/api');
+const { Permissions, SystemRoles, PermissionTypes } = require('openbiocure-data-provider');
 const {
   getPrompt,
   getPrompts,

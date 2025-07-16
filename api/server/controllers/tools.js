@@ -1,7 +1,7 @@
 const { nanoid } = require('nanoid');
 const { EnvVar } = require('@librechat/agents');
-const { checkAccess } = require('@librechat/api');
-const { logger } = require('@librechat/data-schemas');
+const { checkAccess } = require('@openbiocure/api');
+const { logger } = require('@openbiocure/data-schemas');
 const {
   Tools,
   AuthType,
@@ -9,7 +9,7 @@ const {
   ToolCallTypes,
   PermissionTypes,
   loadWebSearchAuth,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const { processFileURL, uploadImageBuffer } = require('~/server/services/Files/process');
 const { processCodeOutput } = require('~/server/services/Files/Code/process');
 const { createToolCall, getToolCallsByConvo } = require('~/models/ToolCall');

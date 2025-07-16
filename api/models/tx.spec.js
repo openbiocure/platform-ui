@@ -1,4 +1,4 @@
-const { EModelEndpoint } = require('librechat-data-provider');
+const { EModelEndpoint } = require('openbiocure-data-provider');
 const {
   defaultRate,
   tokenValues,

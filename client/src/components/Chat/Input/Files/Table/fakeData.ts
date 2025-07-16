@@ -1,5 +1,5 @@
-import { FileSources } from 'librechat-data-provider';
-import type { TFile } from 'librechat-data-provider';
+import { FileSources } from 'openbiocure-data-provider';
+import type { TFile } from 'openbiocure-data-provider';
 
 export const files: TFile[] = [
   {

@@ -1,7 +1,7 @@
 const crypto = require('crypto');
-const { logger } = require('@librechat/data-schemas');
-const { parseConvo } = require('librechat-data-provider');
-const { sendEvent, handleError } = require('@librechat/api');
+const { logger } = require('@openbiocure/data-schemas');
+const { parseConvo } = require('openbiocure-data-provider');
+const { sendEvent, handleError } = require('@openbiocure/api');
 const { saveMessage, getMessages } = require('~/models/Message');
 const { getConvo } = require('~/models/Conversation');
 

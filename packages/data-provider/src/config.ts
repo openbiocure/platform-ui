@@ -1386,7 +1386,7 @@ export enum TTSProviders {
 export enum Constants {
   /** Key for the app's version. */
   VERSION = 'v0.7.9-rc1',
-  /** Key for the Custom Config's version (librechat.yaml). */
+  /** Key for the Custom Config's version (openbiocure.yaml). */
   CONFIG_VERSION = '1.2.8',
   /** Standard value for the first message's `parentMessageId` value, to indicate no parent exists. */
   NO_PARENT = '00000000-0000-0000-0000-000000000000',

@@ -1,6 +1,6 @@
 const express = require('express');
-const { generateCheckAccess, skipAgentCheck } = require('@librechat/api');
-const { PermissionTypes, Permissions } = require('librechat-data-provider');
+const { generateCheckAccess, skipAgentCheck } = require('@openbiocure/api');
+const { PermissionTypes, Permissions } = require('openbiocure-data-provider');
 const {
   setHeaders,
   moderateText,

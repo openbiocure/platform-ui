@@ -5,7 +5,7 @@ import {
   RerankerTypes,
   SearchProviders,
   ScraperTypes,
-} from 'librechat-data-provider';
+} from 'openbiocure-data-provider';
 import type { SearchApiKeyFormData } from '~/hooks/Plugins/useAuthSearchTool';
 import type { UseFormRegister, UseFormHandleSubmit } from 'react-hook-form';
 import InputSection, { type DropdownOption } from './InputSection';

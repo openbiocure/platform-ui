@@ -1,5 +1,5 @@
 import React, { useRef, Dispatch, SetStateAction } from 'react';
-import { TConversationTag } from 'librechat-data-provider';
+import { TConversationTag } from 'openbiocure-data-provider';
 import OGDialogTemplate from '~/components/ui/OGDialogTemplate';
 import { useConversationTagMutation } from '~/data-provider';
 import { OGDialog, Button, Spinner } from '~/components';

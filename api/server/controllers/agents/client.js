@@ -1,5 +1,5 @@
 require('events').EventEmitter.defaultMaxListeners = 100;
-const { logger } = require('@librechat/data-schemas');
+const { logger } = require('@openbiocure/data-schemas');
 const { DynamicStructuredTool } = require('@langchain/core/tools');
 const { getBufferString, HumanMessage } = require('@langchain/core/messages');
 const {
@@ -9,7 +9,7 @@ const {
   checkAccess,
   memoryInstructions,
   createMemoryProcessor,
-} = require('@librechat/api');
+} = require('@openbiocure/api');
 const {
   Callback,
   Providers,
@@ -32,7 +32,7 @@ const {
   AgentCapabilities,
   bedrockInputSchema,
   removeNullishValues,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const {
   findPluginAuthsByKeys,
   getFormattedMemories,
@@ -476,7 +476,7 @@ class AgentClient extends BaseClient {
       agent.model_parameters,
     );
 
-    /** @type {import('@librechat/api').MemoryConfig} */
+    /** @type {import('@openbiocure/api').MemoryConfig} */
     const config = {
       validKeys: memoryConfig.validKeys,
       instructions: agent.instructions,

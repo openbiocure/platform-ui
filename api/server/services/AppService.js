@@ -5,8 +5,8 @@ const {
   loadMemoryConfig,
   getConfigDefaults,
   loadWebSearchConfig,
-} = require('librechat-data-provider');
-const { agentsConfigSetup } = require('@librechat/api');
+} = require('openbiocure-data-provider');
+const { agentsConfigSetup } = require('@openbiocure/api');
 const {
   checkHealth,
   checkConfig,

@@ -1,7 +1,7 @@
 const { nanoid } = require('nanoid');
-const { sendEvent } = require('@librechat/api');
-const { logger } = require('@librechat/data-schemas');
-const { Tools, StepTypes, FileContext } = require('librechat-data-provider');
+const { sendEvent } = require('@openbiocure/api');
+const { logger } = require('@openbiocure/data-schemas');
+const { Tools, StepTypes, FileContext } = require('openbiocure-data-provider');
 const {
   EnvVar,
   Providers,

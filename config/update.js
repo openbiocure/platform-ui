@@ -88,17 +88,17 @@ async function validateDockerRunning() {
     }down`;
     console.orange(downCommand);
     execSync(downCommand, { stdio: 'inherit' });
-    console.purple('Pruning all LibreChat Docker images...');
+    console.purple('Pruning all openbiocure Docker images...');
 
-    const imageName = singleCompose ? 'librechat_single' : 'librechat';
+    const imageName = singleCompose ? 'openbiocure_single' : 'openbiocure';
     try {
       execSync(`${sudo}docker rmi ${imageName}:latest`, { stdio: 'inherit' });
     } catch (e) {
-      console.purple('Failed to remove Docker image librechat:latest. It might not exist.');
+      console.purple('Failed to remove Docker image openbiocure:latest. It might not exist.');
     }
     console.purple('Removing all unused dangling Docker images...');
     execSync(`${sudo}docker image prune -f`, { stdio: 'inherit' });
-    console.purple('Building new LibreChat image...');
+    console.purple('Building new openbiocure image...');
     const buildCommand = `${sudo}docker compose ${
       singleCompose ? '-f ./docs/dev/single-compose.yml ' : ''
     }build --no-cache`;
@@ -127,10 +127,10 @@ async function validateDockerRunning() {
       singleCompose ? '-f ./docs/dev/single-compose.yml ' : ''
     }up`;
   }
-  console.green('Your LibreChat app is now up to date! Start the app with the following command:');
+  console.green('Your openbiocure app is now up to date! Start the app with the following command:');
   console.purple(startCommand);
   console.orange(
-    "Note: it's also recommended to clear your browser cookies and localStorage for LibreChat to assure a fully clean installation.",
+    "Note: it's also recommended to clear your browser cookies and localStorage for openbiocure to assure a fully clean installation.",
   );
   console.orange("Also: Don't worry, your data is safe :)");
 })();

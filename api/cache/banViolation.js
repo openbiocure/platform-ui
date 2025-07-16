@@ -1,6 +1,6 @@
-const { logger } = require('@librechat/data-schemas');
-const { isEnabled, math } = require('@librechat/api');
-const { ViolationTypes } = require('librechat-data-provider');
+const { logger } = require('@openbiocure/data-schemas');
+const { isEnabled, math } = require('@openbiocure/api');
+const { ViolationTypes } = require('openbiocure-data-provider');
 const { deleteAllUserSessions } = require('~/models');
 const { removePorts } = require('~/server/utils');
 const getLogStores = require('./getLogStores');

@@ -1,11 +1,11 @@
-const { logger } = require('@librechat/data-schemas');
+const { logger } = require('@openbiocure/data-schemas');
 const { createContentAggregator } = require('@librechat/agents');
 const {
   Constants,
   EModelEndpoint,
   isAgentsEndpoint,
   getResponseSender,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const {
   createToolEndCallback,
   getDefaultHandlers,

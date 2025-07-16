@@ -1,6 +1,6 @@
 const axios = require('axios');
-const { logAxiosError } = require('@librechat/api');
-const { EModelEndpoint } = require('librechat-data-provider');
+const { logAxiosError } = require('@openbiocure/api');
+const { EModelEndpoint } = require('openbiocure-data-provider');
 
 /**
  * @typedef {Object} RetrieveOptions

@@ -1,11 +1,11 @@
-const { handleError } = require('@librechat/api');
-const { logger } = require('@librechat/data-schemas');
+const { handleError } = require('@openbiocure/api');
+const { logger } = require('@openbiocure/data-schemas');
 const {
   EndpointURLs,
   EModelEndpoint,
   isAgentsEndpoint,
   parseCompactConvo,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const azureAssistants = require('~/server/services/Endpoints/azureAssistants');
 const assistants = require('~/server/services/Endpoints/assistants');
 const { processFiles } = require('~/server/services/Files/process');

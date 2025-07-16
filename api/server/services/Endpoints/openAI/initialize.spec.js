@@ -1,5 +1,5 @@
 jest.mock('~/cache/getLogStores');
-const { EModelEndpoint, ErrorTypes, validateAzureGroups } = require('librechat-data-provider');
+const { EModelEndpoint, ErrorTypes, validateAzureGroups } = require('openbiocure-data-provider');
 const { getUserKey, getUserKeyValues } = require('~/server/services/UserService');
 const initializeClient = require('./initialize');
 const { OpenAIClient } = require('~/app');
@@ -20,9 +20,9 @@ describe('initializeClient', () => {
 
   const validAzureConfigs = [
     {
-      group: 'librechat-westus',
+      group: 'openbiocure-westus',
       apiKey: 'WESTUS_API_KEY',
-      instanceName: 'librechat-westus',
+      instanceName: 'openbiocure-westus',
       version: '2023-12-01-preview',
       models: {
         'gpt-4-vision-preview': {
@@ -44,9 +44,9 @@ describe('initializeClient', () => {
       },
     },
     {
-      group: 'librechat-eastus',
+      group: 'openbiocure-eastus',
       apiKey: 'EASTUS_API_KEY',
-      instanceName: 'librechat-eastus',
+      instanceName: 'openbiocure-eastus',
       deploymentName: 'gpt-4-turbo',
       version: '2024-02-15-preview',
       models: {

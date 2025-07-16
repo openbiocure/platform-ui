@@ -20,7 +20,7 @@ import {
   megabyte,
   isAssistantsEndpoint,
   type TFile,
-} from 'librechat-data-provider';
+} from 'openbiocure-data-provider';
 
 import {
   Button,

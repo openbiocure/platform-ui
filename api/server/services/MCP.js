@@ -1,15 +1,15 @@
 const { z } = require('zod');
 const { tool } = require('@langchain/core/tools');
-const { logger } = require('@librechat/data-schemas');
-const { Time, CacheKeys, StepTypes } = require('librechat-data-provider');
+const { logger } = require('@openbiocure/data-schemas');
+const { Time, CacheKeys, StepTypes } = require('openbiocure-data-provider');
 const { Constants: AgentConstants, Providers, GraphEvents } = require('@librechat/agents');
-const { Constants, ContentTypes, isAssistantsEndpoint } = require('librechat-data-provider');
+const { Constants, ContentTypes, isAssistantsEndpoint } = require('openbiocure-data-provider');
 const {
   sendEvent,
   MCPOAuthHandler,
   normalizeServerName,
   convertWithResolvedRefs,
-} = require('@librechat/api');
+} = require('@openbiocure/api');
 const { findToken, createToken, updateToken } = require('~/models');
 const { getMCPManager, getFlowStateManager } = require('~/config');
 const { getCachedTools } = require('./Config');

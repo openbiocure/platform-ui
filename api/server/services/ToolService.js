@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { sleep } = require('@librechat/agents');
-const { logger } = require('@librechat/data-schemas');
+const { logger } = require('@openbiocure/data-schemas');
 const { zodToJsonSchema } = require('zod-to-json-schema');
 const { Calculator } = require('@langchain/community/tools/calculator');
 const { tool: toolFn, Tool, DynamicStructuredTool } = require('@langchain/core/tools');
@@ -19,7 +19,7 @@ const {
   AgentCapabilities,
   defaultAgentCapabilities,
   validateAndParseOpenAPISpec,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const {
   createActionTool,
   decryptMetadata,

@@ -3,7 +3,7 @@ const {
   EModelEndpoint,
   defaultOrderQuery,
   defaultAssistantsVersion,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const {
   initializeClient: initAzureClient,
 } = require('~/server/services/Endpoints/azureAssistants');

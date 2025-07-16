@@ -1,5 +1,5 @@
 import { ProxyAgent } from 'undici';
-import { KnownEndpoints, removeNullishValues } from 'librechat-data-provider';
+import { KnownEndpoints, removeNullishValues } from 'openbiocure-data-provider';
 import type { BindToolsInput } from '@langchain/core/language_models/chat_models';
 import type { AzureOpenAIInput } from '@langchain/openai';
 import type { OpenAI } from 'openai';
@@ -70,8 +70,8 @@ export function getOpenAIConfig(
     configOptions.baseURL = reverseProxyUrl;
     configOptions.defaultHeaders = Object.assign(
       {
-        'HTTP-Referer': 'https://librechat.ai',
-        'X-Title': 'LibreChat',
+        'HTTP-Referer': 'https://openbiocure.ai',
+        'X-Title': 'openbiocure',
       },
       headers,
     );

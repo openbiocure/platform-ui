@@ -69,7 +69,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "peerDependencies": {
-    "@openbiocure/agents": "^2.4.59",
+    "@librechat/agents": "^2.4.59",
     "@openbiocure/data-schemas": "*",
     "@modelcontextprotocol/sdk": "^1.13.3",
     "axios": "^1.8.2",

@@ -1,7 +1,7 @@
 const { Keyv } = require('keyv');
 const uap = require('ua-parser-js');
-const { logger } = require('@librechat/data-schemas');
-const { ViolationTypes } = require('librechat-data-provider');
+const { logger } = require('@openbiocure/data-schemas');
+const { ViolationTypes } = require('openbiocure-data-provider');
 const { isEnabled, removePorts } = require('~/server/utils');
 const keyvMongo = require('~/cache/keyvMongo');
 const denyRequest = require('./denyRequest');

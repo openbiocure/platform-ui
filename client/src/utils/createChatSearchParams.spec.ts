@@ -1,5 +1,5 @@
-import { EModelEndpoint, Constants } from 'librechat-data-provider';
-import type { TConversation, TPreset } from 'librechat-data-provider';
+import { EModelEndpoint, Constants } from 'openbiocure-data-provider';
+import type { TConversation, TPreset } from 'openbiocure-data-provider';
 import createChatSearchParams from './createChatSearchParams';
 
 describe('createChatSearchParams', () => {

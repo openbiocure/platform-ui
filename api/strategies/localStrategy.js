@@ -1,5 +1,5 @@
-const { logger } = require('@librechat/data-schemas');
-const { errorsToString } = require('librechat-data-provider');
+const { logger } = require('@openbiocure/data-schemas');
+const { errorsToString } = require('openbiocure-data-provider');
 const { Strategy: PassportLocalStrategy } = require('passport-local');
 const { isEnabled, checkEmailConfig } = require('~/server/utils');
 const { findUser, comparePassword, updateUser } = require('~/models');

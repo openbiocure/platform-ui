@@ -4,7 +4,7 @@ const {
   deprecatedAzureVariables,
   conflictingAzureVariables,
   extractVariableName,
-} = require('librechat-data-provider');
+} = require('openbiocure-data-provider');
 const { isEnabled, checkEmailConfig } = require('~/server/utils');
 const { logger } = require('~/config');
 
@@ -19,12 +19,12 @@ const deprecatedVariables = [
   {
     key: 'CHECK_BALANCE',
     description:
-      'Please use the `balance` field in the `librechat.yaml` config file instead.\nMore info: https://librechat.ai/docs/configuration/librechat_yaml/object_structure/balance#overview',
+      'Please use the `balance` field in the `openbiocure.yaml` config file instead.\nMore info: https://openbiocure.ai/docs/configuration/openbiocure_yaml/object_structure/balance#overview',
   },
   {
     key: 'START_BALANCE',
     description:
-      'Please use the `balance` field in the `librechat.yaml` config file instead.\nMore info: https://librechat.ai/docs/configuration/librechat_yaml/object_structure/balance#overview',
+      'Please use the `balance` field in the `openbiocure.yaml` config file instead.\nMore info: https://openbiocure.ai/docs/configuration/openbiocure_yaml/object_structure/balance#overview',
   },
   {
     key: 'GOOGLE_API_KEY',
@@ -52,7 +52,7 @@ function checkVariables() {
     logger.info(`\u200B
 
     For your convenience, use this tool to generate your own secret values:
-    https://www.librechat.ai/toolkit/creds_generator
+    https://www.openbiocure.ai/toolkit/creds_generator
 
     \u200B`);
   }
@@ -117,7 +117,7 @@ Latest version: ${Constants.CONFIG_VERSION}
 
       Check out the Config changelogs for the latest options and features added.
 
-      https://www.librechat.ai/changelog\n\n`,
+      https://www.openbiocure.ai/changelog\n\n`,
     );
   }
 }
@@ -136,7 +136,7 @@ function checkPasswordReset() {
       
       Please configure email service for secure password reset functionality.
       
-      https://www.librechat.ai/docs/configuration/authentication/email
+      https://www.openbiocure.ai/docs/configuration/authentication/email
 
       ❗❗❗`,
     );
@@ -177,12 +177,12 @@ function checkWebSearchConfig(webSearchConfig) {
           
           Current value: "${value.substring(0, 10)}..."
           
-          This is incorrect! You should use environment variable references in your librechat.yaml file, such as:
+          This is incorrect! You should use environment variable references in your openbiocure.yaml file, such as:
           ${key}: "\${YOUR_ENV_VAR_NAME}"
           
           Then set the actual API key in your .env file or environment variables.
           
-          More info: https://www.librechat.ai/docs/configuration/librechat_yaml/web_search`,
+          More info: https://www.openbiocure.ai/docs/configuration/openbiocure_yaml/web_search`,
         );
       }
     }

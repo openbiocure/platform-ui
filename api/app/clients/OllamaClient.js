@@ -2,9 +2,9 @@ const { z } = require('zod');
 const axios = require('axios');
 const { Ollama } = require('ollama');
 const { sleep } = require('@librechat/agents');
-const { logAxiosError } = require('@librechat/api');
-const { logger } = require('@librechat/data-schemas');
-const { Constants } = require('librechat-data-provider');
+const { logAxiosError } = require('@openbiocure/api');
+const { logger } = require('@openbiocure/data-schemas');
+const { Constants } = require('openbiocure-data-provider');
 const { deriveBaseURL } = require('~/utils');
 
 const ollamaPayloadSchema = z.object({

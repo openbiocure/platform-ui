@@ -1,5 +1,5 @@
 import { resolveHeaders } from './env';
-import type { TUser } from 'librechat-data-provider';
+import type { TUser } from 'openbiocure-data-provider';
 
 // Helper function to create test user objects
 function createTestUser(overrides: Partial<TUser> = {}): TUser {
@@ -64,7 +64,7 @@ describe('resolveHeaders', () => {
   it('should process user ID placeholder when user has id', () => {
     const user = { id: 'test-user-123' };
     const headers = {
-      'User-Id': '{{LIBRECHAT_USER_ID}}',
+      'User-Id': '{{openbiocure_USER_ID}}',
       'Content-Type': 'application/json',
     };
 
@@ -78,14 +78,14 @@ describe('resolveHeaders', () => {
 
   it('should not process user ID placeholder when user is undefined', () => {
     const headers = {
-      'User-Id': '{{LIBRECHAT_USER_ID}}',
+      'User-Id': '{{openbiocure_USER_ID}}',
       'Content-Type': 'application/json',
     };
 
     const result = resolveHeaders(headers);
 
     expect(result).toEqual({
-      'User-Id': '{{LIBRECHAT_USER_ID}}',
+      'User-Id': '{{openbiocure_USER_ID}}',
       'Content-Type': 'application/json',
     });
   });
@@ -93,14 +93,14 @@ describe('resolveHeaders', () => {
   it('should not process user ID placeholder when user has no id', () => {
     const user = { id: '' };
     const headers = {
-      'User-Id': '{{LIBRECHAT_USER_ID}}',
+      'User-Id': '{{openbiocure_USER_ID}}',
       'Content-Type': 'application/json',
     };
 
     const result = resolveHeaders(headers, user);
 
     expect(result).toEqual({
-      'User-Id': '{{LIBRECHAT_USER_ID}}',
+      'User-Id': '{{openbiocure_USER_ID}}',
       'Content-Type': 'application/json',
     });
   });
@@ -115,11 +115,11 @@ describe('resolveHeaders', () => {
     });
 
     const headers = {
-      'User-Email': '{{LIBRECHAT_USER_EMAIL}}',
-      'User-Name': '{{LIBRECHAT_USER_NAME}}',
-      'User-Username': '{{LIBRECHAT_USER_USERNAME}}',
-      'User-Role': '{{LIBRECHAT_USER_ROLE}}',
-      'User-Id': '{{LIBRECHAT_USER_ID}}',
+      'User-Email': '{{openbiocure_USER_EMAIL}}',
+      'User-Name': '{{openbiocure_USER_NAME}}',
+      'User-Username': '{{openbiocure_USER_USERNAME}}',
+      'User-Role': '{{openbiocure_USER_ROLE}}',
+      'User-Id': '{{openbiocure_USER_ID}}',
       'Content-Type': 'application/json',
     };
 
@@ -143,9 +143,9 @@ describe('resolveHeaders', () => {
     });
 
     const headers = {
-      'User-Email': '{{LIBRECHAT_USER_EMAIL}}',
-      'User-Username': '{{LIBRECHAT_USER_USERNAME}}',
-      'Non-Existent': '{{LIBRECHAT_USER_NONEXISTENT}}',
+      'User-Email': '{{openbiocure_USER_EMAIL}}',
+      'User-Username': '{{openbiocure_USER_USERNAME}}',
+      'Non-Existent': '{{openbiocure_USER_NONEXISTENT}}',
     };
 
     const result = resolveHeaders(headers, user);
@@ -153,7 +153,7 @@ describe('resolveHeaders', () => {
     expect(result).toEqual({
       'User-Email': 'test@example.com',
       'User-Username': '', // Empty string for missing field
-      'Non-Existent': '{{LIBRECHAT_USER_NONEXISTENT}}', // Unchanged for non-existent field
+      'Non-Existent': '{{openbiocure_USER_NONEXISTENT}}', // Unchanged for non-existent field
     });
   });
 
@@ -168,7 +168,7 @@ describe('resolveHeaders', () => {
       Authorization: 'Bearer {{CUSTOM_TOKEN}}',
       'X-Region': '{{REGION}}',
       'X-System-Key': '${TEST_API_KEY}',
-      'X-User-Id': '{{LIBRECHAT_USER_ID}}',
+      'X-User-Id': '{{openbiocure_USER_ID}}',
     };
 
     const result = resolveHeaders(headers, user, customUserVars);
@@ -187,11 +187,11 @@ describe('resolveHeaders', () => {
       email: 'user-email@example.com',
     });
     const customUserVars = {
-      LIBRECHAT_USER_EMAIL: 'custom-email@example.com',
+      openbiocure_USER_EMAIL: 'custom-email@example.com',
     };
 
     const headers = {
-      'Test-Email': '{{LIBRECHAT_USER_EMAIL}}',
+      'Test-Email': '{{openbiocure_USER_EMAIL}}',
     };
 
     const result = resolveHeaders(headers, user, customUserVars);
@@ -209,8 +209,8 @@ describe('resolveHeaders', () => {
     });
 
     const headers = {
-      'User-Role': '{{LIBRECHAT_USER_ROLE}}',
-      'User-Id': '{{LIBRECHAT_USER_ID}}',
+      'User-Role': '{{openbiocure_USER_ROLE}}',
+      'User-Id': '{{openbiocure_USER_ID}}',
     };
 
     const result = resolveHeaders(headers, user);
@@ -228,9 +228,9 @@ describe('resolveHeaders', () => {
     });
 
     const headers = {
-      'Primary-Email': '{{LIBRECHAT_USER_EMAIL}}',
-      'Secondary-Email': '{{LIBRECHAT_USER_EMAIL}}',
-      'Backup-Email': '{{LIBRECHAT_USER_EMAIL}}',
+      'Primary-Email': '{{openbiocure_USER_EMAIL}}',
+      'Secondary-Email': '{{openbiocure_USER_EMAIL}}',
+      'Backup-Email': '{{openbiocure_USER_EMAIL}}',
     };
 
     const result = resolveHeaders(headers, user);
@@ -253,9 +253,9 @@ describe('resolveHeaders', () => {
 
     const headers = {
       Authorization: 'Bearer {{CUSTOM_TOKEN}}',
-      'X-User-Id': '{{LIBRECHAT_USER_ID}}',
+      'X-User-Id': '{{openbiocure_USER_ID}}',
       'X-System-Key': '${TEST_API_KEY}',
-      'X-User-Email': '{{LIBRECHAT_USER_EMAIL}}',
+      'X-User-Email': '{{openbiocure_USER_EMAIL}}',
       'Content-Type': 'application/json',
     };
 
@@ -273,7 +273,7 @@ describe('resolveHeaders', () => {
   it('should not modify the original headers object', () => {
     const originalHeaders = {
       Authorization: '${TEST_API_KEY}',
-      'User-Id': '{{LIBRECHAT_USER_ID}}',
+      'User-Id': '{{openbiocure_USER_ID}}',
     };
     const user = { id: 'user-123' };
 
@@ -288,7 +288,7 @@ describe('resolveHeaders', () => {
     // Verify the original object is unchanged
     expect(originalHeaders).toEqual({
       Authorization: '${TEST_API_KEY}',
-      'User-Id': '{{LIBRECHAT_USER_ID}}',
+      'User-Id': '{{openbiocure_USER_ID}}',
     });
   });
 
@@ -338,23 +338,23 @@ describe('resolveHeaders', () => {
     };
 
     const headers = {
-      'X-User-ID': '{{LIBRECHAT_USER_ID}}',
-      'X-User-Name': '{{LIBRECHAT_USER_NAME}}',
-      'X-User-Username': '{{LIBRECHAT_USER_USERNAME}}',
-      'X-User-Email': '{{LIBRECHAT_USER_EMAIL}}',
-      'X-User-Provider': '{{LIBRECHAT_USER_PROVIDER}}',
-      'X-User-Role': '{{LIBRECHAT_USER_ROLE}}',
-      'X-User-GoogleId': '{{LIBRECHAT_USER_GOOGLEID}}',
-      'X-User-FacebookId': '{{LIBRECHAT_USER_FACEBOOKID}}',
-      'X-User-OpenIdId': '{{LIBRECHAT_USER_OPENIDID}}',
-      'X-User-SamlId': '{{LIBRECHAT_USER_SAMLID}}',
-      'X-User-LdapId': '{{LIBRECHAT_USER_LDAPID}}',
-      'X-User-GithubId': '{{LIBRECHAT_USER_GITHUBID}}',
-      'X-User-DiscordId': '{{LIBRECHAT_USER_DISCORDID}}',
-      'X-User-AppleId': '{{LIBRECHAT_USER_APPLEID}}',
-      'X-User-EmailVerified': '{{LIBRECHAT_USER_EMAILVERIFIED}}',
-      'X-User-TwoFactorEnabled': '{{LIBRECHAT_USER_TWOFACTORENABLED}}',
-      'X-User-TermsAccepted': '{{LIBRECHAT_USER_TERMSACCEPTED}}',
+      'X-User-ID': '{{openbiocure_USER_ID}}',
+      'X-User-Name': '{{openbiocure_USER_NAME}}',
+      'X-User-Username': '{{openbiocure_USER_USERNAME}}',
+      'X-User-Email': '{{openbiocure_USER_EMAIL}}',
+      'X-User-Provider': '{{openbiocure_USER_PROVIDER}}',
+      'X-User-Role': '{{openbiocure_USER_ROLE}}',
+      'X-User-GoogleId': '{{openbiocure_USER_GOOGLEID}}',
+      'X-User-FacebookId': '{{openbiocure_USER_FACEBOOKID}}',
+      'X-User-OpenIdId': '{{openbiocure_USER_OPENIDID}}',
+      'X-User-SamlId': '{{openbiocure_USER_SAMLID}}',
+      'X-User-LdapId': '{{openbiocure_USER_LDAPID}}',
+      'X-User-GithubId': '{{openbiocure_USER_GITHUBID}}',
+      'X-User-DiscordId': '{{openbiocure_USER_DISCORDID}}',
+      'X-User-AppleId': '{{openbiocure_USER_APPLEID}}',
+      'X-User-EmailVerified': '{{openbiocure_USER_EMAILVERIFIED}}',
+      'X-User-TwoFactorEnabled': '{{openbiocure_USER_TWOFACTORENABLED}}',
+      'X-User-TermsAccepted': '{{openbiocure_USER_TERMSACCEPTED}}',
     };
 
     const result = resolveHeaders(headers, user);
@@ -381,7 +381,7 @@ describe('resolveHeaders', () => {
   it('should handle multiple placeholders in one value', () => {
     const user = { id: 'abc', email: 'me@example.com' };
     const headers = {
-      'X-Multi': 'User: {{LIBRECHAT_USER_ID}}, Env: ${TEST_API_KEY}, Custom: {{MY_CUSTOM}}',
+      'X-Multi': 'User: {{openbiocure_USER_ID}}, Env: ${TEST_API_KEY}, Custom: {{MY_CUSTOM}}',
     };
     const customVars = { MY_CUSTOM: 'custom-value' };
     const result = resolveHeaders(headers, user, customVars);
@@ -392,7 +392,7 @@ describe('resolveHeaders', () => {
     const user = { id: 'abc' };
     const headers = {
       'X-Unknown': '{{SOMETHING_NOT_RECOGNIZED}}',
-      'X-Known': '{{LIBRECHAT_USER_ID}}',
+      'X-Known': '{{openbiocure_USER_ID}}',
     };
     const result = resolveHeaders(headers, user);
     expect(result['X-Unknown']).toBe('{{SOMETHING_NOT_RECOGNIZED}}');
@@ -407,13 +407,13 @@ describe('resolveHeaders', () => {
       twoFactorEnabled: false,
     };
     const headers = {
-      'X-User': '{{LIBRECHAT_USER_ID}}',
+      'X-User': '{{openbiocure_USER_ID}}',
       'X-Env': '${TEST_API_KEY}',
       'X-Custom': '{{MY_CUSTOM}}',
-      'X-Multi': 'ID: {{LIBRECHAT_USER_ID}}, ENV: ${TEST_API_KEY}, CUSTOM: {{MY_CUSTOM}}',
+      'X-Multi': 'ID: {{openbiocure_USER_ID}}, ENV: ${TEST_API_KEY}, CUSTOM: {{MY_CUSTOM}}',
       'X-Unknown': '{{NOT_A_REAL_PLACEHOLDER}}',
       'X-Empty': '',
-      'X-Boolean': '{{LIBRECHAT_USER_EMAILVERIFIED}}',
+      'X-Boolean': '{{openbiocure_USER_EMAILVERIFIED}}',
     };
     const customVars = { MY_CUSTOM: 'custom-value' };
     const result = resolveHeaders(headers, user, customVars);
