@@ -12,7 +12,7 @@ const CombinedStatusIcon = ({ description }: { description: string }) => (
     aria-label={description}
     render={
       <div className="flex items-center justify-center">
-        <Crown className="h-4 w-4 text-amber-500" />
+                        <Crown className="h-4 w-4 text-opencure-orange-500" />
       </div>
     }
   ></TooltipAnchor>
@@ -51,15 +51,15 @@ const VersionTags = ({ tags }: { tags: string[] }) => {
               className={cn(
                 'w-24 justify-center border border-transparent',
                 tag === 'production'
-                  ? 'bg-green-100 text-green-500 dark:border-green-500 dark:bg-transparent dark:text-green-500'
-                  : 'bg-blue-100 text-blue-500 dark:border-blue-500 dark:bg-transparent dark:text-blue-500',
+                  ? 'bg-opencure-orange-100 text-opencure-orange-600 dark:border-opencure-orange-500 dark:bg-transparent dark:text-opencure-orange-400'
+                  : 'bg-opencure-blue-100 text-opencure-blue-600 dark:border-opencure-blue-500 dark:bg-transparent dark:text-opencure-blue-400',
               )}
               labelClassName="flex items-center m-0 justify-center gap-1"
               LabelNode={(() => {
                 if (tag === 'production') {
                   return (
                     <div className="flex items-center">
-                      <span className="slow-pulse size-2 rounded-full bg-green-400" />
+                      <span className="slow-pulse size-2 rounded-full bg-opencure-orange-400" />
                     </div>
                   );
                 }
@@ -152,7 +152,7 @@ const PromptVersions = ({
     <section className="my-6" aria-label="Prompt Versions">
       <header className="mb-6">
         <h2 className="flex items-center gap-2 text-base font-semibold text-text-primary">
-          <Layers3 className="h-5 w-5 text-green-500" />
+          <Layers3 className="h-5 w-5 text-opencure-blue-600" />
           {localize('com_ui_versions')}
         </h2>
       </header>

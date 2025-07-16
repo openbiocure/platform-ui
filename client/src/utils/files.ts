@@ -23,20 +23,20 @@ const textDocument = {
 
 const spreadsheet = {
   paths: SheetPaths,
-  fill: '#10A37F',
+  fill: '#e76900',
   title: 'Spreadsheet',
 };
 
 const codeFile = {
   paths: CodePaths,
-  fill: '#FF6E3C',
+  fill: '#00a3e0',
   // TODO: make this dynamic to the language
   title: 'Code',
 };
 
 const artifact = {
   paths: CodePaths,
-  fill: '#2D305C',
+  fill: '#00239c',
   title: 'Code',
 };
 
@@ -44,7 +44,7 @@ export const fileTypes = {
   /* Category matches */
   file: {
     paths: FilePaths,
-    fill: '#0000FF',
+    fill: '#4a4dff',
     title: 'File',
   },
   text: textDocument,

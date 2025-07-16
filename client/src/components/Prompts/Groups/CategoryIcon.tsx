@@ -25,15 +25,15 @@ const categoryIconMap: Record<string, React.ElementType> = {
 };
 
 const categoryColorMap: Record<string, string> = {
-  code: 'text-red-500',
-  misc: 'text-blue-300',
-  shop: 'text-purple-400',
-  idea: 'text-yellow-500/90 dark:text-yellow-300 ',
-  write: 'text-purple-400',
-  travel: 'text-yellow-500/90 dark:text-yellow-300 ',
-  finance: 'text-orange-400',
-  roleplay: 'text-orange-400',
-  teach_or_explain: 'text-blue-300',
+  code: 'text-opencure-orange-600',
+  misc: 'text-opencure-blue-500',
+  shop: 'text-opencure-cyan-600',
+  idea: 'text-opencure-orange-500/90 dark:text-opencure-orange-400',
+  write: 'text-opencure-cyan-500',
+  travel: 'text-opencure-orange-500/90 dark:text-opencure-orange-400',
+  finance: 'text-opencure-blue-600',
+  roleplay: 'text-opencure-orange-600',
+  teach_or_explain: 'text-opencure-blue-500',
 };
 
 export default function CategoryIcon({

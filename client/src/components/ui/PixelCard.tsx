@@ -139,10 +139,10 @@ const getEffectiveSpeed = (value: number, reducedMotion: boolean) => {
 const clamp = (n: number, min = 0, max = 1) => Math.min(Math.max(n, min), max);
 
 const VARIANTS = {
-  default: { gap: 5, speed: 35, colors: '#f8fafc,#f1f5f9,#cbd5e1', noFocus: false },
-  blue: { gap: 10, speed: 25, colors: '#e0f2fe,#7dd3fc,#0ea5e9', noFocus: false },
-  yellow: { gap: 3, speed: 20, colors: '#fef08a,#fde047,#eab308', noFocus: false },
-  pink: { gap: 6, speed: 80, colors: '#fecdd3,#fda4af,#e11d48', noFocus: true },
+  default: { gap: 5, speed: 35, colors: '#f0f4ff,#e0e9ff,#c7d6ff', noFocus: false },
+  blue: { gap: 10, speed: 25, colors: '#e0e9ff,#a3b8ff,#4a4dff', noFocus: false },
+  orange: { gap: 3, speed: 20, colors: '#ffedd5,#fed7aa,#ea580c', noFocus: false },
+  cyan: { gap: 6, speed: 80, colors: '#cffafe,#a5f3fc,#0891b2', noFocus: true },
 } as const;
 
 interface PixelCardProps {
