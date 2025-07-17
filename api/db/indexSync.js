@@ -18,14 +18,29 @@ class MeiliSearchClient {
   static instance = null;
 
   static getInstance() {
+    logger.info('[MeiliSearchClient] getInstance() called');
+    logger.info(`[MeiliSearchClient] MEILI_HOST: ${process.env.MEILI_HOST || 'NOT SET'}`);
+    logger.info(`[MeiliSearchClient] MEILI_MASTER_KEY: ${process.env.MEILI_MASTER_KEY ? 'SET' : 'NOT SET'}`);
+    
     if (!MeiliSearchClient.instance) {
+      logger.info('[MeiliSearchClient] Creating new MeiliSearch instance');
       if (!process.env.MEILI_HOST || !process.env.MEILI_MASTER_KEY) {
+        logger.error('[MeiliSearchClient] Missing configuration - MEILI_HOST or MEILI_MASTER_KEY not set');
         throw new Error('Meilisearch configuration is missing.');
       }
-      MeiliSearchClient.instance = new MeiliSearch({
-        host: process.env.MEILI_HOST,
-        apiKey: process.env.MEILI_MASTER_KEY,
-      });
+      
+      try {
+        MeiliSearchClient.instance = new MeiliSearch({
+          host: process.env.MEILI_HOST,
+          apiKey: process.env.MEILI_MASTER_KEY,
+        });
+        logger.info('[MeiliSearchClient] MeiliSearch instance created successfully');
+      } catch (error) {
+        logger.error('[MeiliSearchClient] Failed to create MeiliSearch instance:', error.message);
+        throw error;
+      }
+    } else {
+      logger.info('[MeiliSearchClient] Returning existing instance');
     }
     return MeiliSearchClient.instance;
   }
@@ -35,11 +50,26 @@ class MeiliSearchClient {
  * Performs the actual sync operations for messages and conversations
  */
 async function performSync() {
-  const client = MeiliSearchClient.getInstance();
+  logger.info('[performSync] Starting performSync function');
+  
+  try {
+    logger.info('[performSync] Getting MeiliSearch client instance...');
+    const client = MeiliSearchClient.getInstance();
+    logger.info('[performSync] MeiliSearch client obtained successfully');
 
-  const { status } = await client.health();
-  if (status !== 'available') {
-    throw new Error('Meilisearch not available');
+    logger.info('[performSync] Checking MeiliSearch health...');
+    const { status } = await client.health();
+    logger.info(`[performSync] Health check result: ${status}`);
+    
+    if (status !== 'available') {
+      logger.error(`[performSync] MeiliSearch not available, status: ${status}`);
+      throw new Error('Meilisearch not available');
+    }
+    logger.info('[performSync] MeiliSearch health check passed');
+  } catch (error) {
+    logger.error('[performSync] Error in performSync:', error.message);
+    logger.error('[performSync] Error stack:', error.stack);
+    throw error;
   }
 
   if (indexingDisabled === true) {
@@ -110,19 +140,26 @@ async function performSync() {
  * Main index sync function that uses FlowStateManager to prevent concurrent execution
  */
 async function indexSync() {
+  logger.info('[indexSync] indexSync function called');
+  logger.info(`[indexSync] searchEnabled: ${searchEnabled}`);
+  logger.info(`[indexSync] indexingDisabled: ${indexingDisabled}`);
+  
   if (!searchEnabled) {
+    logger.info('[indexSync] Search is disabled, returning early');
     return;
   }
 
   logger.info('[indexSync] Starting index synchronization check...');
 
   try {
+    logger.info('[indexSync] Getting flows cache...');
     // Get or create FlowStateManager instance
     const flowsCache = getLogStores(CacheKeys.FLOWS);
     if (!flowsCache) {
       logger.warn('[indexSync] Flows cache not available, falling back to direct sync');
       return await performSync();
     }
+    logger.info('[indexSync] Flows cache obtained successfully');
 
     const flowManager = new FlowStateManager(flowsCache, {
       ttl: 60000 * 10, // 10 minutes TTL for sync operations
@@ -142,28 +179,35 @@ async function indexSync() {
     }
 
     return result;
-  } catch (err) {
-    if (err.message.includes('flow already exists')) {
-      logger.info('[indexSync] Sync already running on another instance');
-      return;
-    }
+      } catch (err) {
+      logger.error('[indexSync] Caught error in indexSync:', err.message);
+      logger.error('[indexSync] Error type:', err.constructor.name);
+      logger.error('[indexSync] Full error:', err);
+      
+      if (err.message.includes('flow already exists')) {
+        logger.info('[indexSync] Sync already running on another instance');
+        return;
+      }
 
-    if (err.message.includes('not found')) {
-      logger.debug('[indexSync] Creating indices...');
-      currentTimeout = setTimeout(async () => {
-        try {
-          await Message.syncWithMeili();
-          await Conversation.syncWithMeili();
-        } catch (err) {
-          logger.error('[indexSync] Trouble creating indices, try restarting the server.', err);
-        }
-      }, 750);
-    } else if (err.message.includes('Meilisearch not configured')) {
-      logger.info('[indexSync] Meilisearch not configured, search will be disabled.');
-    } else {
-      logger.error('[indexSync] error', err);
+      if (err.message.includes('not found')) {
+        logger.debug('[indexSync] Creating indices...');
+        currentTimeout = setTimeout(async () => {
+          try {
+            await Message.syncWithMeili();
+            await Conversation.syncWithMeili();
+          } catch (err) {
+            logger.error('[indexSync] Trouble creating indices, try restarting the server.', err);
+          }
+        }, 750);
+      } else if (err.message.includes('Meilisearch not configured')) {
+        logger.info('[indexSync] Meilisearch not configured, search will be disabled.');
+      } else if (err.message.includes('fetch failed')) {
+        logger.error('[indexSync] Network error - fetch failed. This might be a connection issue.');
+        logger.error('[indexSync] Check if MeiliSearch is reachable from this server.');
+      } else {
+        logger.error('[indexSync] Unexpected error:', err);
+      }
     }
-  }
 }
 
 process.on('exit', () => {

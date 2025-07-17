@@ -9,6 +9,8 @@ import console
 # Import service module
 import service
 
+service.kill_respawn "api_server" --verbose
+
 # Start the service
 service.start api_server "npm run backend" \
   --respawn \
