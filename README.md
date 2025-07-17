@@ -1,10 +1,21 @@
-# OpenBioCure Platform UI
+# <img src="client/public/assets/logo.svg" alt="OpenBioCure Logo" width="40" height="40" style="vertical-align: middle; margin-right: 10px;" /> OpenBioCure Platform UI
 
 [![Version](https://img.shields.io/badge/version-v0.7.9--rc1-blue.svg)](https://github.com/openbiocure/OpenBioCure)
 [![License](https://img.shields.io/badge/license-ISC-green.svg)](LICENSE)
 [![Homepage](https://img.shields.io/badge/homepage-openbiocure.ai-orange.svg)](https://openbiocure.ai)
+[![Node.js](https://img.shields.io/badge/node-18+-green.svg)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/react-18+-blue.svg)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/typescript-5+-blue.svg)](https://www.typescriptlang.org/)
 
-A modern, feature-rich AI chat platform built with React, Node.js, and MongoDB. OpenBioCure provides a comprehensive interface for AI-powered conversations, agents, assistants, and external integrations.
+A modern, feature-rich AI chat platform built with React, Node.js, and MongoDB. OpenBioCure provides a comprehensive interface for AI-powered conversations, agents, assistants, and external integrations with a beautiful OpenBioCure-branded design.
+
+## 🎨 Brand Colors
+
+OpenBioCure features a distinctive color palette:
+- **Deep Blue**: `#00239c` (Primary brand color)
+- **Navy Blue**: `#001e62` (Dark mode backgrounds)
+- **Vibrant Orange**: `#e76900` (Accent color)
+- **Bright Cyan**: `#00a3e0` (Secondary accent)
 
 ## 🚀 Features
 
@@ -269,6 +280,8 @@ platform-ui/
 │   │   ├── store/      # State management
 │   │   └── utils/      # Utility functions
 │   └── public/         # Static assets
+│       └── assets/
+│           └── logo.svg # OpenBioCure logo
 ├── packages/           # Shared packages
 │   ├── data-provider/  # API client and data layer
 │   ├── data-schemas/   # TypeScript types and schemas
@@ -303,6 +316,20 @@ npm run add-balance      # Add balance to user
 npm run list-balances    # List user balances
 ```
 
+## 🎨 UI/UX Features
+
+### Design System
+- **OpenBioCure Brand Colors**: Consistent color palette throughout the application
+- **Responsive Design**: Mobile-first approach with Tailwind CSS
+- **Dark/Light Mode**: Automatic theme switching with system preference detection
+- **Accessibility**: WCAG 2.1 AA compliant with keyboard navigation and screen reader support
+
+### Interactive Elements
+- **Hover Effects**: Smooth transitions and visual feedback
+- **Loading States**: Skeleton loaders and progress indicators
+- **Toast Notifications**: User-friendly feedback messages
+- **Modal Dialogs**: Clean, accessible modal components
+
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -316,6 +343,7 @@ npm run list-balances    # List user balances
 - Write tests for new features
 - Update documentation as needed
 - Ensure all tests pass before submitting PR
+- Follow the OpenBioCure brand guidelines for UI changes
 
 ## 📄 License
 
@@ -333,7 +361,10 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 - Built on top of the openbiocure platform
 - Uses various open-source libraries and tools
 - Community contributors and maintainers
+- OpenBioCure brand design and color palette
 
 ---
 
-**OpenBioCure** - Empowering AI conversations with flexibility and extensibility.
+**OpenBioCure** - Empowering AI conversations with flexibility, extensibility, and beautiful design.
+
+*Built with ❤️ and the OpenBioCure brand colors*
