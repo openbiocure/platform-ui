@@ -18,8 +18,12 @@ openbiocure-platform-ui/
 │   ├── venv/              # Python virtual environment
 │   ├── main.py            # FastAPI application entry point
 │   └── requirements.txt   # Python dependencies
-├── frontend/               # Frontend application
-│   └── vue-app/           # Vue.js 3 + Vite application
+├── frontend/               # Frontend applications
+│   ├── shell-app/         # React shell application (main container)
+│   ├── research-core-app/ # Research core micro frontend
+│   ├── analysis-app/      # Analysis micro frontend
+│   ├── workflow-app/      # Workflow micro frontend
+│   └── shared/            # Shared components and utilities
 ├── docs/                   # Documentation
 │   └── models.md          # Data models and API documentation
 └── README.md              # This file
@@ -65,24 +69,32 @@ openbiocure-platform-ui/
 
 ### Frontend Setup
 
-#### Vue.js Application
+#### React Micro Frontend Applications
 
-1. **Navigate to Vue app:**
+1. **Install all dependencies:**
    ```bash
-   cd frontend/vue-app
+   cd frontend
+   npm run install:all
    ```
 
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Run development server:**
+2. **Start all micro frontends:**
    ```bash
    npm run dev
    ```
 
-4. **Access the app:** http://localhost:5173
+3. **Start individual applications:**
+   ```bash
+   npm run start:shell      # Port 3000 (Main app)
+   npm run start:research-core # Port 3001
+   npm run start:analysis   # Port 3002
+   npm run start:workflow   # Port 3003
+   ```
+
+4. **Access the applications:**
+   - Shell App: http://localhost:3000
+   - Research Core: http://localhost:3001
+   - Analysis: http://localhost:3002
+   - Workflow: http://localhost:3003
 
 ## 🛠️ Development
 
@@ -98,11 +110,13 @@ The backend is built with FastAPI and follows a modular architecture:
 
 ### Frontend Development
 
-The frontend is built with Vue.js 3, a modern, production-ready framework:
+The frontend uses a React-based micro frontend architecture:
 
-- **Vue.js 3**: Composition API, Vite, TypeScript, Pinia, Router
-- **Modern Tooling**: ESLint, Prettier, Vitest, Playwright
-- **Performance**: Fast rendering, small bundle size, excellent for data-heavy applications
+- **React 18**: Modern React with hooks and functional components
+- **Micro Frontends**: Independent applications for different domains
+- **Module Federation**: Seamless component sharing between apps
+- **Modern Tooling**: Create React App, TypeScript, ESLint
+- **Performance**: Lazy loading, independent deployment, better caching
 
 ## 📚 API Documentation
 
@@ -122,14 +136,14 @@ See `docs/models.md` for detailed API specifications and data models.
 - `uvicorn main:app --reload` - Run with auto-reload
 - `pytest` - Run test suite
 
-### Vue.js
-- `npm run dev` - Development server
-- `npm run build` - Production build
-- `npm run preview` - Preview production build
-- `npm run test:unit` - Run unit tests
-- `npm run test:e2e` - Run end-to-end tests
-- `npm run lint` - Check code quality
-- `npm run format` - Format code with Prettier
+### React Micro Frontends
+- `npm run dev` - Start all micro frontends
+- `npm run start:shell` - Start shell application
+- `npm run start:research-core` - Start research core app
+- `npm run start:analysis` - Start analysis app
+- `npm run start:workflow` - Start workflow app
+- `npm run build` - Build all applications
+- `npm run test` - Run tests across all apps
 
 ## 🌐 Environment Variables
 
@@ -145,7 +159,11 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 
 ### Frontend (.env)
 ```env
-VITE_API_URL=http://localhost:8000
+REACT_APP_API_URL=http://localhost:8000
+REACT_APP_SHELL_URL=http://localhost:3000
+REACT_APP_RESEARCH_CORE_URL=http://localhost:3001
+REACT_APP_ANALYSIS_URL=http://localhost:3002
+REACT_APP_WORKFLOW_URL=http://localhost:3003
 ```
 
 ## 📝 Contributing

@@ -1,0 +1,437 @@
+erDiagram
+    USERS {
+        uuid id PK
+        string email
+        string username
+        string full_name
+        string password_hash
+        boolean is_active
+        datetime created_at
+        datetime updated_at
+    }
+
+    TENANTS {
+        uuid id PK
+        string name
+        string slug
+        string login_mode
+        uuid default_idp_id FK
+        jsonb settings
+        datetime created_at
+        datetime updated_at
+    }
+
+    TENANT_USERS {
+        uuid id PK
+        uuid tenant_id FK
+        uuid user_id FK
+        string role
+        datetime created_at
+        datetime updated_at
+    }
+
+    IDENTITY_PROVIDERS {
+        uuid id PK
+        string kind
+        string name
+        string issuer
+        string auth_url
+        string token_url
+        string jwks_url
+        string sso_url
+        string slo_url
+        string cert_pem
+        string client_id
+        string client_secret
+        string metadata_xml
+        datetime created_at
+        datetime updated_at
+    }
+
+    TENANT_IDENTITY_PROVIDERS {
+        uuid id PK
+        uuid tenant_id FK
+        uuid idp_id FK
+        string login_policy
+        boolean jit_provisioning
+        boolean scim_enabled
+        jsonb attribute_mapping
+        datetime created_at
+        datetime updated_at
+    }
+
+    TENANT_LOGIN_DOMAINS {
+        uuid id PK
+        uuid tenant_id FK
+        string domain
+        uuid idp_id FK
+    }
+
+    TENANT_IDP_ALLOWED_GROUPS {
+        uuid id PK
+        uuid tenant_id FK
+        uuid idp_id FK
+        string group_value
+    }
+
+    USER_IDENTITIES {
+        uuid id PK
+        uuid user_id FK
+        uuid idp_id FK
+        string subject
+        string email
+        string display_name
+        datetime last_login_at
+        datetime created_at
+        datetime updated_at
+    }
+
+    PUBLICATIONS {
+        uuid id PK
+        uuid tenant_id FK
+        string source_type
+        string title
+        text abstract
+        datetime published_date
+        string source_url
+        string object_bucket
+        string object_key
+        string checksum
+        string status
+        bigint size_bytes
+        datetime created_at
+        datetime updated_at
+        datetime deleted_at
+    }
+
+    PUBLICATION_METADATA {
+        uuid id PK
+        uuid publication_id FK
+        jsonb metadata
+        datetime created_at
+        datetime updated_at
+    }
+
+    INGESTION_JOBS {
+        uuid id PK
+        uuid tenant_id FK
+        string status
+        datetime started_at
+        datetime finished_at
+        string log_url
+        datetime created_at
+        datetime updated_at
+    }
+
+    INGESTION_JOB_ITEMS {
+        uuid id PK
+        uuid ingestion_job_id FK
+        uuid publication_id FK
+        string status
+        text error_text
+        datetime created_at
+        datetime updated_at
+    }
+
+    TOPICS {
+        uuid id PK
+        uuid tenant_id FK
+        string name
+        text description
+        datetime created_at
+        datetime updated_at
+    }
+
+    PUBLICATION_TOPICS {
+        uuid id PK
+        uuid publication_id FK
+        uuid topic_id FK
+        numeric score
+    }
+
+    ENTITIES {
+        uuid id PK
+        string canonical_name
+        string type
+        jsonb external_ids
+        datetime created_at
+        datetime updated_at
+    }
+
+    PUBLICATION_ENTITIES {
+        uuid id PK
+        uuid publication_id FK
+        uuid entity_id FK
+        jsonb span
+        numeric weight
+    }
+
+    TEAM {
+        uuid id PK
+        uuid tenant_id FK
+        uuid owner_user_id FK
+        string name
+        string alias
+        text description
+        boolean is_private
+        datetime created_at
+        datetime updated_at
+    }
+
+    TEAM_MEMBERS {
+        uuid id PK
+        uuid team_id FK
+        uuid user_id FK
+        string role
+        datetime joined_at
+        datetime left_at
+    }
+
+    TEAM_INVITATIONS {
+        uuid id PK
+        uuid team_id FK
+        uuid invited_by_user_id FK
+        string invitee_email
+        string token
+        string status
+        datetime expires_at
+        datetime created_at
+        datetime responded_at
+    }
+
+    WORKSPACES {
+        uuid id PK
+        uuid tenant_id FK
+        uuid owner_user_id FK
+        uuid team_id FK
+        string name
+        text description
+        string scope
+        datetime created_at
+        datetime updated_at
+        datetime deleted_at
+    }
+
+    WORKSPACE_MEMBERS {
+        uuid id PK
+        uuid workspace_id FK
+        uuid user_id FK
+        string role
+        datetime joined_at
+        datetime left_at
+    }
+
+    WORKSPACE_INVITATIONS {
+        uuid id PK
+        uuid workspace_id FK
+        uuid invited_by_user_id FK
+        string invitee_email
+        string token
+        string status
+        datetime expires_at
+        datetime created_at
+        datetime responded_at
+    }
+
+    WORKSPACE_DOCUMENTS {
+        uuid id PK
+        uuid workspace_id FK
+        string file_name
+        string file_type
+        string file_path
+        jsonb metadata
+        bigint size_bytes
+        datetime uploaded_at
+        datetime created_at
+        datetime updated_at
+        datetime deleted_at
+    }
+
+    WORKSPACE_PUBLICATION_LINKS {
+        uuid id PK
+        uuid workspace_id FK
+        uuid publication_id FK
+        string purpose
+        datetime created_at
+    }
+
+    TOPIC_SUBSCRIPTIONS {
+        uuid id PK
+        uuid tenant_id FK
+        uuid user_id FK
+        uuid topic_id FK
+        string frequency
+        datetime created_at
+        datetime updated_at
+    }
+
+    NOTIFICATIONS {
+        uuid id PK
+        uuid recipient_user_id FK
+        uuid topic_id FK
+        jsonb payload
+        datetime sent_at
+        datetime created_at
+    }
+
+    USAGE_COUNTERS_DAILY {
+        uuid id PK
+        uuid tenant_id FK
+        datetime day
+        bigint storage_bytes
+        int publications_ingested
+        bigint llm_tokens
+    }
+
+    USER_USAGE_DAILY {
+        uuid id PK
+        uuid user_id FK
+        datetime day
+        bigint llm_tokens
+        jsonb actions
+    }
+
+    EMBEDDINGS {
+        uuid id PK
+        uuid tenant_id FK
+        string doc_type
+        uuid publication_id FK
+        uuid workspace_file_id FK
+        string chunk_id
+        text content
+        text embedding
+        datetime created_at
+    }
+
+    BREAKTHROUGHS {
+        uuid id PK
+        string category
+        string title
+        jsonb bullets
+        string source_url
+        string source_type
+        string mcp_job_id
+        datetime published_on
+        datetime created_at
+        datetime updated_at
+    }
+
+    CLINICAL_PROTOCOLS {
+        uuid id PK
+        string name
+        string specialty
+        string setting
+        text description
+        string evidence_level
+        datetime created_at
+        datetime updated_at
+    }
+
+    PROTOCOL_EVIDENCE_LINKS {
+        uuid id PK
+        uuid clinical_protocol_id FK
+        uuid publication_id FK
+        jsonb outcome
+        text notes
+    }
+
+    TENANT_VISIBILITY_RULES {
+        uuid id PK
+        uuid tenant_id FK
+        string object_type
+        uuid object_id
+        string visibility
+        datetime created_at
+    }
+
+    EVENT_CLASS {
+        text code PK
+    }
+
+    EVENT_SEVERITY {
+        text code PK
+    }
+
+    AUDIT_LOGS {
+        uuid id PK
+        uuid tenant_id FK
+        text subject_type
+        uuid subject_id
+        text action
+        text event_class FK
+        text severity FK
+        uuid actor_user_id FK
+        uuid team_id
+        uuid workspace_id
+        text request_id
+        text idempotency_key
+        text source_service
+        inet ip
+        text user_agent
+        datetime occurred_at
+        jsonb payload
+    }
+
+    AUDIT_LINKS {
+        uuid audit_id FK
+        text entity_type
+        uuid entity_id
+    }
+
+    USERS ||--o{ TENANT_USERS : member_of
+    TENANTS ||--o{ TENANT_USERS : has
+
+    TENANTS ||--o{ TENANT_IDENTITY_PROVIDERS : uses
+    IDENTITY_PROVIDERS ||--o{ TENANT_IDENTITY_PROVIDERS : assigned_to
+    TENANTS ||--o{ TENANT_LOGIN_DOMAINS : routes
+    IDENTITY_PROVIDERS ||--o{ TENANT_LOGIN_DOMAINS : default_idp
+    TENANTS ||--o{ TENANT_IDP_ALLOWED_GROUPS : restricts
+    IDENTITY_PROVIDERS ||--o{ TENANT_IDP_ALLOWED_GROUPS : via
+    USERS ||--o{ USER_IDENTITIES : binds
+    IDENTITY_PROVIDERS ||--o{ USER_IDENTITIES : from
+
+    TENANTS ||--o{ PUBLICATIONS : owns
+    PUBLICATIONS ||--|| PUBLICATION_METADATA : has
+    TENANTS ||--o{ INGESTION_JOBS : runs
+    INGESTION_JOBS ||--o{ INGESTION_JOB_ITEMS : includes
+    PUBLICATIONS ||--o{ INGESTION_JOB_ITEMS : processed_in
+    PUBLICATIONS ||--o{ PUBLICATION_TOPICS : tagged
+    TOPICS ||--o{ PUBLICATION_TOPICS : contains
+    PUBLICATIONS ||--o{ PUBLICATION_ENTITIES : mentions
+    ENTITIES ||--o{ PUBLICATION_ENTITIES : linked
+
+    TENANTS ||--o{ TEAM : owns
+    USERS ||--o{ TEAM : created
+    TEAM ||--o{ TEAM_MEMBERS : has
+    USERS ||--o{ TEAM_MEMBERS : member_of
+    TEAM ||--o{ TEAM_INVITATIONS : issues
+
+    TENANTS ||--o{ WORKSPACES : owns
+    USERS ||--o{ WORKSPACES : created
+    TEAM ||--o{ WORKSPACES : manages
+    WORKSPACES ||--o{ WORKSPACE_MEMBERS : has
+    USERS ||--o{ WORKSPACE_MEMBERS : member_of
+    WORKSPACES ||--o{ WORKSPACE_INVITATIONS : issues
+    WORKSPACES ||--o{ WORKSPACE_DOCUMENTS : contains
+    WORKSPACES ||--o{ WORKSPACE_PUBLICATION_LINKS : references
+
+    TOPICS ||--o{ TOPIC_SUBSCRIPTIONS : followed
+    USERS ||--o{ TOPIC_SUBSCRIPTIONS : subscribes
+    TENANTS ||--o{ TOPIC_SUBSCRIPTIONS : scopes
+    USERS ||--o{ NOTIFICATIONS : receives
+
+    TENANTS ||--o{ USAGE_COUNTERS_DAILY : tracks
+    USERS ||--o{ USER_USAGE_DAILY : uses
+
+    TENANTS ||--o{ EMBEDDINGS : owns
+    PUBLICATIONS ||--o{ EMBEDDINGS : vector_of
+    WORKSPACE_DOCUMENTS ||--o{ EMBEDDINGS : vector_of
+
+    CLINICAL_PROTOCOLS ||--o{ PROTOCOL_EVIDENCE_LINKS : supported_by
+    PUBLICATIONS ||--o{ PROTOCOL_EVIDENCE_LINKS : evidence_from
+
+    TENANTS ||--o{ TENANT_VISIBILITY_RULES : governs
+
+    EVENT_CLASS ||--o{ AUDIT_LOGS : event_class
+    EVENT_SEVERITY ||--o{ AUDIT_LOGS : level
+    AUDIT_LOGS ||--o{ AUDIT_LINKS : has

@@ -141,10 +141,10 @@ temp/
 .coverage
 htmlcov/
 
-# Vue.js specific
-.vite/
+# React specific
+build/
 dist/
-dist-ssr/
+.cache/
 
 # Playwright
 test-results/
