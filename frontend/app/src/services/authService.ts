@@ -33,12 +33,61 @@ export const mockUsers: User[] = [
     features: ['basic_research', 'team_collaboration'],
     createdAt: '2024-01-05T00:00:00Z',
     lastLoginAt: '2024-01-14T16:45:00Z'
+  },
+  // Easy test credentials
+  {
+    id: 'test_001',
+    email: 'test@test.com',
+    name: 'Test User',
+    type: 'individual',
+    tenant: 'trial',
+    features: ['basic_research', 'ai_assistant_limited'],
+    createdAt: '2024-01-01T00:00:00Z',
+    lastLoginAt: '2024-01-15T10:30:00Z'
+  },
+  {
+    id: 'demo_001',
+    email: 'demo@demo.com',
+    name: 'Demo User',
+    type: 'organization_admin',
+    tenant: 'demo_corp',
+    organization: 'Demo Corporation',
+    features: ['full_access', 'team_collaboration', 'custom_branding'],
+    createdAt: '2024-01-01T00:00:00Z',
+    lastLoginAt: '2024-01-15T09:15:00Z'
   }
 ];
 
 // Simulate real authentication without backend
 export const mockLogin = async (credentials: LoginCredentials): Promise<User> => {
   await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API delay
+  
+  // Easy test credentials
+  if (credentials.email === 'test@test.com' && credentials.password === 'test123') {
+    const user = mockUsers.find(u => u.email === 'test@test.com')!;
+    const token = btoa(JSON.stringify({ 
+      userId: user.id, 
+      exp: Date.now() + 3600000,
+      type: user.type,
+      tenant: user.tenant
+    }));
+    localStorage.setItem('authToken', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    return user;
+  }
+  
+  if (credentials.email === 'demo@demo.com' && credentials.password === 'demo123') {
+    const user = mockUsers.find(u => u.email === 'demo@demo.com')!;
+    const token = btoa(JSON.stringify({ 
+      userId: user.id, 
+      exp: Date.now() + 3600000,
+      type: user.type,
+      tenant: user.tenant
+    }));
+    localStorage.setItem('authToken', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    return user;
+  }
   
   const user = mockUsers.find(u => u.email === credentials.email);
   if (user) {
