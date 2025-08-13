@@ -303,6 +303,22 @@ erDiagram
         datetime created_at
     }
 
+    GRAPH_OUTBOX {
+        uuid id PK
+        uuid tenant_id FK
+        uuid workspace_id FK
+        string graph_type
+        string status
+        jsonb graph_data
+        jsonb metadata
+        string output_format
+        string output_location
+        datetime requested_at
+        datetime processed_at
+        datetime created_at
+        datetime updated_at
+    }
+
     BREAKTHROUGHS {
         uuid id PK
         string category
@@ -426,6 +442,9 @@ erDiagram
     TENANTS ||--o{ EMBEDDINGS : owns
     PUBLICATIONS ||--o{ EMBEDDINGS : vector_of
     WORKSPACE_DOCUMENTS ||--o{ EMBEDDINGS : vector_of
+
+    TENANTS ||--o{ GRAPH_OUTBOX : owns
+    WORKSPACES ||--o{ GRAPH_OUTBOX : generates
 
     CLINICAL_PROTOCOLS ||--o{ PROTOCOL_EVIDENCE_LINKS : supported_by
     PUBLICATIONS ||--o{ PROTOCOL_EVIDENCE_LINKS : evidence_from
