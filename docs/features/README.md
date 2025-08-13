@@ -7,13 +7,14 @@ This directory contains all the feature epics for the OpenBioCure Platform, orga
 ### 🎯 **MVP Features** (Phase 1)
 These features are essential for the initial platform launch:
 
-1. **[🏠 Research Dashboard](./research-dashboard.md)** - Centralized home screen with personalized insights
-2. **[🤖 AI Assistant](./ai-assistant.md)** - Conversational AI for document analysis and insights
-3. **[👥 Workspace Collaboration](./workspace-collaboration.md)** - Private and team research environments
-4. **[🔔 Topic Subscriptions](./topic-subscriptions.md)** - Follow research topics and receive updates
-5. **[🌍 Medical Breakthroughs](./medical-breakthroughs.md)** - Public feed of major medical discoveries
-6. **[🏢 Tenant & Role System](./tenant-role-system.md)** - Multi-tenant architecture with role-based access
-7. **[📊 Usage Metrics](./usage-metrics.md)** - Track platform consumption and billing
+1. **[🔐 Authentication & Authorization](./authentication.md)** - Secure user authentication and access control
+2. **[🏠 Research Dashboard](./research-dashboard.md)** - Centralized home screen with personalized insights
+3. **[🤖 AI Assistant](./ai-assistant.md)** - Conversational AI for document analysis and insights
+4. **[👥 Workspace Collaboration](./workspace-collaboration.md)** - Private and team research environments
+5. **[🔔 Topic Subscriptions](./topic-subscriptions.md)** - Follow research topics and receive updates
+6. **[🌍 Medical Breakthroughs](./medical-breakthroughs.md)** - Public feed of major medical discoveries
+7. **[🏢 Tenant & Role System](./tenant-role-system.md)** - Multi-tenant architecture with role-based access
+8. **[📊 Usage Metrics](./usage-metrics.md)** - Track platform consumption and billing
 
 ### 🚀 **Phase 2 Features** (Future Development)
 These features will be developed after the MVP launch:
@@ -50,8 +51,9 @@ The epics are designed around these key user types:
 
 | Epic | User Stories | Priority |
 |------|-------------|----------|
+| Authentication & Authorization | 22 | MVP |
 | Research Dashboard | 9 | MVP |
-| AI Assistant | 21 | MVP |
+| AI Assistant | 26 | MVP |
 | Workspace Collaboration | 14 | MVP |
 | Topic Subscriptions | 15 | MVP |
 | Medical Breakthroughs | 18 | MVP |
@@ -60,11 +62,11 @@ The epics are designed around these key user types:
 | Clinical Optimization | 18 | Phase 2 |
 | Data Exploration | 21 | Phase 2 |
 
-**Total User Stories: 154**
+**Total User Stories: 181**
 
 ## 🎯 Development Priorities
 
-### **Phase 1 (MVP) - 115 User Stories**
+### **Phase 1 (MVP) - 162 User Stories**
 Focus on core platform functionality and user experience
 
 ### **Phase 2 (Enhancement) - 39 User Stories**

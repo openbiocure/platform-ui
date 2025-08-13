@@ -118,8 +118,9 @@ The frontend uses a React-based micro frontend architecture:
 - **Modern Tooling**: Create React App, TypeScript, ESLint
 - **Performance**: Lazy loading, independent deployment, better caching
 
-## 📚 API Documentation
+## 📚 Documentation
 
+### API Documentation
 The API provides endpoints for:
 
 - **Authentication**: User registration, login, JWT tokens
@@ -128,6 +129,15 @@ The API provides endpoints for:
 - **Analyses**: Analysis workflows and results
 
 See `docs/models.md` for detailed API specifications and data models.
+
+### Feature Documentation
+Comprehensive feature breakdown with user stories and requirements:
+
+- **Feature Epics**: Detailed breakdown of platform capabilities
+- **User Stories**: Implementation requirements and acceptance criteria
+- **Development Roadmap**: MVP and Phase 2 feature priorities
+
+See `docs/features/README.md` for the complete feature breakdown.
 
 ## 🔧 Available Scripts
 
