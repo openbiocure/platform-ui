@@ -53,6 +53,13 @@ The frontend follows a **Micro Frontend Architecture** pattern, allowing indepen
 - Node.js 18+ 
 - npm 9+ or yarn
 
+### UI Component System
+We use [shadcn/ui](https://ui.shadcn.com/docs/components-json) for our component library, providing:
+- **Professional Design**: Beautiful, accessible components built with Radix UI
+- **Customizable**: Easy theming and customization for enterprise branding
+- **TypeScript Support**: Full type safety and IntelliSense
+- **Modern Standards**: Built with modern CSS and accessibility best practices
+
 ### Quick Start
 ```bash
 # Install all dependencies
@@ -195,6 +202,17 @@ REACT_APP_API_URL=https://api.openbiocure.com
 REACT_APP_SHELL_URL=https://platform.openbiocure.com
 REACT_APP_SHARED_URL=https://shared.openbiocure.com
 ```
+
+## 🎨 UI Component System
+
+We use [shadcn/ui](https://ui.shadcn.com/docs/components-json) as our component foundation:
+
+- **Component Library**: 50+ pre-built components (Button, Card, Dialog, Data Table, etc.)
+- **Design System**: Consistent spacing, typography, and color schemes
+- **Accessibility**: Built with Radix UI primitives for screen reader support
+- **Theming**: Easy customization for enterprise branding and white-labeling
+- **Dark Mode**: Built-in dark mode support with CSS variables
+- **Responsive**: Mobile-first design with responsive breakpoints
 
 ## 🔒 Security & Best Practices
 

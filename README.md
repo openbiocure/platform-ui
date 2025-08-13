@@ -110,12 +110,13 @@ The backend is built with FastAPI and follows a modular architecture:
 
 ### Frontend Development
 
-The frontend uses a React-based micro frontend architecture:
+The frontend uses a React-based micro frontend architecture with modern UI components:
 
 - **React 18**: Modern React with hooks and functional components
 - **Micro Frontends**: Independent applications for different domains
 - **Module Federation**: Seamless component sharing between apps
 - **Modern Tooling**: Create React App, TypeScript, ESLint
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com/docs/components-json) for professional, accessible, and customizable components
 - **Performance**: Lazy loading, independent deployment, better caching
 
 ## 📚 Documentation
