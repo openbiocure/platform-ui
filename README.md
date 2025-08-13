@@ -117,6 +117,7 @@ The frontend uses a React-based micro frontend architecture with modern UI compo
 - **Module Federation**: Seamless component sharing between apps
 - **Modern Tooling**: Create React App, TypeScript, ESLint
 - **UI Components**: [shadcn/ui](https://ui.shadcn.com/docs/components-json) for professional, accessible, and customizable components
+- **Design System**: Montserrat typography with professional color palette (blues, orange, cyan)
 - **Performance**: Lazy loading, independent deployment, better caching
 
 ## 📚 Documentation
@@ -139,6 +140,16 @@ Comprehensive feature breakdown with user stories and requirements:
 - **Development Roadmap**: MVP and Phase 2 feature priorities
 
 See `docs/features/README.md` for the complete feature breakdown.
+
+### Design System
+Complete visual identity and component guidelines:
+
+- **Color Palette**: Professional blues, orange, and cyan scheme
+- **Typography**: Montserrat font family with comprehensive scale
+- **Component Guidelines**: Button, form, and navigation standards
+- **Accessibility**: Color contrast and focus indicator requirements
+
+See `docs/design-system.md` for the complete design specifications.
 
 ## 🔧 Available Scripts
 

@@ -214,6 +214,20 @@ We use [shadcn/ui](https://ui.shadcn.com/docs/components-json) as our component 
 - **Dark Mode**: Built-in dark mode support with CSS variables
 - **Responsive**: Mobile-first design with responsive breakpoints
 
+### 🎨 Design System
+
+#### Typography
+- **Primary Font**: Montserrat - Modern, professional, highly readable
+
+#### Color Palette
+- **Primary Blue**: `#00239C` (Deep corporate blue)
+- **Secondary Blue**: `#001E62` (Darker accent blue)
+- **Accent Orange**: `#E76900` (Warm highlight color)
+- **Accent Cyan**: `#00A3E0` (Bright accent blue)
+
+#### Brand Assets
+- **Logo**: `public/assets/icon.svg` - Platform identity and branding
+
 ## 🔒 Security & Best Practices
 
 - **CORS Configuration**: Each micro frontend runs on different ports
