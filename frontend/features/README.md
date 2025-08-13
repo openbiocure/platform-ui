@@ -35,12 +35,12 @@ Each epic follows a consistent structure:
 
 The epics are designed around these key user types:
 
-- **Scholar** - Primary researcher using the platform
-- **Collaborator** - Team member in shared workspaces
+- **Scholar** - Academic researcher who asks questions and reviews evidence
+- **Team Collaborator** - Participates in shared workspaces and reviews AI outputs
 - **Observer** - Passive viewer of public content
-- **SaaS Admin** - Organization administrator
-- **Platform Admin** - System administrator
-- **HospitalOpsViewer** - Hospital operations user
+- **SaaS Admin** - Configures tenant policies, quotas, and usage
+- **Platform Admin** - Operates the platform and global settings
+- **HospitalOps Viewer** - Explores cost and protocol insights read-only
 - **PayerAnalyst** - Insurance and payment analyst
 - **ClinicalLead** - Clinical team leader
 
