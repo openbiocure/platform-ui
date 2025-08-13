@@ -133,7 +133,7 @@ Allow scholars to explore research ideas without polluting the datalake; optiona
 ### 🤝 Team Collaboration
 
 #### US-028: Team Member Invitation
-**As a** Workspace Owner  
+**As a** Scholar  
 **I want** to invite team members to collaborate  
 **So that** we can work together on research projects  
 
@@ -152,7 +152,7 @@ Allow scholars to explore research ideas without polluting the datalake; optiona
 ---
 
 #### US-029: Real-Time Collaboration
-**As a** Team Member  
+**As a** Team Collaborator  
 **I want** to collaborate with team members in real-time  
 **So that** we can work efficiently together  
 
@@ -171,7 +171,7 @@ Allow scholars to explore research ideas without polluting the datalake; optiona
 ---
 
 #### US-030: Shared Analysis Results
-**As a** Team Member  
+**As a** Team Collaborator  
 **I want** to share analysis results with my team  
 **So that** everyone can benefit from research insights  
 
@@ -270,7 +270,7 @@ Allow scholars to explore research ideas without polluting the datalake; optiona
 ---
 
 #### US-035: Access Control Management
-**As a** Workspace Owner  
+**As a** Scholar  
 **I want** to control who can access my workspace  
 **So that** I can protect sensitive research and control collaboration  
 

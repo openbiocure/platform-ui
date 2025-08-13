@@ -74,7 +74,7 @@ Publicly highlight major medical discoveries; useful to all tenants and hospital
 ### 🏷️ Content Organization
 
 #### US-054: Topic-Based Organization
-**As a** User  
+**As a** Scholar  
 **I want** breakthroughs organized by medical topic  
 **So that** I can focus on areas of interest  
 
@@ -93,7 +93,7 @@ Publicly highlight major medical discoveries; useful to all tenants and hospital
 ---
 
 #### US-055: Significance-Based Ranking
-**As a** User  
+**As a** Scholar  
 **I want** breakthroughs ranked by medical significance  
 **So that** I can prioritize the most important developments  
 
@@ -112,7 +112,7 @@ Publicly highlight major medical discoveries; useful to all tenants and hospital
 ---
 
 #### US-056: Temporal Organization
-**As a** User  
+**As a** Scholar  
 **I want** breakthroughs organized by time and version  
 **So that** I can track developments chronologically  
 
@@ -152,7 +152,7 @@ Publicly highlight major medical discoveries; useful to all tenants and hospital
 ---
 
 #### US-058: Topic-Specific Feed Views
-**As a** User  
+**As a** Scholar  
 **I want** to view breakthroughs for specific topics  
 **So that** I can focus on areas of interest  
 
@@ -171,7 +171,7 @@ Publicly highlight major medical discoveries; useful to all tenants and hospital
 ---
 
 #### US-059: Breakthrough Detail Views
-**As a** User  
+**As a** Scholar  
 **I want** to see detailed information about breakthroughs  
 **So that** I can understand the full context and implications  
 
@@ -251,7 +251,7 @@ Publicly highlight major medical discoveries; useful to all tenants and hospital
 ### 📊 Analytics and Insights
 
 #### US-063: Breakthrough Trend Analysis
-**As a** User  
+**As a** Scholar  
 **I want** to see trends in medical breakthroughs  
 **So that** I can understand research directions  
 
@@ -270,7 +270,7 @@ Publicly highlight major medical discoveries; useful to all tenants and hospital
 ---
 
 #### US-064: Geographic and Institutional Analysis
-**As a** User  
+**As a** Scholar  
 **I want** to see where breakthroughs originate  
 **So that** I can identify leading research institutions  
 
@@ -289,7 +289,7 @@ Publicly highlight major medical discoveries; useful to all tenants and hospital
 ---
 
 #### US-065: Impact Assessment Metrics
-**As a** User  
+**As a** Scholar  
 **I want** to see metrics on breakthrough impact  
 **So that** I can understand significance levels  
 

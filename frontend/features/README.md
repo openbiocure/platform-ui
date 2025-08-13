@@ -43,6 +43,8 @@ The epics are designed around these key user types:
 - **HospitalOps Viewer** - Explores cost and protocol insights read-only
 - **PayerAnalyst** - Insurance and payment analyst
 - **ClinicalLead** - Clinical team leader
+- **Public User** - Accesses public breakthrough feeds and content
+- **Developer** - Integrates with platform APIs and external systems
 
 ## 🔢 User Story Count
 
