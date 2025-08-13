@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { checkCurrentUser } from '@/store/slices/authSlice';
 import { LoginForm } from '@/components/auth/LoginForm';
+import { RegisterForm } from '@/components/auth/RegisterForm';
 import { Loader2 } from 'lucide-react';
 import './App.css';
 
@@ -30,6 +31,7 @@ const AppContent: React.FC = () => {
     <Routes>
       {/* Public routes */}
       <Route path="/login" element={!isAuthenticated ? <LoginForm /> : <Navigate to="/dashboard" replace />} />
+      <Route path="/sign-up" element={!isAuthenticated ? <RegisterForm /> : <Navigate to="/dashboard" replace />} />
       
       {/* Protected routes
       <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />} />
