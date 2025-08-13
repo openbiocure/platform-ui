@@ -51,7 +51,7 @@ The epics are designed around these key user types:
 
 | Epic | User Stories | Priority |
 |------|-------------|----------|
-| Authentication & Authorization | 22 | MVP |
+| Authentication & Authorization | 24 | MVP |
 | Research Dashboard | 9 | MVP |
 | AI Assistant | 26 | MVP |
 | Workspace Collaboration | 14 | MVP |
@@ -62,11 +62,11 @@ The epics are designed around these key user types:
 | Clinical Optimization | 18 | Phase 2 |
 | Data Exploration | 21 | Phase 2 |
 
-**Total User Stories: 181**
+**Total User Stories: 183**
 
 ## 🎯 Development Priorities
 
-### **Phase 1 (MVP) - 162 User Stories**
+### **Phase 1 (MVP) - 164 User Stories**
 Focus on core platform functionality and user experience
 
 ### **Phase 2 (Enhancement) - 39 User Stories**

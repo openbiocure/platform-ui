@@ -475,6 +475,52 @@ Provide secure, multi-tenant authentication and authorization system with role-b
 
 ---
 
+#### US-167: Tenant Assignment Rules
+**As a** System  
+**I want** to automatically assign users to appropriate tenants  
+**So that** data isolation and access control is properly maintained  
+
+**Acceptance Criteria:**
+- **Individual Users**: Assigned to "Trial" tenant with limited features
+- **Organization Invitees**: Assigned to existing organization tenant
+- **Organization Creators**: Assigned to newly created organization tenant
+- **Trial Users**: Can upgrade to create new organization or join existing
+- **Tenant Isolation**: Complete data separation between different tenants
+- **Default Permissions**: Role-based access within assigned tenant
+
+**Definition of Done:**
+- Individual users get trial tenant assignment
+- Organization users get proper tenant assignment
+- New organizations get unique tenant creation
+- Upgrade paths functional
+- Tenant isolation verified
+- Default permissions enforced
+
+---
+
+#### US-168: Trial Tenant Management
+**As a** Platform Admin  
+**I want** to manage the trial tenant system  
+**So that** individual users can evaluate the platform safely  
+
+**Acceptance Criteria:**
+- **Trial Tenant**: Single shared tenant for all individual trial users
+- **Feature Limitations**: Restricted access during trial period
+- **Data Isolation**: Trial users can't see each other's data
+- **Upgrade Paths**: Easy transition to paid organization plans
+- **Cleanup**: Automatic trial tenant cleanup after expiration
+- **Monitoring**: Track trial user behavior and conversion rates
+
+**Definition of Done:**
+- Trial tenant system functional
+- Feature limitations enforced
+- Data isolation maintained
+- Upgrade paths working
+- Cleanup processes active
+- Monitoring implemented
+
+---
+
 ## Technical Requirements
 
 ### Dependencies
