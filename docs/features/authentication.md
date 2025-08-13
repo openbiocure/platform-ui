@@ -11,6 +11,9 @@ Provide secure, multi-tenant authentication and authorization system with role-b
 - Ensure compliance with security standards and audit requirements
 - Support both individual trial users and organizational SaaS tenants
 - Provide clear registration paths for different user types
+- Enable SaaS tenants to configure custom domains and DNS
+- Support tenant-specific SSO configurations
+- Provide enterprise branding and white-label capabilities
 
 ## User Stories
 
@@ -296,6 +299,98 @@ Provide secure, multi-tenant authentication and authorization system with role-b
 - Health monitoring implemented
 - Validation functional
 - Tenant isolation maintained
+
+---
+
+#### US-169: Custom Domain Configuration
+**As a** SaaS Admin  
+**I want** to configure custom domains for my organization  
+**So that** my users can access the platform through our branded URLs  
+
+**Acceptance Criteria:**
+- Custom domain registration and validation
+- DNS configuration management
+- SSL certificate provisioning
+- Domain verification process
+- Subdomain support (app.company.com)
+- Domain health monitoring
+
+**Definition of Done:**
+- Custom domain registration works
+- DNS configuration functional
+- SSL certificates provisioned
+- Domain verification successful
+- Subdomain support active
+- Health monitoring implemented
+
+---
+
+#### US-170: Tenant-Specific SSO Configuration
+**As a** SaaS Admin  
+**I want** to configure SSO settings specific to my organization  
+**So that** I can integrate with our enterprise identity systems  
+
+**Acceptance Criteria:**
+- SAML 2.0 configuration per tenant
+- OAuth 2.0 / OpenID Connect setup
+- Active Directory integration
+- LDAP authentication configuration
+- SSO metadata management
+- Tenant-specific SSO branding
+
+**Definition of Done:**
+- SAML configuration per tenant
+- OAuth/OIDC setup functional
+- AD integration active
+- LDAP configuration works
+- Metadata management available
+- Branding customization active
+
+---
+
+#### US-171: DNS Management and Monitoring
+**As a** SaaS Admin  
+**I want** to manage and monitor DNS configurations for my custom domains  
+**So that** I can ensure reliable access to the platform  
+
+**Acceptance Criteria:**
+- DNS record management (A, CNAME, TXT records)
+- DNS propagation monitoring
+- DNS health checks and alerts
+- DNS change history and rollback
+- Integration with popular DNS providers
+- Automatic DNS validation
+
+**Definition of Done:**
+- DNS record management functional
+- Propagation monitoring active
+- Health checks working
+- Change history available
+- DNS provider integration active
+- Validation automated
+
+---
+
+#### US-172: Enterprise Branding and Customization
+**As a** SaaS Admin  
+**I want** to customize the platform appearance for my organization  
+**So that** it aligns with our brand identity  
+
+**Acceptance Criteria:**
+- Custom logo and branding
+- Company color scheme
+- Custom email templates
+- Branded login pages
+- Custom error pages
+- White-label options
+
+**Definition of Done:**
+- Logo and branding customization
+- Color scheme configurable
+- Email templates branded
+- Login pages customized
+- Error pages branded
+- White-label features active
 
 ---
 
