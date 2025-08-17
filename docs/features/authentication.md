@@ -505,22 +505,82 @@ Provide secure, multi-tenant authentication and authorization system with role-b
 
 #### US-164: User Profile Management
 **As a** User  
-**I want** to manage my profile and preferences  
-**So that** I can customize my platform experience  
+**I want** to manage my profile, preferences, and account details  
+**So that** I can customize my platform experience and manage my subscription  
 
 **Acceptance Criteria:**
-- Profile information editing
-- Authentication preferences
-- Notification settings
-- Privacy controls
+- Profile information editing (name, email, avatar)
+- Authentication preferences (MFA, password, security settings)
+- Notification settings and preferences
+- Privacy controls and data sharing preferences
 - Profile export functionality
+- **Subscription and Billing Management:**
+  - View current subscription plan and status
+  - Access billing history and invoices
+  - Manage payment methods
+  - View usage metrics and limits
+  - Upgrade/downgrade subscription plans
+  - Cancel subscription with proper workflows
+- **Account Management:**
+  - View account creation date and last login
+  - Manage connected accounts and integrations
+  - View and manage API keys
+  - Access audit logs for account activity
+  - Account deletion and data export
+- **Organization Management (for org users):**
+  - View organization details and settings
+  - Manage team members and roles
+  - Configure organization branding
+  - View organization usage and limits
 
 **Definition of Done:**
-- Profile editing works
-- Preferences configurable
-- Notification settings active
-- Privacy controls functional
-- Export functionality available
+- Profile editing works with validation
+- Authentication preferences configurable
+- Notification settings active and functional
+- Privacy controls functional and enforced
+- Export functionality available for data portability
+- Subscription management fully functional
+- Billing system integrated and working
+- Account management features complete
+- Organization management features (if applicable) working
+- All profile sections responsive and accessible
+
+---
+
+#### US-173: Platform Dashboard and Quick Actions
+**As a** User  
+**I want** a clean, focused dashboard with quick access to main platform features  
+**So that** I can efficiently navigate and start working immediately  
+
+**Acceptance Criteria:**
+- **Dashboard Overview:**
+  - Welcome message with user name and account type
+  - Quick status indicators (account status, type, tenant)
+  - Recent activity summary (last login, recent actions)
+  - Platform feature highlights based on user type
+- **Quick Action Buttons:**
+  - AI Assistant access
+  - Research Tools entry
+  - Analytics dashboard
+  - Workflow management
+  - Direct navigation to main platform sections
+- **Smart Content Display:**
+  - Individual users see trial limitations and upgrade prompts
+  - Organization users see team collaboration features
+  - Feature cards with clear descriptions and icons
+  - Responsive design for all device sizes
+- **Navigation Hub:**
+  - Clear access to profile and account management
+  - Quick logout functionality
+  - Platform branding and identity
+
+**Definition of Done:**
+- Dashboard loads quickly and displays relevant information
+- Quick action buttons functional and navigate correctly
+- Content adapts based on user type and permissions
+- Responsive design works on all devices
+- Navigation to profile and other sections works
+- Dashboard serves as effective platform entry point
 
 ---
 

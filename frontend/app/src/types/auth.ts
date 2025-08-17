@@ -6,6 +6,7 @@ export interface User {
   tenant: string;
   features: string[];
   organization?: string;
+  researchFocus?: string;
   createdAt: string;
   lastLoginAt?: string;
 }

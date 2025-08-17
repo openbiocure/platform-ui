@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { checkCurrentUser } from '@/store/slices/authSlice';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { RegisterForm } from '@/components/auth/RegisterForm';
-import { Dashboard } from '@/components/dashboard/Dashboard';
+import ScholarDashboard from '@/components/dashboard/ScholarDashboard';
 import { Loader2 } from 'lucide-react';
 import './App.css';
 
@@ -35,8 +35,7 @@ const AppContent: React.FC = () => {
       <Route path="/sign-up" element={!isAuthenticated ? <RegisterForm /> : <Navigate to="/dashboard" replace />} />
       
       {/* Protected routes */}
-      <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />} />
-      
+      <Route path="/dashboard" element={isAuthenticated ? <ScholarDashboard /> : <Navigate to="/login" replace />} />
       {/* Default redirects */}
       <Route path="/" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} />
       <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} />

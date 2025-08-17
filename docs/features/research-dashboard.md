@@ -18,6 +18,12 @@ Provide a home screen for users with personalized insights and entry points to a
 **I want** to see a personalized dashboard when I log in  
 **So that** I can quickly access my research and stay updated  
 
+**Color Palette**
+- **Primary Blue**: `#00239C` (Deep corporate blue)
+- **Secondary Blue**: `#001E62` (Darker accent blue)
+- **Accent Orange**: `#E76900` (Warm highlight color)
+- **Accent Cyan**: `#00A3E0` (Bright accent blue)
+
 **Acceptance Criteria:**
 - Dashboard shows user's recent activity
 - Displays personalized topic trends
