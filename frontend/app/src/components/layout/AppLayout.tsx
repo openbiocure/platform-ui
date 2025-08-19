@@ -15,6 +15,8 @@ import {
   Bot,
   Target
 } from 'lucide-react';
+import ScholarProfile from '../dashboard/ScholarProfile';
+import { ScholarHomeDashboard } from '../scholar/ScholarHomeDashboard';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -25,6 +27,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [currentView, setCurrentView] = useState<'dashboard' | 'profile'>('dashboard');
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -53,6 +56,14 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     };
   }, []);
 
+  // Render content based on current view
+  const renderContent = () => {
+    if (currentView === 'profile') {
+      return <ScholarProfile />;
+    }
+    return children;
+  };
+
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Left Sidebar - Navigation Drawer */}
@@ -69,13 +80,13 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         </div>
         
         <nav className={`flex-grow space-y-2 ${drawerOpen ? 'p-4' : 'p-2'}`}>
-          <a 
-            href="/dashboard"
-            className={`flex items-center px-4 py-2 text-white rounded-lg w-full ${drawerOpen ? 'justify-start' : 'justify-center'} hover:bg-gray-700 transition-colors`}
+          <button 
+            onClick={() => setCurrentView('dashboard')}
+            className={`flex items-center px-4 py-2 text-white rounded-lg w-full ${drawerOpen ? 'justify-start' : 'justify-center'} hover:bg-gray-700 transition-colors ${currentView === 'dashboard' ? 'bg-[#E76900]' : ''}`}
           >
             <LayoutDashboard className="w-5 h-5" />
             {drawerOpen && <span className="ml-3">Dashboard</span>}
-          </a>
+          </button>
           <a 
             href="/publication-review"
             className={`flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded-lg w-full ${drawerOpen ? 'justify-start' : 'justify-center'} transition-colors`}
@@ -117,7 +128,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 </svg>
               </button>
               
-              <h1 className="text-2xl font-bold text-gray-900">OpenBioCure Platform</h1>
+              <h1 className="text-2xl font-bold text-gray-900">
+                {currentView === 'dashboard' ? 'OpenBioCure Platform' : 'Profile'}
+              </h1>
             </div>
             
             <div className="flex items-center space-x-4">
@@ -174,7 +187,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                     </div>
                     <div className="py-1">
                       <button 
-                        onClick={() => window.location.href = '/dashboard'}
+                        onClick={() => setCurrentView('profile')}
                         className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
                         <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -211,7 +224,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           </header>
           
           {/* Page Content */}
-          {children}
+          {renderContent()}
         </div>
       </main>
     </div>
