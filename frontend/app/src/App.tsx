@@ -7,7 +7,7 @@ import { RegisterForm } from '@/components/auth/RegisterForm';
 import ScholarDashboard from '@/components/dashboard/ScholarDashboard';
 import PublicationReviewAnalysis from '@/components/scholar/PublicationReviewAnalysis';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
-import { Loader2 } from 'lucide-react';
+import OpenBioCureLoader from '@/components/ui/OpenBioCureLoader';
 import './App.css';
 
 const AppContent: React.FC = () => {
@@ -20,14 +20,7 @@ const AppContent: React.FC = () => {
   }, [dispatch]);
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-4" />
-          <p className="text-gray-600">Loading OpenBioCure Platform...</p>
-        </div>
-      </div>
-    );
+    return <OpenBioCureLoader fullPage={true} />;
   }
 
   return (

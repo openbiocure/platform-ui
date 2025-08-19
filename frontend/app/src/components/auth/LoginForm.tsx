@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Eye, EyeOff, Loader2, Lock, Mail } from 'lucide-react';
+import { Eye, EyeOff, Loader2, Lock, Mail, FlaskConical, Cpu, BarChart3 } from 'lucide-react';
 
 export const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -26,32 +26,35 @@ export const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-opencure-blue/10 via-opencure-cyan/5 to-opencure-orange/5 p-4">
       <div className="w-full max-w-md">
         {/* Logo and Brand */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full mb-4 shadow-lg">
+          <div className="inline-flex items-center justify-center w-24 h-24 bg-white rounded-full mb-4 shadow-2xl shadow-opencure-blue/25">
             <img 
               src="/icon.svg" 
               alt="OpenBioCure Logo" 
-              className="w-12 h-12"
+              className="w-16 h-16"
             />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-4xl font-bold text-opencure-blue mb-2 font-montserrat">
             OpenBioCure
           </h1>
-          <p className="text-gray-600">
+          <p className="text-opencure-dark-blue/80 font-medium">
+            AI-Powered Research Platform
+          </p>
+          <p className="text-gray-600 text-sm mt-1">
             Sign in to your account
           </p>
         </div>
 
         {/* Login Form Card */}
-        <Card className="shadow-xl border-0 bg-white/95 backdrop-blur-sm">
+        <Card className="shadow-2xl border-0 bg-white/95 backdrop-blur-sm border-t-4 border-opencure-orange">
           <CardHeader className="space-y-1 pb-4">
-            <CardTitle className="text-2xl font-semibold text-center text-gray-900">
+            <CardTitle className="text-2xl font-semibold text-center text-opencure-blue font-montserrat">
               Welcome back
             </CardTitle>
-            <CardDescription className="text-center text-gray-600">
+            <CardDescription className="text-center text-opencure-dark-blue/70">
               Enter your credentials to access your account
             </CardDescription>
           </CardHeader>
@@ -60,18 +63,18 @@ export const LoginForm: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Email Field */}
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+                <Label htmlFor="email" className="text-sm font-medium text-opencure-dark-blue">
                   Email address
                 </Label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-opencure-blue/60" />
                   <Input
                     id="email"
                     type="email"
                     placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 h-11 border-gray-300 focus:border-[#00239C] focus:ring-[#00239C]"
+                    className="pl-10 h-11 border-gray-300 focus:border-opencure-blue focus:ring-opencure-blue/20 transition-all duration-200"
                     required
                   />
                 </div>
@@ -79,24 +82,24 @@ export const LoginForm: React.FC = () => {
 
               {/* Password Field */}
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-sm font-medium text-gray-700">
+                <Label htmlFor="password" className="text-sm font-medium text-opencure-dark-blue">
                   Password
                 </Label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-opencure-blue/60" />
                   <Input
                     id="password"
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 pr-10 h-11 border-gray-300 focus:border-[#00239C] focus:ring-[#00239C]"
+                    className="pl-10 pr-10 h-11 border-gray-300 focus:border-opencure-blue focus:ring-opencure-blue/20 transition-all duration-200"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-opencure-blue/60 hover:text-opencure-blue transition-colors duration-200"
                   >
                     {showPassword ? (
                       <EyeOff className="w-4 h-4" />
@@ -118,7 +121,7 @@ export const LoginForm: React.FC = () => {
               <Button
                 type="submit"
                 disabled={isLoading || !email || !password}
-                className="w-full h-11 bg-[#00239C] hover:bg-[#001E62] text-white font-medium transition-colors duration-200"
+                className="w-full h-11 bg-gradient-to-r from-opencure-blue to-opencure-dark-blue hover:from-opencure-dark-blue hover:to-opencure-blue text-white font-medium transition-all duration-300 shadow-lg shadow-opencure-blue/25 hover:shadow-xl hover:shadow-opencure-blue/30 transform hover:-translate-y-0.5"
               >
                 {isLoading ? (
                   <>
@@ -136,17 +139,17 @@ export const LoginForm: React.FC = () => {
               <div className="text-center">
                 <Link
                   to="/forgot-password"
-                  className="text-sm text-[#00A3E0] hover:text-[#00239C] transition-colors duration-200"
+                  className="text-sm text-opencure-cyan hover:text-opencure-blue transition-colors duration-200 font-medium"
                 >
                   Forgot your password?
                 </Link>
               </div>
               
-              <div className="text-center text-sm text-gray-600">
+              <div className="text-center text-sm text-opencure-dark-blue/70">
                 Don't have an account?{' '}
                 <Link
                   to="/sign-up"
-                  className="text-sm text-[#00A3E0] hover:text-[#00239C] font-medium transition-colors duration-200"
+                  className="text-sm text-opencure-cyan hover:text-opencure-blue font-medium transition-colors duration-200"
                 >
                   Sign up
                 </Link>
@@ -157,7 +160,7 @@ export const LoginForm: React.FC = () => {
 
         {/* Footer */}
         <div className="text-center mt-8">
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-opencure-dark-blue/60">
             © 2024 OpenBioCure Platform. All rights reserved.
           </p>
         </div>

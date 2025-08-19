@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -24,6 +26,12 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
     --radius: 0.5rem;
+    
+    /* OpenBioCure Brand Colors */
+    --opencure-blue: 0 35 156;
+    --opencure-dark-blue: 0 30 98;
+    --opencure-orange: 231 105 0;
+    --opencure-cyan: 0 163 224;
   }
 
   .dark {
@@ -55,6 +63,13 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
   }
 }
 
@@ -94,5 +109,79 @@
   
   .animate-glow-pulse {
     animation: glow-pulse 2s ease-in-out infinite;
+  }
+  
+  /* Custom animations for OpenBioCure Loader */
+  @keyframes rotate-slow {
+    0% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+    100% { transform: rotate(-5deg); }
+  }
+  
+  @keyframes spin-slow {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @keyframes pulse-circuit-1 {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    20% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px #E76900; }
+  }
+  
+  @keyframes pulse-circuit-2 {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    40% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px #E76900; }
+  }
+  
+  @keyframes pulse-circuit-3 {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    60% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px #E76900; }
+  }
+  
+  @keyframes pulse-circuit-4 {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    80% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px #E76900; }
+  }
+  
+  @keyframes pulse-circuit-5 {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px #E76900; }
+  }
+  
+  @keyframes progress-bar {
+    0% { width: 0%; }
+    100% { width: 100%; }
+  }
+  
+  .animate-rotate-slow {
+    animation: rotate-slow 4s ease-in-out infinite;
+  }
+  
+  .animate-spin-slow {
+    animation: spin-slow 8s linear infinite;
+  }
+  
+  .animate-pulse-circuit-1 {
+    animation: pulse-circuit-1 2s ease-in-out infinite;
+  }
+  
+  .animate-pulse-circuit-2 {
+    animation: pulse-circuit-2 2s ease-in-out infinite;
+  }
+  
+  .animate-pulse-circuit-3 {
+    animation: pulse-circuit-3 2s ease-in-out infinite;
+  }
+  
+  .animate-pulse-circuit-4 {
+    animation: pulse-circuit-4 2s ease-in-out infinite;
+  }
+  
+  .animate-pulse-circuit-5 {
+    animation: pulse-circuit-5 2s ease-in-out infinite;
+  }
+  
+  .animate-progress-bar {
+    animation: progress-bar 2s ease-in-out infinite;
   }
 }

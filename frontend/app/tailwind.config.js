@@ -50,6 +50,13 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        /* OpenBioCure Brand Colors */
+        opencure: {
+          blue: "rgb(var(--opencure-blue))",
+          "dark-blue": "rgb(var(--opencure-dark-blue))",
+          orange: "rgb(var(--opencure-orange))",
+          cyan: "rgb(var(--opencure-cyan))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
