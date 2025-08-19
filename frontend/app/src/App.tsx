@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { checkCurrentUser } from '@/store/slices/authSlice';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { RegisterForm } from '@/components/auth/RegisterForm';
-import ScholarDashboard from '@/components/dashboard/ScholarDashboard';
+import ScholarDashboard from '@/components/scholar/ScholarDashboard';
 import PublicationReviewAnalysis from '@/components/scholar/PublicationReviewAnalysis';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import OpenBioCureLoader from '@/components/ui/OpenBioCureLoader';
@@ -34,7 +34,7 @@ const AppContent: React.FC = () => {
       {/* Protected routes */}
       <Route path="/dashboard" element={isAuthenticated ? <ScholarDashboard /> : <Navigate to="/login" replace />} />
       <Route path="/publication-review" element={isAuthenticated ? <PublicationReviewAnalysis /> : <Navigate to="/login" replace />} />
-      <Route path="/onboarding" element={isAuthenticated ? <OnboardingFlow /> : <Navigate to="/login" replace />} />
+      <Route path="/onboarding" element={isAuthenticated ? <OnboardingFlow /> : <Navigate to="/onboarding" replace />} />
       {/* Default redirects */}
       <Route path="/" element={<Navigate to={isAuthenticated ? "/onboarding" : "/login"} replace />} />
       <Route path="*" element={<Navigate to={isAuthenticated ? "/onboarding" : "/login"} replace />} />
