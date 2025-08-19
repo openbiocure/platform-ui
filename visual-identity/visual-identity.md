@@ -17,14 +17,6 @@ The goal is to democratize access to cutting-edge insights, accelerating evidenc
 ## Fonts
 **Montserrat**  
 
-### English Alphabet
-Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz  
-
-### Arabic Alphabet
-ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن هـ و ي
-
----
-
 ## Colors
 - **Blue (Primary)**  
   - CMYK: 100, 94, 4, 2  
@@ -77,3 +69,9 @@ Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz
 
 ## Icons
 - Set of approved icons for usage
+
+
+## Background Colors for pages
+
+- Use the following rgb(249 250 251 / var(--tw-bg-opacity, 1));
+
