@@ -8,7 +8,6 @@ import ScholarDashboard from '@/components/scholar/ScholarDashboard';
 import PublicationReviewAnalysis from '@/components/scholar/PublicationReviewAnalysis';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import OpenBioCureLoader from '@/components/ui/OpenBioCureLoader';
-import mixpanel from "mixpanel-browser";
 import './App.css';
 
 const AppContent: React.FC = () => {
@@ -16,12 +15,19 @@ const AppContent: React.FC = () => {
   const { isAuthenticated, isLoading } = useAppSelector((state) => state.auth);
 
   useEffect(() => {
-    // Initialize Mixpanel
-    mixpanel.init("c5af23aadf294d488bddba30e20b48f7", {
-      debug: true,
-      track_pageview: true,
-      persistence: "localStorage",
-    });
+    // Initialize Mixpanel with error handling
+    try {
+      const mixpanel = require("mixpanel-browser");
+      mixpanel.init("c5af23aadf294d488bddba30e20b48f7", {
+        debug: true,
+        track_pageview: true,
+        persistence: "localStorage",
+      });
+      console.log("Mixpanel initialized successfully");
+    } catch (error) {
+      console.warn("Mixpanel failed to load, analytics disabled:", error);
+      // App continues to work without analytics
+    }
     
     // Check for existing user on mount
     dispatch(checkCurrentUser());
