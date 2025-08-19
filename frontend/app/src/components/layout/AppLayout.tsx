@@ -1,22 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAppDispatch } from '../../store/hooks';
 import { logoutUser } from '../../store/slices/authSlice';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { 
-  Users, 
   LogOut, 
-  BarChart3,
-  Calendar,
   Bell,
-  LayoutDashboard,
-  Search as SearchIcon,
-  FlaskConical as ScienceIcon,
-  FileText as ArticleIcon,
-  FileText,
-  Bot,
-  Target
+  ChevronDown,
+  Moon,
+  Sun,
+  Monitor
 } from 'lucide-react';
 import ScholarProfile from '../dashboard/ScholarProfile';
-import { ScholarHomeDashboard } from '../scholar/ScholarHomeDashboard';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -24,10 +18,20 @@ interface AppLayoutProps {
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [currentView, setCurrentView] = useState<'dashboard' | 'profile'>('dashboard');
+  const [projectDropdownOpen, setProjectDropdownOpen] = useState(false);
+  const [currentProject, setCurrentProject] = useState('Project Alpha');
+
+  // Actual projects from dashboard
+  const projects = [
+    { id: 'alpha', name: 'Project Alpha', active: true },
+    { id: 'beta', name: 'Project Beta', active: false },
+    { id: 'panCancer', name: 'Pan-Cancer Atlas Initiative', active: false }
+  ];
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -36,6 +40,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   // Click outside handlers for menus
   const profileMenuRef = useRef<HTMLDivElement>(null);
   const notificationsRef = useRef<HTMLDivElement>(null);
+  const projectDropdownRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -48,6 +53,11 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       if (notificationsRef.current && !notificationsRef.current.contains(event.target as Node)) {
         setNotificationsOpen(false);
       }
+
+      // Close project dropdown if clicking outside
+      if (projectDropdownRef.current && !projectDropdownRef.current.contains(event.target as Node)) {
+        setProjectDropdownOpen(false);
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -56,12 +66,23 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     };
   }, []);
 
-  // Render content based on current view
+  // Render content based on current route
   const renderContent = () => {
-    if (currentView === 'profile') {
+    if (location.pathname === '/profile') {
       return <ScholarProfile />;
     }
     return children;
+  };
+
+  const handleThemeChange = (newTheme: 'light' | 'dark' | 'auto') => {
+    // Here you would implement actual theme switching logic
+    console.log('Theme changed to:', newTheme);
+  };
+
+  const handleProjectChange = (projectId: string) => {
+    setCurrentProject(projects.find(p => p.id === projectId)?.name || 'Project Alpha');
+    setProjectDropdownOpen(false);
+    // Here you would implement actual project switching logic
   };
 
   return (
@@ -76,13 +97,48 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 <img src="icon-white.svg" className="h-8 w-8" alt="OpenBioCure Logo" />
                 <span className="text-lg font-bold text-white">OpenBioCure</span>
               </div>
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-sm text-gray-300">All Project Data</span>
-                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
+              
+              {/* Project Dropdown */}
+              <div className="relative mb-3" ref={projectDropdownRef}>
+                <button
+                  onClick={() => setProjectDropdownOpen(!projectDropdownOpen)}
+                  className="w-full flex items-center justify-between p-2 bg-[#001E62] hover:bg-[#001E62]/80 text-white rounded-md text-sm transition-colors border border-gray-600"
+                >
+                  <span className="text-gray-300">{currentProject}</span>
+                  <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${projectDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+                
+                {projectDropdownOpen && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-[#001E62] border border-gray-600 rounded-md shadow-lg z-50">
+                    <div className="p-2 border-b border-gray-600">
+                      <span className="text-xs text-gray-400 uppercase tracking-wide">Projects ({projects.length})</span>
+                    </div>
+                    <div className="py-1">
+                      {projects.map((project) => (
+                        <button
+                          key={project.id}
+                          onClick={() => handleProjectChange(project.id)}
+                          className={`w-full flex items-center px-3 py-2 text-sm text-left transition-colors ${
+                            project.active 
+                              ? 'bg-[#E76900] text-white' 
+                              : 'text-gray-300 hover:bg-gray-700'
+                          }`}
+                        >
+                          {project.name}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="border-t border-gray-600 my-1"></div>
+                    <div className="p-2">
+                      <button className="w-full bg-[#001E62] hover:bg-[#001E62]/80 text-white px-3 py-2 rounded text-sm font-medium transition-colors border border-gray-600">
+                        Create Project
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
-              <button className="w-full bg-[#E76900] hover:bg-[#E76900]/90 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+
+              <button className="w-full bg-white hover:bg-gray-100 text-[#001E62] px-3 py-2 rounded-md text-sm font-medium transition-colors border border-gray-300">
                 + Create New
               </button>
             </>
@@ -94,8 +150,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         {/* Main Navigation */}
         <nav className={`flex-grow space-y-1 ${drawerOpen ? 'p-4' : 'p-2'}`}>
           <button 
-            onClick={() => setCurrentView('dashboard')}
-            className={`flex items-center px-3 py-2 text-white rounded-md w-full ${drawerOpen ? 'justify-start' : 'justify-center'} transition-colors ${currentView === 'dashboard' ? 'bg-[#E76900] text-white' : 'hover:bg-gray-700'}`}
+            onClick={() => navigate('/dashboard')}
+            className={`flex items-center px-3 py-2 text-white rounded-md w-full ${drawerOpen ? 'justify-start' : 'justify-center'} transition-colors ${location.pathname === '/dashboard' ? 'bg-[#E76900] text-white' : 'hover:bg-gray-700'}`}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
@@ -104,15 +160,15 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             {drawerOpen && <span className="ml-3 text-sm font-medium">Dashboard</span>}
           </button>
           
-          <a 
-            href="/publication-review"
-            className={`flex items-center px-3 py-2 rounded-md w-full ${drawerOpen ? 'justify-start' : 'justify-center'} transition-colors ${window.location.pathname === '/publication-review' ? 'bg-[#E76900] text-white' : 'text-gray-300 hover:bg-gray-700'}`}
+          <button 
+            onClick={() => navigate('/publication-review')}
+            className={`flex items-center px-3 py-2 rounded-md w-full ${drawerOpen ? 'justify-start' : 'justify-center'} transition-colors ${location.pathname === '/publication-review' ? 'bg-[#E76900] text-white' : 'text-gray-300 hover:bg-gray-700'}`}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             {drawerOpen && <span className="ml-3 text-sm font-medium">Publications</span>}
-          </a>
+          </button>
         </nav>
         
         {/* Bottom Section - Just Close Toggle */}
@@ -143,7 +199,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           <header className="flex justify-between items-center mb-8">
             <div className="flex items-center space-x-4">
               <h1 className="text-2xl font-bold text-gray-900">
-                {currentView === 'dashboard' ? 'OpenBioCure Platform' : 'Profile'}
+                {location.pathname === '/dashboard' ? 'OpenBioCure Platform' : location.pathname === '/publication-review' ? 'Publications' : 'Profile'}
               </h1>
             </div>
             
@@ -201,7 +257,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                     </div>
                     <div className="py-1">
                       <button 
-                        onClick={() => setCurrentView('profile')}
+                        onClick={() => navigate('/profile')}
                         className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
                         <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -209,19 +265,41 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                         </svg>
                         Profile
                       </button>
-                      <a href="#" className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                         <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                         Settings
-                      </a>
-                      <a href="#" className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      </button>
+                      <button className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                         <svg className="w-4 h-4 mr-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         Help & Support
-                      </a>
+                      </button>
+                      <div className="border-t border-gray-100 my-1"></div>
+                      <button 
+                        onClick={() => handleThemeChange('light')}
+                        className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        <Sun className="w-4 h-4 mr-3 text-gray-400" />
+                        Light Mode
+                      </button>
+                      <button 
+                        onClick={() => handleThemeChange('dark')}
+                        className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        <Moon className="w-4 h-4 mr-3 text-gray-400" />
+                        Dark Mode
+                      </button>
+                      <button 
+                        onClick={() => handleThemeChange('auto')}
+                        className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      >
+                        <Monitor className="w-4 h-4 mr-3 text-gray-400" />
+                        Auto
+                      </button>
                       <div className="border-t border-gray-100 my-1"></div>
                       <button 
                         onClick={handleLogout}

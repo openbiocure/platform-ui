@@ -347,7 +347,7 @@ export const ScholarHomeDashboard: React.FC = () => {
                   <Bot className="w-4 h-4 text-white" />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold text-lg">AI Research Insights</h4>
+                  <h4 className="text-white font-bold text-lg">AI Generated Research Insights</h4>
                   <p className="text-white/80 text-sm">Latest discoveries from 47 analyzed papers</p>
                 </div>
               </div>
@@ -485,7 +485,7 @@ export const ScholarHomeDashboard: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
               </div>
-              <h3 className="text-white font-semibold text-sm">Your Projects</h3>
+              <h3 className="text-white font-semibold text-sm">Projects Overview</h3>
             </div>
           </div>
           
