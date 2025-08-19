@@ -283,7 +283,7 @@ const Dashboard: React.FC = () => {
           <div className="flex items-center space-x-4">
             <Button size="sm" className="bg-[#00239C] hover:bg-[#001E62] text-white">
               <Brain className="w-4 h-4 mr-2" />
-              AI Analysis
+              AI Generated Publication
             </Button>
             <Button size="sm" variant="outline">
               <Database className="w-4 h-4 mr-2" />

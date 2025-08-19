@@ -5,6 +5,8 @@ import { checkCurrentUser } from '@/store/slices/authSlice';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { RegisterForm } from '@/components/auth/RegisterForm';
 import ScholarDashboard from '@/components/dashboard/ScholarDashboard';
+import PublicationReviewAnalysis from '@/components/scholar/PublicationReviewAnalysis';
+import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import { Loader2 } from 'lucide-react';
 import './App.css';
 
@@ -31,14 +33,16 @@ const AppContent: React.FC = () => {
   return (
     <Routes>
       {/* Public routes */}
-      <Route path="/login" element={!isAuthenticated ? <LoginForm /> : <Navigate to="/dashboard" replace />} />
-      <Route path="/sign-up" element={!isAuthenticated ? <RegisterForm /> : <Navigate to="/dashboard" replace />} />
+      <Route path="/login" element={!isAuthenticated ? <LoginForm /> : <Navigate to="/onboarding" replace />} />
+      <Route path="/sign-up" element={!isAuthenticated ? <RegisterForm /> : <Navigate to="/onboarding" replace />} />
       
       {/* Protected routes */}
       <Route path="/dashboard" element={isAuthenticated ? <ScholarDashboard /> : <Navigate to="/login" replace />} />
+      <Route path="/publication-review" element={isAuthenticated ? <PublicationReviewAnalysis /> : <Navigate to="/login" replace />} />
+      <Route path="/onboarding" element={isAuthenticated ? <OnboardingFlow /> : <Navigate to="/login" replace />} />
       {/* Default redirects */}
-      <Route path="/" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} />
-      <Route path="*" element={<Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />} />
+      <Route path="/" element={<Navigate to={isAuthenticated ? "/onboarding" : "/login"} replace />} />
+      <Route path="*" element={<Navigate to={isAuthenticated ? "/onboarding" : "/login"} replace />} />
     </Routes>
   );
 };
