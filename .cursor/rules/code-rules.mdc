@@ -1,0 +1,10 @@
+# Code Rules
+
+## Source Code Scanning
+- Scan the source code every time before generating answers or making changes
+- Always read relevant files to understand the current codebase state
+- Use semantic search and file reading tools to gather context before proceeding
+description:
+globs:
+alwaysApply: false
+---
