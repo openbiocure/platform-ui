@@ -4,6 +4,24 @@
 - Scan the source code every time before generating answers or making changes
 - Always read relevant files to understand the current codebase state
 - Use semantic search and file reading tools to gather context before proceeding
+
+## Visual Identity Adaptation
+- Always read and adapt visual_identity.md before executing any design or UI changes
+- Ensure all color schemes, typography, and design elements follow the established brand guidelines
+- Use the specified color palette from visual_identity.md
+- Apply Montserrat font family for typography
+- Maintain the laboratory bottle + robot + data analysis logo concept
+- Preserve the established visual identity when redesigning components
+
+## Security Requirements
+- Always read security.md before developing any API between frontend and backend
+
+## Data Model Requirements
+- **NEVER create data models, database schemas, or backend structures without explicit discussion and approval**
+- All data models must be discussed with the user before implementation
+- No assumptions about data structure, relationships, or backend architecture
+- Wait for explicit instructions before creating any backend components
+
 description:
 globs:
 alwaysApply: false
