@@ -9,6 +9,16 @@ import PublicationReviewAnalysis from '@/components/scholar/PublicationReviewAna
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import OpenBioCureLoader from '@/components/ui/OpenBioCureLoader';
 
+// Import Mixpanel SDK
+import mixpanel from "mixpanel-browser";
+
+// Near entry of your product, init Mixpanel
+mixpanel.init("c5af23aadf294d488bddba30e20b48f7", {
+  debug: true,
+  track_pageview: true,
+  persistence: "localStorage",
+});
+
 import './App.css';
 
 const AppContent: React.FC = () => {
