@@ -16,18 +16,18 @@ const AppContent: React.FC = () => {
 
   useEffect(() => {
     // Initialize Mixpanel with error handling
-    try {
-      const mixpanel = require("mixpanel-browser");
-      mixpanel.init("c5af23aadf294d488bddba30e20b48f7", {
-        debug: true,
-        track_pageview: true,
-        persistence: "localStorage",
-      });
-      console.log("Mixpanel initialized successfully");
-    } catch (error) {
-      console.warn("Mixpanel failed to load, analytics disabled:", error);
-      // App continues to work without analytics
-    }
+    // try {
+    //   const mixpanel = require("mixpanel-browser");
+    //   mixpanel.init("c5af23aadf294d488bddba30e20b48f7", {
+    //     debug: true,
+    //     track_pageview: true,
+    //     persistence: "localStorage",
+    //   });
+    //   console.log("Mixpanel initialized successfully");
+    // } catch (error) {
+    //   console.warn("Mixpanel failed to load, analytics disabled:", error);
+    //   // App continues to work without analytics
+    // }
     
     // Check for existing user on mount
     dispatch(checkCurrentUser());
