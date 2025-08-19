@@ -199,65 +199,60 @@ const OnboardingFlow: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* LinkedIn Option */}
-        <div className="border border-gray-200 rounded-lg p-6 hover:border-[#00239C] transition-colors text-center flex flex-col">
+        <div className="border border-gray-200 rounded-lg p-6 hover:border-gray-300 transition-colors text-center flex flex-col">
           <div className="w-16 h-16 bg-[#00239C] rounded-lg flex items-center justify-center mx-auto mb-4">
             <Linkedin className="w-8 h-8 text-white" />
           </div>
           <h3 className="text-lg font-semibold text-[#001E62] mb-2">LinkedIn</h3>
           <p className="text-sm text-gray-600 mb-6 flex-grow font-normal">Import from your professional network</p>
-          <Button
+          <button
             onClick={handleLinkedinLogin}
-            disabled={isAnalyzing}
-            className="w-full bg-[#00239C] hover:bg-[#00239C]/90 text-white"
+            className="w-full text-white px-4 py-2 rounded-md font-medium transition-colors"
+            style={{ backgroundColor: '#00239C' }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#001E62'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#00239C'}
           >
-            {isAnalyzing && importSource === 'linkedin' ? (
-              <>
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                Connecting...
-              </>
-            ) : (
-              <Linkedin className="w-5 h-5" />
-            )}
-          </Button>
+            <Linkedin className="w-5 h-5 mr-2 inline" />
+            Connect
+          </button>
         </div>
 
         {/* ResearchGate Option */}
-        <div className="border border-gray-200 rounded-lg p-6 hover:border-[#00CCAA] transition-colors text-center flex flex-col">
+        <div className="border border-gray-200 rounded-lg p-6 hover:border-gray-300 transition-colors text-center flex flex-col">
           <div className="w-16 h-16 bg-[#00CCAA] rounded-lg flex items-center justify-center mx-auto mb-4">
             <Search className="w-8 h-8 text-white" />
           </div>
           <h3 className="text-lg font-semibold text-[#001E62] mb-2">ResearchGate</h3>
           <p className="text-sm text-gray-600 mb-6 flex-grow font-normal">Import from your research profile</p>
-          <Button
+          <button
             onClick={handleResearchGateImport}
-            disabled={isAnalyzing}
-            className="w-full bg-[#00CCAA] hover:bg-[#00CCAA]/90 text-white"
+            className="w-full text-white px-4 py-2 rounded-md font-medium transition-colors"
+            style={{ backgroundColor: '#00CCAA' }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#00AA88'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#00CCAA'}
           >
-            {isAnalyzing && importSource === 'researchgate' ? (
-              <>
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                Importing...
-              </>
-            ) : (
-              <Search className="w-5 h-5" />
-            )}
-          </Button>
+            <Search className="w-5 h-5 mr-2 inline" />
+            Import
+          </button>
         </div>
 
         {/* Manual Option */}
-        <div className="border border-gray-200 rounded-lg p-6 hover:border-[#00A3E0] transition-colors text-center flex flex-col">
+        <div className="border border-gray-200 rounded-lg p-6 hover:border-gray-300 transition-colors text-center flex flex-col">
           <div className="w-16 h-16 bg-[#00A3E0] rounded-lg flex items-center justify-center mx-auto mb-4">
             <User className="w-8 h-8 text-white" />
           </div>
           <h3 className="text-lg font-semibold text-[#001E62] mb-2">Manual Entry</h3>
           <p className="text-sm text-gray-600 mb-6 flex-grow font-normal">Fill out your profile manually</p>
-          <Button
+          <button
             onClick={() => setManualMode(true)}
-            variant="outline"
-            className="w-full border-[#00A3E0] text-[#00A3E0] hover:bg-[#00A3E0] hover:text-white"
+            className="w-full text-white px-4 py-2 rounded-md font-medium transition-colors"
+            style={{ backgroundColor: '#00A3E0' }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0088CC'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#00A3E0'}
           >
-            <User className="w-5 h-5" />
-          </Button>
+            <User className="w-5 h-5 mr-2 inline" />
+            Manual Entry
+          </button>
         </div>
       </div>
     </div>
@@ -382,15 +377,19 @@ const OnboardingFlow: React.FC = () => {
               <textarea
                 value={onboardingData.experience}
                 onChange={(e) => handleInputChange('experience', e.target.value)}
-                className="w-full px-4 py-3 pr-20 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A3E0] focus:border-transparent h-24 resize-none"
+                className="w-full px-4 py-3 pr-20 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A3E0] focus:border-transparent min-h-32 resize-y"
                 placeholder="Brief description of your research experience..."
+                maxLength={3000}
               />
               <button
                 onClick={() => console.log('AI rewrite experience')}
-                className="absolute right-2 top-2 px-3 py-1 bg-[#00A3E0] text-white text-xs rounded-md hover:bg-[#00A3E0]/90 transition-colors"
+                className="absolute right-2 top-2 px-3 py-1 bg-[#E76900] text-white text-xs rounded-md hover:bg-[#E76900]/90 transition-colors"
               >
                 ✨ AI
               </button>
+              <div className="text-xs text-gray-500 mt-1 text-right">
+                {onboardingData.experience.length}/3000 characters
+              </div>
             </div>
           </div>
           <div>
@@ -399,14 +398,18 @@ const OnboardingFlow: React.FC = () => {
               <textarea
                 value={onboardingData.education}
                 onChange={(e) => handleInputChange('education', e.target.value)}
-                className="w-full px-4 py-3 pr-20 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A3E0] focus:border-transparent h-24 resize-none"
+                className="w-full px-4 py-3 pr-20 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00A3E0] focus:border-transparent min-h-32 resize-y"
+                maxLength={3000}
               />
               <button
                 onClick={() => console.log('AI rewrite education')}
-                className="absolute right-2 top-2 px-3 py-1 bg-[#00A3E0] text-white text-xs rounded-md hover:bg-[#00A3E0]/90 transition-colors"
+                className="absolute right-2 top-2 px-3 py-1 bg-[#E76900] text-white text-xs rounded-md hover:bg-[#E76900]/90 transition-colors"
               >
                 ✨ AI
               </button>
+              <div className="text-xs text-gray-500 mt-1 text-right">
+                {onboardingData.education.length}/3000 characters
+              </div>
             </div>
           </div>
         </div>
@@ -537,19 +540,23 @@ const OnboardingFlow: React.FC = () => {
           </div>
           
           <div className="flex justify-end space-x-3">
-            <Button
-              variant="outline"
+            <button
               onClick={() => setShowCropModal(false)}
+              className="px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-md font-medium transition-colors hover:bg-gray-50"
             >
               Cancel
-            </Button>
-            <Button
+            </button>
+            <button
               onClick={handleCropComplete}
               disabled={!completedCrop}
-              className="bg-[#00239C] hover:bg-[#00239C]/90 text-white"
+              className={`px-4 py-2 rounded-md font-medium transition-colors ${
+                completedCrop 
+                  ? 'bg-[#00239C] hover:bg-[#00239C]/90 text-white cursor-pointer' 
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
             >
               Crop & Save
-            </Button>
+            </button>
           </div>
         </div>
       </div>
@@ -571,14 +578,18 @@ const OnboardingFlow: React.FC = () => {
             Skip for Now
           </Button>
           
-          <Button
+          <button
             onClick={handleComplete}
             disabled={onboardingData.researchInterests.length === 0}
-            className="px-6 py-2 bg-[#00239C] hover:bg-[#00239C]/90 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            className={`px-6 py-2 rounded-md font-medium transition-colors ${
+              onboardingData.researchInterests.length > 0
+                ? 'bg-[#00239C] hover:bg-[#00239C]/90 text-white cursor-pointer'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
           >
-            <CheckCircle className="w-4 h-4 mr-2" />
+            <CheckCircle className="w-4 h-4 mr-2 inline" />
             Complete Setup
-          </Button>
+          </button>
         </div>
       </div>
       

@@ -38,8 +38,8 @@ export const logoutUser = createAsyncThunk(
 export const checkCurrentUser = createAsyncThunk(
   'auth/checkCurrentUser',
   async () => {
-    // Add a delay to show the loading state longer
-    await new Promise(resolve => setTimeout(resolve, 2500));
+    // Small delay for smooth UX
+    await new Promise(resolve => setTimeout(resolve, 500));
     const user = mockGetCurrentUser();
     return user;
   }

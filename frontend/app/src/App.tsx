@@ -8,6 +8,7 @@ import ScholarDashboard from '@/components/dashboard/ScholarDashboard';
 import PublicationReviewAnalysis from '@/components/scholar/PublicationReviewAnalysis';
 import OnboardingFlow from '@/components/onboarding/OnboardingFlow';
 import OpenBioCureLoader from '@/components/ui/OpenBioCureLoader';
+
 import './App.css';
 
 const AppContent: React.FC = () => {
@@ -19,6 +20,7 @@ const AppContent: React.FC = () => {
     dispatch(checkCurrentUser());
   }, [dispatch]);
 
+  // Show loading while checking authentication
   if (isLoading) {
     return <OpenBioCureLoader fullPage={true} />;
   }
