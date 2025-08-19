@@ -106,10 +106,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           
           <a 
             href="/publication-review"
-            className={`flex items-center px-3 py-2 text-gray-300 hover:bg-gray-700 rounded-md w-full ${drawerOpen ? 'justify-start' : 'justify-center'} transition-colors`}
+            className={`flex items-center px-3 py-2 rounded-md w-full ${drawerOpen ? 'justify-start' : 'justify-center'} transition-colors ${window.location.pathname === '/publication-review' ? 'bg-[#E76900] text-white' : 'text-gray-300 hover:bg-gray-700'}`}
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             {drawerOpen && <span className="ml-3 text-sm font-medium">Publications</span>}
           </a>
@@ -142,16 +142,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <div className="p-8">
           <header className="flex justify-between items-center mb-8">
             <div className="flex items-center space-x-4">
-              {/* Drawer Toggle Button */}
-              <button
-                onClick={() => setDrawerOpen(!drawerOpen)}
-                className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
-              
               <h1 className="text-2xl font-bold text-gray-900">
                 {currentView === 'dashboard' ? 'OpenBioCure Platform' : 'Profile'}
               </h1>
