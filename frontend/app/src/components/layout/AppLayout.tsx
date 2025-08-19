@@ -67,49 +67,77 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Left Sidebar - Navigation Drawer */}
-      <aside className={`${drawerOpen ? 'w-64' : 'w-16'} bg-[#001E62] text-white flex flex-col fixed h-full transition-all duration-300 ease-in-out z-40`}>
-        <div className="flex items-center justify-center p-4 border-b border-gray-700">
+      <aside className={`${drawerOpen ? 'w-64' : 'w-16'} bg-white text-gray-900 flex flex-col fixed h-full transition-all duration-300 ease-in-out z-40 border-r border-gray-200`}>
+        {/* Top Section - Branding and Project Selection */}
+        <div className="p-4 border-b border-gray-200">
           {drawerOpen ? (
             <>
-              <img src="icon-white.svg" className="h-12 w-12" alt="OpenBioCure Logo" />
-              <h1 className="text-xl font-bold ml-2">OpenBioCure</h1>
+              <div className="flex items-center space-x-2 mb-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-[#00239C] to-[#00A3E0] rounded-lg flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">X</span>
+                </div>
+                <span className="text-lg font-bold text-gray-900">OpenBioCure</span>
+              </div>
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-sm text-gray-600">All Project Data</span>
+                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+              <button className="w-full bg-[#00239C] hover:bg-[#001E62] text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                + Create New
+              </button>
             </>
           ) : (
-            <img src="icon-white.svg" className="h-12 w-12" alt="OpenBioCure Logo" />
+            <div className="w-8 h-8 bg-gradient-to-br from-[#00239C] to-[#00A3E0] rounded-lg flex items-center justify-center mx-auto">
+              <span className="text-white font-bold text-lg">X</span>
+            </div>
           )}
         </div>
         
-        <nav className={`flex-grow space-y-2 ${drawerOpen ? 'p-4' : 'p-2'}`}>
+        {/* Main Navigation */}
+        <nav className={`flex-grow space-y-1 ${drawerOpen ? 'p-4' : 'p-2'}`}>
           <button 
             onClick={() => setCurrentView('dashboard')}
-            className={`flex items-center px-4 py-2 text-white rounded-lg w-full ${drawerOpen ? 'justify-start' : 'justify-center'} hover:bg-gray-700 transition-colors ${currentView === 'dashboard' ? 'bg-[#E76900]' : ''}`}
+            className={`flex items-center px-3 py-2 text-gray-700 rounded-md w-full ${drawerOpen ? 'justify-start' : 'justify-center'} transition-colors ${currentView === 'dashboard' ? 'bg-gray-100 text-[#00239C]' : 'hover:bg-gray-50'}`}
           >
-            <LayoutDashboard className="w-5 h-5" />
-            {drawerOpen && <span className="ml-3">Dashboard</span>}
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z" />
+            </svg>
+            {drawerOpen && <span className="ml-3 text-sm font-medium">Home</span>}
           </button>
+          
           <a 
             href="/publication-review"
-            className={`flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 rounded-lg w-full ${drawerOpen ? 'justify-start' : 'justify-center'} transition-colors`}
+            className={`flex items-center px-3 py-2 text-gray-700 rounded-md w-full ${drawerOpen ? 'justify-start' : 'justify-center'} transition-colors hover:bg-gray-50`}
           >
-            <ArticleIcon className="w-5 h-5" />
-            {drawerOpen && <span className="ml-3">Publications</span>}
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            {drawerOpen && <span className="ml-3 text-sm font-medium">Publications</span>}
           </a>
         </nav>
         
-        <div className="p-4 border-t border-gray-700">
-          <div className={`flex items-center ${drawerOpen ? 'justify-start' : 'justify-center'}`}>
-            <img 
-              src="https://pfpassets.fra1.cdn.digitaloceanspaces.com/media/v1/prompts/scientist_face1_female_1.png" 
-              alt="Dr. Sarah Chen" 
-              className="w-10 h-10 rounded-full object-cover"
-            />
-            {drawerOpen && (
-              <div className="ml-3">
-                <p className="font-semibold">Dr. Sarah Chen</p>
-                <p className="text-sm text-gray-400">Cancer Researcher</p>
-              </div>
+        {/* Bottom Section - Just Close Toggle */}
+        <div className="p-4 border-t border-gray-200">
+          <button
+            onClick={() => setDrawerOpen(!drawerOpen)}
+            className={`w-full flex items-center justify-center p-2 text-gray-600 hover:text-gray-900 transition-colors ${drawerOpen ? 'justify-start' : 'justify-center'}`}
+          >
+            {drawerOpen ? (
+              <>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+                </svg>
+                <span className="ml-2 text-sm font-medium">Close</span>
+              </>
+            ) : (
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+              </svg>
             )}
-          </div>
+          </button>
         </div>
       </aside>
 
