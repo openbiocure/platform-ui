@@ -783,10 +783,6 @@ const PublicationReviewAnalysis: React.FC = () => {
         {/* Main Content */}
         <div className="flex-1 space-y-6">
           {/* Header */}
-          <div>
-            <h1 className="text-3xl font-bold text-[#00239C]">AI Generated Publication</h1>
-            <p className="text-gray-600 mt-2">Review and analyze publications with AI-powered insights</p>
-          </div>
 
         {/* Search and Filters */}
         <div className="flex flex-col sm:flex-row gap-4">

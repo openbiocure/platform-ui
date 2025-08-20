@@ -22,6 +22,12 @@
 - No assumptions about data structure, relationships, or backend architecture
 - Wait for explicit instructions before creating any backend components
 
+## File Organization
+- **NEVER create markdown files or documentation in the root directory**
+- All documentation files must go in the `docs/` folder
+- Keep root directory clean of temporary files, test scripts, and loose documentation
+- Use appropriate subdirectories for different types of files
+
 description:
 globs:
 alwaysApply: false

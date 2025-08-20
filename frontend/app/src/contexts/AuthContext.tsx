@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { AuthContextType, AuthState, LoginCredentials, RegisterData } from '../types/auth';
-import { mockLogin, mockRegister, mockLogout, mockGetCurrentUser } from '../services/authService';
+import { login, register, logout, getCurrentUser } from '../services/authService';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -26,7 +26,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   useEffect(() => {
     // Check for existing user on mount
-    const currentUser = mockGetCurrentUser();
+    const currentUser = getCurrentUser();
     if (currentUser) {
       setState({
         user: currentUser,
@@ -39,10 +39,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }, []);
 
-  const login = async (credentials: LoginCredentials) => {
+  const loginUser = async (credentials: LoginCredentials) => {
     try {
       setState(prev => ({ ...prev, isLoading: true, error: null }));
-      const user = await mockLogin(credentials);
+      const user = await login(credentials);
       setState({
         user,
         isAuthenticated: true,
@@ -59,10 +59,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const register = async (data: RegisterData) => {
+  const registerUser = async (data: RegisterData) => {
     try {
       setState(prev => ({ ...prev, isLoading: true, error: null }));
-      const user = await mockRegister(data);
+      const user = await register(data);
       setState({
         user,
         isAuthenticated: true,
@@ -79,14 +79,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    mockLogout();
-    setState({
-      user: null,
-      isAuthenticated: false,
-      isLoading: false,
-      error: null,
-    });
+  const logoutUser = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      setState({
+        user: null,
+        isAuthenticated: false,
+        isLoading: false,
+        error: null,
+      });
+    }
   };
 
   const clearError = () => {
@@ -95,9 +100,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const value: AuthContextType = {
     ...state,
-    login,
-    register,
-    logout,
+    login: loginUser,
+    register: registerUser,
+    logout: logoutUser,
     clearError,
   };
 

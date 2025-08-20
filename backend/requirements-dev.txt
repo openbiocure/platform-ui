@@ -1,0 +1,10 @@
+# Development tools for managing multiple services
+honcho==1.1.0          # Process manager (like foreman)
+supervisor==4.2.5       # Production process manager
+pytest==7.4.3          # Testing framework
+httpx==0.25.2          # HTTP client for testing services
+pytest-asyncio==0.21.1 # Async testing support
+
+# Service discovery and health checks
+consul-python==1.1.0   # Optional: Service discovery
+requests==2.31.0       # HTTP requests

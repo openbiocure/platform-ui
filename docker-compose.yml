@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    container_name: openbiocure-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Auth Service
+  auth-service:
+    build:
+      context: ./backend/auth-service
+      dockerfile: Dockerfile
+    container_name: openbiocure-auth
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=openbiocure_auth
+    ports:
+      - "8001:8001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Analytics Service
+  analytics-service:
+    build:
+      context: ./backend/analytics-service
+      dockerfile: Dockerfile
+    container_name: openbiocure-analytics
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=openbiocure_analytics
+    ports:
+      - "8002:8002"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # API Gateway
+  api-gateway:
+    build:
+      context: ./backend/api-gateway
+      dockerfile: Dockerfile
+    container_name: openbiocure-gateway
+    ports:
+      - "8000:8000"
+    depends_on:
+      - auth-service
+      - analytics-service
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  # Frontend (React)
+  frontend:
+    build:
+      context: ./frontend/app
+      dockerfile: Dockerfile
+    container_name: openbiocure-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api-gateway
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

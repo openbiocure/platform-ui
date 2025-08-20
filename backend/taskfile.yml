@@ -1,0 +1,88 @@
+# Taskfile.yml - Modern task runner (alternative to Makefile)
+# Install: brew install go-task/tap/go-task
+# Usage: task start, task stop, task health
+
+version: "3"
+
+vars:
+  AUTH_PORT: 8001
+  ANALYTICS_PORT: 8002
+  GATEWAY_PORT: 8000
+
+tasks:
+  install:
+    desc: Install dependencies for all services
+    cmds:
+      - echo "📦 Installing dependencies..."
+      - cd auth-service && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
+      - cd analytics-service && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
+      - cd api-gateway && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
+      - echo "✅ Dependencies installed"
+
+  start:
+    desc: Start all OpenBioCure services
+    deps: [stop] # Stop any existing services first
+    cmds:
+      - echo "🚀 Starting all services..."
+      - task: start-auth
+      - task: start-analytics
+      - task: start-gateway
+      - echo "✅ All services started"
+      - task: health
+
+  start-auth:
+    desc: Start auth service
+    cmds:
+      - cd auth-service && source venv/bin/activate && python3 -m uvicorn main:app --host 0.0.0.0 --port {{.AUTH_PORT}} --reload &
+
+  start-analytics:
+    desc: Start analytics service
+    cmds:
+      - cd analytics-service && source venv/bin/activate && python3 -m uvicorn main:app --host 0.0.0.0 --port {{.ANALYTICS_PORT}} --reload &
+
+  start-gateway:
+    desc: Start API gateway
+    cmds:
+      - cd api-gateway && source venv/bin/activate && python3 -m uvicorn main:app --host 0.0.0.0 --port {{.GATEWAY_PORT}} --reload &
+
+  stop:
+    desc: Stop all services
+    cmds:
+      - echo "🛑 Stopping services..."
+      - pkill -f "uvicorn.*{{.AUTH_PORT}}" || true
+      - pkill -f "uvicorn.*{{.ANALYTICS_PORT}}" || true
+      - pkill -f "uvicorn.*{{.GATEWAY_PORT}}" || true
+      - echo "✅ Services stopped"
+
+  health:
+    desc: Check service health
+    cmds:
+      - echo "🔍 Health checks:"
+      - curl -s http://localhost:{{.AUTH_PORT}}/health | jq .status || echo "❌ Auth down"
+      - curl -s http://localhost:{{.ANALYTICS_PORT}}/health | jq .status || echo "❌ Analytics down"
+      - curl -s http://localhost:{{.GATEWAY_PORT}}/health | jq .status || echo "❌ Gateway down"
+
+  test:
+    desc: Run tests
+    cmds:
+      - echo "🧪 Running tests..."
+      - python3 -m pytest tests/ -v
+
+  logs:
+    desc: Show service logs
+    cmds:
+      - echo "📋 Live logs (Ctrl+C to exit):"
+      - tail -f auth-service/logs/*.log analytics-service/logs/*.log api-gateway/logs/*.log 2>/dev/null || echo "No log files found"
+
+  clean:
+    desc: Clean up environments
+    cmds:
+      - echo "🧹 Cleaning..."
+      - rm -rf */venv */logs */__pycache__ */*.pyc
+      - echo "✅ Cleanup complete"
+
+  dev:
+    desc: Full development setup
+    cmds:
+      - task: install
+      - task: start

@@ -1,0 +1,4 @@
+# OpenBioCure Services - Heroku/Foreman style
+auth: cd auth-service && python3 -m uvicorn main:app --host 0.0.0.0 --port 8001 --reload
+analytics: cd analytics-service && python3 -m uvicorn main:app --host 0.0.0.0 --port 8002 --reload
+gateway: cd api-gateway && python3 -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload

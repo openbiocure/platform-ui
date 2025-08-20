@@ -1,0 +1,29 @@
+database:
+  host: 172.16.14.112
+  port: 5432
+  username: postgres
+  password: postgres
+
+  # Database names for each service
+  databases:
+    auth: openbiocure_auth
+    analytics: openbiocure_analytics
+    main: openbiocure_platform
+
+  # Connection pool settings
+  pool:
+    min_connections: 5
+    max_connections: 20
+    pool_timeout: 30
+    pool_recycle: 3600
+
+  # SSL settings
+  ssl:
+    enabled: false
+    mode: prefer
+
+  # Backup settings
+  backup:
+    enabled: true
+    retention_days: 30
+    schedule: "0 2 * * *" # Daily at 2 AM
