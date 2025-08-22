@@ -58,7 +58,9 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <h1 className="text-2xl font-bold text-gray-900">
-              {location.pathname === '/dashboard' ? 'Dashboard' : location.pathname === '/publication-review' ? 'Publications' : 'Profile'}
+              {location.pathname === '/dashboard' ? 'Dashboard' : 
+               location.pathname === '/workspace' ? 'Workspace' :
+               location.pathname === '/publication-review' ? 'Publications' : 'Profile'}
             </h1>
           </div>
           

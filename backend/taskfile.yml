@@ -7,6 +7,7 @@ version: "3"
 vars:
   AUTH_PORT: 8001
   ANALYTICS_PORT: 8002
+  WORKSPACE_PORT: 8004
   GATEWAY_PORT: 8000
 
 tasks:
@@ -16,6 +17,7 @@ tasks:
       - echo "📦 Installing dependencies..."
       - cd auth-service && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
       - cd analytics-service && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
+      - cd workspace-service && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
       - cd api-gateway && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
       - echo "✅ Dependencies installed"
 
@@ -26,6 +28,7 @@ tasks:
       - echo "🚀 Starting all services..."
       - task: start-auth
       - task: start-analytics
+      - task: start-workspace
       - task: start-gateway
       - echo "✅ All services started"
       - task: health
@@ -40,6 +43,11 @@ tasks:
     cmds:
       - cd analytics-service && source venv/bin/activate && python3 -m uvicorn main:app --host 0.0.0.0 --port {{.ANALYTICS_PORT}} --reload &
 
+  start-workspace:
+    desc: Start workspace service
+    cmds:
+      - cd workspace-service && source venv/bin/activate && python3 -m uvicorn main:app --host 0.0.0.0 --port {{.WORKSPACE_PORT}} --reload &
+
   start-gateway:
     desc: Start API gateway
     cmds:
@@ -51,6 +59,7 @@ tasks:
       - echo "🛑 Stopping services..."
       - pkill -f "uvicorn.*{{.AUTH_PORT}}" || true
       - pkill -f "uvicorn.*{{.ANALYTICS_PORT}}" || true
+      - pkill -f "uvicorn.*{{.WORKSPACE_PORT}}" || true
       - pkill -f "uvicorn.*{{.GATEWAY_PORT}}" || true
       - echo "✅ Services stopped"
 
@@ -60,6 +69,7 @@ tasks:
       - echo "🔍 Health checks:"
       - curl -s http://localhost:{{.AUTH_PORT}}/health | jq .status || echo "❌ Auth down"
       - curl -s http://localhost:{{.ANALYTICS_PORT}}/health | jq .status || echo "❌ Analytics down"
+      - curl -s http://localhost:{{.WORKSPACE_PORT}}/health | jq .status || echo "❌ Workspace down"
       - curl -s http://localhost:{{.GATEWAY_PORT}}/health | jq .status || echo "❌ Gateway down"
 
   test:
@@ -78,7 +88,7 @@ tasks:
     desc: Clean up environments
     cmds:
       - echo "🧹 Cleaning..."
-      - rm -rf */venv */logs */__pycache__ */*.pyc
+      - rm -rf */venv */logs */__pycache__ */*.pyc workspace-service.log
       - echo "✅ Cleanup complete"
 
   dev:

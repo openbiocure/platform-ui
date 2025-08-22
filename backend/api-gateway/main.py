@@ -149,7 +149,7 @@ async def proxy_auth(request: Request, path: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Proxy error: {str(e)}")
 
-# Example proxy route to analytics service
+# Analytics service proxy
 @app.api_route("/analytics/{path:path}", methods=["GET", "POST", "PUT", "DELETE"])
 async def proxy_analytics(request: Request, path: str):
     """Proxy requests to analytics service"""
@@ -169,6 +169,90 @@ async def proxy_analytics(request: Request, path: str):
             )
     except httpx.RequestError:
         raise HTTPException(status_code=503, detail="Analytics service unavailable")
+
+# Workspace service proxy routes
+@app.api_route("/api/workspace/{path:path}", methods=["GET", "POST", "PUT", "DELETE"])
+async def proxy_workspace(request: Request, path: str):
+    """Proxy requests to workspace service"""
+    try:
+        async with httpx.AsyncClient() as client:
+            # Get request body if present
+            body = None
+            if request.method in ["POST", "PUT", "PATCH"]:
+                try:
+                    body = await request.body()
+                except:
+                    body = None
+            
+            url = f"{SERVICES['workspace']}/api/workspace/{path}"
+            response = await client.request(
+                method=request.method,
+                url=url,
+                params=request.query_params,
+                headers={k: v for k, v in request.headers.items() if k.lower() != 'host'},
+                content=body,
+                timeout=30.0  # Longer timeout for document uploads and AI processing
+            )
+            
+            # Handle different content types
+            content_type = response.headers.get("content-type", "")
+            if content_type.startswith("application/json"):
+                return JSONResponse(
+                    content=response.json(),
+                    status_code=response.status_code,
+                    headers={k: v for k, v in response.headers.items() if k.lower() not in ['content-length', 'transfer-encoding']}
+                )
+            else:
+                return Response(
+                    content=response.content,
+                    status_code=response.status_code,
+                    headers={k: v for k, v in response.headers.items() if k.lower() not in ['content-length', 'transfer-encoding']}
+                )
+    except httpx.RequestError as e:
+        raise HTTPException(status_code=503, detail=f"Workspace service unavailable: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Workspace proxy error: {str(e)}")
+
+# Additional workspace route for file uploads (handles multipart form data)
+@app.api_route("/workspace/upload/{path:path}", methods=["POST"])
+async def proxy_workspace_upload(request: Request, path: str):
+    """Proxy file upload requests to workspace service with proper multipart handling"""
+    try:
+        async with httpx.AsyncClient() as client:
+            # For file uploads, we need to handle multipart form data properly
+            url = f"{SERVICES['workspace']}/api/workspace/documents/{path}"
+            
+            # Get the form data
+            form = await request.form()
+            files = {}
+            data = {}
+            
+            for key, value in form.items():
+                if hasattr(value, 'read'):  # It's a file
+                    files[key] = (value.filename, value.file, value.content_type)
+                else:  # It's regular form data
+                    data[key] = value
+            
+            response = await client.request(
+                method=request.method,
+                url=url,
+                params=request.query_params,
+                headers={k: v for k, v in request.headers.items() 
+                        if k.lower() not in ['host', 'content-length', 'content-type']},
+                files=files if files else None,
+                data=data if data else None,
+                timeout=300.0  # 5 minutes for large file uploads
+            )
+            
+            return JSONResponse(
+                content=response.json(),
+                status_code=response.status_code,
+                headers={k: v for k, v in response.headers.items() if k.lower() not in ['content-length', 'transfer-encoding']}
+            )
+    except httpx.RequestError as e:
+        raise HTTPException(status_code=503, detail=f"Workspace service unavailable: {str(e)}")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Workspace upload proxy error: {str(e)}")
 
 if __name__ == "__main__":
     uvicorn.run(

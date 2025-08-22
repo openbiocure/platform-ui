@@ -8,6 +8,7 @@ install:
 	@echo "📦 Installing dependencies for all services..."
 	cd auth-service && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
 	cd analytics-service && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
+	cd workspace-service && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
 	cd api-gateway && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
 	@echo "✅ All dependencies installed"
 
@@ -21,6 +22,7 @@ start-dev:
 	@echo "🚀 Starting services in development mode..."
 	cd auth-service && source venv/bin/activate && python3 -m uvicorn main:app --host 0.0.0.0 --port 8001 --reload &
 	cd analytics-service && source venv/bin/activate && python3 -m uvicorn main:app --host 0.0.0.0 --port 8002 --reload &
+	cd workspace-service && source venv/bin/activate && python3 -m uvicorn main:app --host 0.0.0.0 --port 8004 --reload &
 	cd api-gateway && source venv/bin/activate && python3 -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload &
 	@echo "✅ All services started in background"
 
@@ -29,6 +31,7 @@ stop:
 	@echo "🛑 Stopping all services..."
 	@pkill -f "uvicorn.*8001" || true
 	@pkill -f "uvicorn.*8002" || true
+	@pkill -f "uvicorn.*8004" || true
 	@pkill -f "uvicorn.*8000" || true
 	@pkill -f "honcho" || true
 	@echo "✅ All services stopped"
@@ -37,7 +40,8 @@ stop:
 health:
 	@echo "🔍 Checking service health..."
 	@curl -s http://localhost:8001/health | jq . || echo "❌ Auth service down"
-	@curl -s http://localhost:8002/health | jq . || echo "❌ Analytics service down"  
+	@curl -s http://localhost:8002/health | jq . || echo "❌ Analytics service down"
+	@curl -s http://localhost:8004/health | jq . || echo "❌ Workspace service down"
 	@curl -s http://localhost:8000/health | jq . || echo "❌ Gateway service down"
 
 # Run tests
@@ -49,7 +53,8 @@ test:
 logs:
 	@echo "📋 Service logs:"
 	@echo "Auth: tail -f auth-service/logs/app.log"
-	@echo "Analytics: tail -f analytics-service/logs/app.log" 
+	@echo "Analytics: tail -f analytics-service/logs/app.log"
+	@echo "Workspace: tail -f workspace-service/logs/app.log"
 	@echo "Gateway: tail -f api-gateway/logs/app.log"
 
 # Database seeding commands
@@ -102,8 +107,8 @@ reset-db:
 # Clean up virtual environments and logs
 clean:
 	@echo "🧹 Cleaning up..."
-	rm -rf auth-service/venv analytics-service/venv api-gateway/venv
-	rm -rf auth-service/logs analytics-service/logs api-gateway/logs
+	rm -rf auth-service/venv analytics-service/venv workspace-service/venv api-gateway/venv
+	rm -rf auth-service/logs analytics-service/logs workspace-service/logs api-gateway/logs
 	rm -rf **/__pycache__ **/*.pyc
 	@echo "✅ Cleanup complete"
 

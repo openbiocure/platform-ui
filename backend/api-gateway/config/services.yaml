@@ -23,3 +23,9 @@ services:
     health_endpoint: "/health"
     timeout: 30
     retries: 3
+
+  workspace:
+    url: "http://localhost:8004"
+    health_endpoint: "/health"
+    timeout: 30
+    retries: 3
