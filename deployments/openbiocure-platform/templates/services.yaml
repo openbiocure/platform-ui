@@ -1,0 +1,83 @@
+{{- if .Values.apiGateway.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "openbiocure-platform.fullname" . }}-api-gateway
+  labels:
+    {{- include "openbiocure-platform.labels" . | nindent 4 }}
+    app.kubernetes.io/component: api-gateway
+spec:
+  type: {{ .Values.apiGateway.service.type }}
+  ports:
+    - port: {{ .Values.apiGateway.service.port }}
+      targetPort: {{ .Values.apiGateway.service.targetPort }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "openbiocure-platform.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: api-gateway
+{{- end }}
+
+{{- if .Values.authService.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "openbiocure-platform.fullname" . }}-auth-service
+  labels:
+    {{- include "openbiocure-platform.labels" . | nindent 4 }}
+    app.kubernetes.io/component: auth-service
+spec:
+  type: {{ .Values.authService.service.type }}
+  ports:
+    - port: {{ .Values.authService.service.port }}
+      targetPort: {{ .Values.authService.service.targetPort }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "openbiocure-platform.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: auth-service
+{{- end }}
+
+{{- if .Values.analyticsService.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "openbiocure-platform.fullname" . }}-analytics-service
+  labels:
+    {{- include "openbiocure-platform.labels" . | nindent 4 }}
+    app.kubernetes.io/component: analytics-service
+spec:
+  type: {{ .Values.analyticsService.service.type }}
+  ports:
+    - port: {{ .Values.analyticsService.service.port }}
+      targetPort: {{ .Values.analyticsService.service.targetPort }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "openbiocure-platform.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: analytics-service
+{{- end }}
+
+{{- if .Values.frontend.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "openbiocure-platform.fullname" . }}-frontend
+  labels:
+    {{- include "openbiocure-platform.labels" . | nindent 4 }}
+    app.kubernetes.io/component: frontend
+spec:
+  type: {{ .Values.frontend.service.type }}
+  ports:
+    - port: {{ .Values.frontend.service.port }}
+      targetPort: {{ .Values.frontend.service.targetPort }}
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "openbiocure-platform.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: frontend
+{{- end }}

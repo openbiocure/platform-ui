@@ -1,0 +1,255 @@
+# Default values for openbiocure-platform.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Global configuration
+global:
+  imageRegistry: ""
+  imagePullSecrets: []
+  storageClass: ""
+
+# External PostgreSQL configuration
+postgresql:
+  enabled: false
+  external:
+    host: "172.16.14.112"
+    port: 5432
+    username: "postgres"
+    password: "postgres"
+    databases:
+      auth: "openbiocure_auth"
+      analytics: "openbiocure_analytics"
+      gateway: "openbiocure_gateway"
+
+# API Gateway Service
+apiGateway:
+  enabled: true
+  replicaCount: 2
+
+  image:
+    repository: openbiocure/api-gateway
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  service:
+    type: LoadBalancer
+    port: 8000
+    targetPort: 8000
+
+  ingress:
+    enabled: true
+    className: ""
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: api.openbiocure.ai
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: api-gateway-tls
+        hosts:
+          - api.openbiocure.ai
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+  env:
+    - name: AUTH_SERVICE_URL
+      value: "http://auth-service:8001"
+    - name: ANALYTICS_SERVICE_URL
+      value: "http://analytics-service:8002"
+    - name: SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: api-gateway-secrets
+          key: secret-key
+
+# Auth Service
+authService:
+  enabled: true
+  replicaCount: 2
+
+  image:
+    repository: openbiocure/auth-service
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  service:
+    type: ClusterIP
+    port: 8001
+    targetPort: 8001
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 8
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+  env:
+    - name: DATABASE_URL
+      value: "postgresql://postgres:postgres@172.16.14.112:5432/openbiocure_auth"
+    - name: SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: auth-service-secrets
+          key: secret-key
+    - name: ALGORITHM
+      value: "HS256"
+    - name: ACCESS_TOKEN_EXPIRE_MINUTES
+      value: "30"
+
+# Analytics Service
+analyticsService:
+  enabled: true
+  replicaCount: 2
+
+  image:
+    repository: openbiocure/analytics-service
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  service:
+    type: ClusterIP
+    port: 8002
+    targetPort: 8002
+
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 8
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+  env:
+    - name: DATABASE_URL
+      value: "postgresql://postgres:postgres@172.16.14.112:5432/openbiocure_analytics"
+    - name: SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: analytics-service-secrets
+          key: secret-key
+
+# Frontend Application
+frontend:
+  enabled: true
+  replicaCount: 2
+
+  image:
+    repository: openbiocure/frontend
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+  service:
+    type: ClusterIP
+    port: 3000
+    targetPort: 3000
+
+  ingress:
+    enabled: true
+    className: ""
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    hosts:
+      - host: app.openbiocure.ai
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: frontend-tls
+        hosts:
+          - app.openbiocure.ai
+
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 6
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+  env:
+    - name: REACT_APP_API_URL
+      value: "https://api.openbiocure.ai"
+
+# Secrets configuration (create these manually or via CI/CD)
+secrets:
+  apiGateway:
+    secretKey: "your-api-gateway-secret-key-here"
+  authService:
+    secretKey: "your-auth-service-secret-key-here"
+  analyticsService:
+    secretKey: "your-analytics-service-secret-key-here"
+
+# Service Account
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+# Pod Security Context
+podSecurityContext:
+  fsGroup: 2000
+
+# Security Context
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+
+# Node selector
+nodeSelector: {}
+
+# Tolerations
+tolerations: []
+
+# Affinity
+affinity: {}
+
+# Persistence
+persistence:
+  enabled: false
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 8Gi

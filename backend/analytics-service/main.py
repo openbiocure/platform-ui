@@ -1,9 +1,15 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, WebSocket, Query, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from sqlalchemy.orm import Session
 import uvicorn
 import uuid
+import asyncio
 from datetime import datetime
+
+from app.core.database import get_db, create_tables, check_database_health
+from app.api.analytics import router as analytics_router
+from app.api.websocket import websocket_endpoint, cleanup_stale_connections, manager
 
 # Basic configuration
 SERVICE_NAME = "analytics-service"
@@ -13,7 +19,7 @@ DEBUG = True
 # Initialize FastAPI app
 app = FastAPI(
     title="OpenBioCure Analytics Service",
-    description="Data analytics and metrics microservice for OpenBioCure platform",
+    description="Self-hosted analytics and metrics microservice for OpenBioCure platform",
     version=VERSION,
     docs_url="/docs" if DEBUG else None,
     redoc_url="/redoc" if DEBUG else None
@@ -22,7 +28,7 @@ app = FastAPI(
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://app.openbiocure.com"],
+    allow_origins=["http://localhost:3000", "http://localhost:8000", "https://app.openbiocure.com"],
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
@@ -39,30 +45,44 @@ async def add_correlation_id(request: Request, call_next):
     response.headers["X-Correlation-ID"] = correlation_id
     return response
 
+# Include analytics router
+app.include_router(analytics_router)
+
 @app.get("/")
 async def root():
     """Service health check"""
+    db_healthy = check_database_health()
     return {
         "service": SERVICE_NAME,
         "version": VERSION,
-        "status": "healthy",
-        "timestamp": datetime.utcnow().isoformat()
+        "status": "running",
+        "timestamp": datetime.utcnow().isoformat(),
+        "database": "connected" if db_healthy else "disconnected",
+        "websocket_connections": manager.get_active_connections_count()
     }
 
 @app.get("/health")
 async def health_check():
     """Detailed health check for monitoring"""
+    db_healthy = check_database_health()
+    connection_stats = manager.get_connection_stats()
+    
     return {
         "service": SERVICE_NAME,
         "version": VERSION,
-        "status": "healthy",
+        "status": "healthy" if db_healthy else "degraded",
         "timestamp": datetime.utcnow().isoformat(),
-        "database": "not_configured",
+        "database": "connected" if db_healthy else "disconnected",
+        "websocket": {
+            "total_connections": connection_stats["total_connections"],
+            "active_tenants": connection_stats["active_tenants"]
+        },
         "features": {
-            "usage_tracking": True,
-            "performance_metrics": True,
-            "user_analytics": True,
-            "dashboard_reports": True
+            "real_time_analytics": True,
+            "batch_processing": True,
+            "websocket_streaming": True,
+            "tenant_isolation": True,
+            "offline_support": True
         }
     }
 
@@ -70,24 +90,47 @@ async def health_check():
 async def api_health():
     """API health check"""
     return {
-        "api_version": "v1",
         "service": SERVICE_NAME,
-        "status": "operational",
+        "version": VERSION,
+        "status": "healthy",
         "timestamp": datetime.utcnow().isoformat()
     }
 
-@app.get("/api/v1/metrics")
-async def get_metrics():
-    """Get system metrics"""
-    return {
-        "metrics": {
-            "total_users": 0,
-            "active_sessions": 0,
-            "api_calls_today": 0,
-            "error_rate": 0.0
-        },
-        "timestamp": datetime.utcnow().isoformat()
-    }
+# WebSocket endpoint
+@app.websocket("/ws/analytics")
+async def websocket_analytics(
+    websocket: WebSocket,
+    tenant_id: str = Query(..., description="Tenant ID"),
+    user_id: str = Query(None, description="User ID"),
+    db: Session = Depends(get_db)
+):
+    """WebSocket endpoint for real-time analytics"""
+    await websocket_endpoint(websocket, tenant_id, user_id, db)
+
+# Startup event
+@app.on_event("startup")
+async def startup_event():
+    """Initialize service on startup"""
+    try:
+        # Create database tables
+        create_tables()
+        
+        # Start background cleanup task
+        asyncio.create_task(cleanup_stale_connections())
+        
+        print(f"🚀 {SERVICE_NAME} v{VERSION} started successfully")
+        print(f"📊 Analytics API: http://localhost:8002/api/v1/analytics")
+        print(f"🔌 WebSocket: ws://localhost:8002/ws/analytics")
+        print(f"📚 Documentation: http://localhost:8002/docs")
+        
+    except Exception as e:
+        print(f"❌ Failed to start service: {e}")
+
+# Shutdown event
+@app.on_event("shutdown")
+async def shutdown_event():
+    """Cleanup on shutdown"""
+    print(f"🛑 {SERVICE_NAME} shutting down...")
 
 if __name__ == "__main__":
     uvicorn.run(

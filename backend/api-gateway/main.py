@@ -12,11 +12,13 @@ SERVICE_NAME = "api-gateway"
 VERSION = "1.0.0"
 DEBUG = True
 
-# Service registry
-SERVICES = {
-    "auth": "http://localhost:8001",
-    "analytics": "http://localhost:8002"
-}
+# Service registry - loaded from config
+from config.service_registry import ServiceRegistry
+
+# Initialize service registry
+service_registry = ServiceRegistry()
+SERVICES = service_registry.load_services_config()
+CORS_CONFIG = service_registry.get_cors_config()
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -30,10 +32,10 @@ app = FastAPI(
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://app.openbiocure.com"],
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE"],
-    allow_headers=["*"],
+    allow_origins=CORS_CONFIG.get("origins", ["*"]),
+    allow_credentials=CORS_CONFIG.get("allow_credentials", True),
+    allow_methods=CORS_CONFIG.get("allow_methods", ["*"]),
+    allow_headers=CORS_CONFIG.get("allow_headers", ["*"]),
 )
 
 # Request correlation middleware

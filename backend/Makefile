@@ -52,6 +52,53 @@ logs:
 	@echo "Analytics: tail -f analytics-service/logs/app.log" 
 	@echo "Gateway: tail -f api-gateway/logs/app.log"
 
+# Database seeding commands
+seed-dev:
+	@echo "🌱 Seeding development database..."
+	cd auth-service && APP_ENV=development python3 seed_database.py
+	@echo "✅ Development seeding complete"
+
+seed-staging:
+	@echo "🌱 Seeding staging database..."
+	cd auth-service && APP_ENV=staging python3 seed_database.py
+	@echo "✅ Staging seeding complete"
+
+seed-prod:
+	@echo "🌱 Seeding production database..."
+	@echo "⚠️  Production seeding requires PROD_ADMIN_PASSWORD environment variable"
+	cd auth-service && APP_ENV=production python3 seed_database.py
+	@echo "✅ Production seeding complete"
+
+seed-test:
+	@echo "🌱 Seeding test database..."
+	cd auth-service && APP_ENV=test python3 seed_database.py
+	@echo "✅ Test seeding complete"
+
+seed-force:
+	@echo "🔄 Force seeding (overwrites existing data)..."
+	cd auth-service && python3 seed_database.py --force
+	@echo "✅ Force seeding complete"
+
+seed-dry-run:
+	@echo "🔍 Dry run seeding (shows what would be created)..."
+	cd auth-service && python3 seed_database.py --dry-run
+	@echo "✅ Dry run complete"
+
+# Simple seeding via API (no database dependencies)
+seed-simple:
+	@echo "🌱 Simple seeding via API..."
+	cd auth-service && python3 seed_simple.py
+	@echo "✅ Simple seeding complete"
+
+# Database management
+reset-db:
+	@echo "🗄️ Resetting database..."
+	$(MAKE) stop
+	@echo "🧹 Cleaning up database..."
+	@echo "🌱 Reseeding with development data..."
+	$(MAKE) seed-dev
+	@echo "✅ Database reset complete"
+
 # Clean up virtual environments and logs
 clean:
 	@echo "🧹 Cleaning up..."

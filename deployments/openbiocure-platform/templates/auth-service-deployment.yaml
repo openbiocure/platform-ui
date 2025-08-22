@@ -1,0 +1,80 @@
+{{- if .Values.authService.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "openbiocure-platform.fullname" . }}-auth-service
+  labels:
+    {{- include "openbiocure-platform.labels" . | nindent 4 }}
+    app.kubernetes.io/component: auth-service
+spec:
+  {{- if not .Values.authService.autoscaling.enabled }}
+  replicas: {{ .Values.authService.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "openbiocure-platform.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: auth-service
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/auth-service-configmap.yaml") . | sha256sum }}
+      labels:
+        {{- include "openbiocure-platform.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: auth-service
+    spec:
+      {{- with .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "openbiocure-platform.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: auth-service
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.authService.image.repository }}:{{ .Values.authService.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.authService.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.authService.service.targetPort }}
+              protocol: TCP
+          env:
+            {{- range .Values.authService.env }}
+            - name: {{ .name }}
+              {{- if .value }}
+              value: {{ .value | quote }}
+              {{- else if .valueFrom }}
+              valueFrom:
+                {{- toYaml .valueFrom | nindent 16 }}
+              {{- end }}
+            {{- end }}
+            - name: PYTHONPATH
+              value: "/app"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            {{- toYaml .Values.authService.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}
