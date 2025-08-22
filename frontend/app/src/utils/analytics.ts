@@ -81,8 +81,8 @@ export const getOSVersion = (): string => {
 
 export const getDeviceInfo = (): DeviceInfo => {
   return {
-    screen_width: screen.width,
-    screen_height: screen.height,
+    screen_width: window.screen.width,
+    screen_height: window.screen.height,
     viewport_width: window.innerWidth,
     viewport_height: window.innerHeight,
     device_type: getDeviceType(),

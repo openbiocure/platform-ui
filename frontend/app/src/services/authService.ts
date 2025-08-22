@@ -45,7 +45,7 @@ const setSecureItem = (key: string, value: string): void => {
   }
 };
 
-const getSecureItem = (key: string): string | null => {
+export const getSecureItem = (key: string): string | null => {
   try {
     return localStorage.getItem(key);
   } catch (error) {
