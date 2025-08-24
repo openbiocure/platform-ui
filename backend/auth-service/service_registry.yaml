@@ -1,0 +1,82 @@
+# Service Registry Configuration
+# WARNING: This file contains sensitive information and should NOT be committed to version control
+# In production, use environment variables or secure secret management systems
+
+services:
+  # Service credentials (secrets)
+  workspace:
+    secret: "${WORKSPACE_SERVICE_SECRET}" # Load from environment variable
+    description: "Workspace Service for document management and collaboration"
+
+  project:
+    secret: "${PROJECT_SERVICE_SECRET}" # Load from environment variable
+    description: "Project Service for project lifecycle management"
+
+  analytics:
+    secret: "${ANALYTICS_SERVICE_SECRET}" # Load from environment variable
+    description: "Analytics Service for data collection and insights"
+
+  auth:
+    secret: "${AUTH_SERVICE_SECRET}" # Load from environment variable
+    description: "Auth Service for authentication and authorization"
+
+permissions:
+  # Service-to-service communication permissions
+  workspace:
+    - "project" # Can call project service
+    - "analytics" # Can call analytics service
+    - "auth" # Can call auth service
+
+  project:
+    - "workspace" # Can call workspace service
+    - "analytics" # Can call analytics service
+    - "auth" # Can call auth service
+
+  analytics:
+    - "workspace" # Can call workspace service
+    - "project" # Can call project service
+    - "auth" # Can call auth service
+
+  auth:
+    - "workspace" # Can call workspace service
+    - "project" # Can call project service
+    - "analytics" # Can call analytics service
+
+# Redis Configuration
+redis:
+  host: "${REDIS_HOST:-localhost}"
+  port: "${REDIS_PORT:-6379}"
+  password: "${REDIS_PASSWORD:-}"
+  db: "${REDIS_DB:-0}"
+  ssl: "${REDIS_SSL:-false}"
+  max_connections: "${REDIS_MAX_CONNECTIONS:-10}"
+
+  # Redis usage patterns
+  cache:
+    service_tokens:
+      ttl: 3600 # 1 hour
+      prefix: "service_token:"
+    user_sessions:
+      ttl: 86400 # 24 hours
+      prefix: "user_session:"
+    rate_limiting:
+      ttl: 60 # 1 minute
+      prefix: "rate_limit:"
+
+  # Redis cluster configuration (for production)
+  cluster:
+    enabled: "${REDIS_CLUSTER_ENABLED:-false}"
+    nodes: "${REDIS_CLUSTER_NODES:-}"
+    max_redirects: "${REDIS_MAX_REDIRECTS:-3}"
+
+# Security settings
+security:
+  token_expiry_hours: 1
+  max_retries: 3
+  rate_limit_per_minute: 100
+
+# Audit logging
+audit:
+  log_all_service_calls: true
+  log_failed_attempts: true
+  retention_days: 90

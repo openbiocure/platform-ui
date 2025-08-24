@@ -22,7 +22,7 @@ class UserDelegator:
             "user": user,
             "tenant": tenant,
             "permissions": self._get_user_permissions(user),
-            "features": self._get_user_features(user, tenant)
+
         }
     
     def update_user_profile(self, user_id: str, update_data: Dict[str, Any]) -> bool:
@@ -75,23 +75,7 @@ class UserDelegator:
             
         return permissions
     
-    def _get_user_features(self, user, tenant) -> List[str]:
-        """Determine available features based on user and tenant"""
-        features = ["basic_research"]
-        
-        if tenant and tenant.settings:
-            tenant_features = tenant.settings.get("features", [])
-            if "all" in tenant_features:
-                features.extend([
-                    "ai_assistant",
-                    "advanced_analytics", 
-                    "collaboration_tools",
-                    "data_export"
-                ])
-            else:
-                features.extend(tenant_features)
-                
-        return features
+
     
     def _sanitize_user_data(self, user) -> Dict[str, Any]:
         """Remove sensitive data from user object"""

@@ -1,6 +1,6 @@
 from typing import Optional, Dict, Any
 from datetime import datetime, timedelta
-from app.core.security import verify_password, get_password_hash, create_access_token, create_refresh_token
+from app.core.security import SecurityManager
 from app.repositories.user_repository import UserRepository
 from app.repositories.tenant_repository import TenantRepository
 
@@ -10,6 +10,7 @@ class AuthDelegator:
     def __init__(self, user_repo: UserRepository, tenant_repo: TenantRepository):
         self.user_repo = user_repo
         self.tenant_repo = tenant_repo
+        self.security_manager = SecurityManager()
     
     def validate_login_credentials(self, email: str, password: str) -> Optional[Dict[str, Any]]:
         """Validate login credentials and return user data if valid"""
@@ -21,7 +22,7 @@ class AuthDelegator:
         if not user.is_active:
             raise ValueError("Account is disabled")
             
-        if not verify_password(password, user.hashed_password):
+        if not self.security_manager.verify_password(password, user.hashed_password):
             return None
             
         # Update last login
@@ -41,8 +42,8 @@ class AuthDelegator:
         """Create access and refresh tokens for user"""
         token_data = {"sub": user_id, "tenant_id": tenant_id}
         
-        access_token = create_access_token(token_data)
-        refresh_token = create_refresh_token(token_data)
+        access_token = self.security_manager.create_access_token(token_data)
+        refresh_token = self.security_manager.create_refresh_token(token_data)
         
         return {
             "access_token": access_token,
@@ -64,7 +65,7 @@ class AuthDelegator:
             
         return {
             "email": email.lower().strip(),
-            "hashed_password": get_password_hash(password),
+            "hashed_password": self.security_manager.get_password_hash(password),
             "name": name.strip(),
             "is_active": True,
             "email_verified": False,

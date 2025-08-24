@@ -1,10 +1,6 @@
-import sys
-import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../../shared'))
-
 from typing import Optional, List
 from sqlalchemy.orm import Session
-from shared.repositories import BaseRepository
+from shared import BaseRepository
 from app.models.tenant import Tenant
 
 class TenantRepository(BaseRepository[Tenant]):

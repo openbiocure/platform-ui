@@ -1,20 +1,21 @@
-from .reference_tables import UserType, TenantType, Role, FeatureCategory, AuditEventType
+from .reference_tables import UserType, TenantType, AuditEventType
 from .user import User
 from .tenant import Tenant, TenantUser
-from .feature import Feature, RoleFeature, UserFeatureOverride
+from .permissions import Role, Permission, TenantSecurityPolicy, UserProjectMembership
 from .audit import AuditLog
 from .identity_provider import IdentityProvider
 
 __all__ = [
     # Reference Tables
-    "UserType", "TenantType", "Role", "FeatureCategory", "AuditEventType",
+    "UserType", "TenantType", "AuditEventType",
     # Models
     "User",
     "Tenant", 
     "TenantUser",
-    "Feature",
-    "RoleFeature", 
-    "UserFeatureOverride",
+    "Role",
+    "Permission",
+    "TenantSecurityPolicy",
+    "UserProjectMembership",
     "AuditLog",
     "IdentityProvider"
 ]

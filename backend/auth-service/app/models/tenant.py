@@ -28,6 +28,8 @@ class Tenant(Base):
     tenant_type = relationship("TenantType")
     users = relationship("User", back_populates="tenant")
     tenant_users = relationship("TenantUser", back_populates="tenant")
+    roles = relationship("Role", back_populates="tenant")
+    security_policies = relationship("TenantSecurityPolicy", back_populates="tenant")
     
     def __repr__(self):
         return f"<Tenant(id={self.id}, name={self.name}, slug={self.slug})>"

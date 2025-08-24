@@ -1,0 +1,51 @@
+# Main Configuration File for Auth Service
+# This file contains all application settings
+# Environment variables can override any value here
+
+# Database Configuration
+database:
+  host: "172.16.14.112"
+  port: 5432
+  username: "postgres"
+  password: "postgres"
+  name: "openbiocure_auth"
+  url: "postgresql://postgres:postgres@172.16.14.112:5432/openbiocure_auth"
+
+# JWT Configuration
+jwt:
+  secret_key: "dev-secret-key-change-in-production-please"
+  algorithm: "HS256"
+  access_token_expire_minutes: 30
+  refresh_token_expire_days: 7
+
+# Security Configuration
+security:
+  bcrypt_rounds: 12
+  session_expire_minutes: 30
+  max_sessions_per_user: 3
+  tenant_isolation_enabled: true
+  tenant_key_rotation_hours: 48
+
+# OAuth Configuration
+oauth:
+  client_id: ""
+  client_secret: ""
+  redirect_uri: "http://localhost:3000/auth/callback"
+
+# CORS Configuration
+cors:
+  allowed_origins:
+    - "http://localhost:3000"
+    - "https://app.openbiocure.com"
+
+# Service Configuration
+service:
+  name: "auth-service"
+  version: "1.0.0"
+  debug: true
+
+# Development Environment
+development:
+  enabled: true
+  log_level: "DEBUG"
+  reload: true

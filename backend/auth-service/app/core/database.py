@@ -5,8 +5,8 @@ from .config import settings
 
 # Database engine
 engine = create_engine(
-    settings.DATABASE_URL,
-    echo=settings.DEBUG,
+    settings.get("database.url"),
+    echo=settings.get("service.debug", False),
     pool_pre_ping=True,
     pool_recycle=300
 )

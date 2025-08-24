@@ -14,10 +14,10 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 try:
     from core.database import SessionLocal, engine
     from models.reference_tables import (
-        UserType, TenantType, Role, FeatureCategory, AuditEventType
+        UserType, TenantType, Role, AuditEventType
     )
     from seeds.reference_data import (
-        USER_TYPES, TENANT_TYPES, ROLES, FEATURE_CATEGORIES, AUDIT_EVENT_TYPES
+        USER_TYPES, TENANT_TYPES, ROLES, AUDIT_EVENT_TYPES
     )
 except ImportError as e:
     print(f"Import error: {e}")
@@ -61,7 +61,7 @@ def main():
         seed_reference_table(db, UserType, USER_TYPES, "User Types")
         seed_reference_table(db, TenantType, TENANT_TYPES, "Tenant Types") 
         seed_reference_table(db, Role, ROLES, "Roles")
-        seed_reference_table(db, FeatureCategory, FEATURE_CATEGORIES, "Feature Categories")
+
         seed_reference_table(db, AuditEventType, AUDIT_EVENT_TYPES, "Audit Event Types")
         
         print("🎉 All reference data seeded successfully!")
@@ -71,7 +71,7 @@ def main():
         print(f"  User Types: {db.query(UserType).count()}")
         print(f"  Tenant Types: {db.query(TenantType).count()}")
         print(f"  Roles: {db.query(Role).count()}")
-        print(f"  Feature Categories: {db.query(FeatureCategory).count()}")
+
         print(f"  Audit Event Types: {db.query(AuditEventType).count()}")
         
     except Exception as e:

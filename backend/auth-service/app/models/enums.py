@@ -28,15 +28,7 @@ class LoginMode(str, Enum):
     SSO = "sso"
     HYBRID = "hybrid"
 
-class FeatureCategory(str, Enum):
-    """Feature category enumeration"""
-    RESEARCH = "research"
-    COLLABORATION = "collaboration"
-    ANALYTICS = "analytics"
-    ADMINISTRATION = "administration"
-    AI_TOOLS = "ai_tools"
-    DATA_EXPORT = "data_export"
-    GENERAL = "general"
+
 
 class AuditSeverity(str, Enum):
     """Audit log severity levels"""
@@ -59,6 +51,6 @@ UserTypeEnum = SQLEnum(UserType, name="user_type")
 TenantTypeEnum = SQLEnum(TenantType, name="tenant_type")
 TenantRoleEnum = SQLEnum(TenantRole, name="tenant_role")
 LoginModeEnum = SQLEnum(LoginMode, name="login_mode")
-FeatureCategoryEnum = SQLEnum(FeatureCategory, name="feature_category")
+
 AuditSeverityEnum = SQLEnum(AuditSeverity, name="audit_severity")
 AuditEventClassEnum = SQLEnum(AuditEventClass, name="audit_event_class")

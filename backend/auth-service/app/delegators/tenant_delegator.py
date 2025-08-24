@@ -44,7 +44,7 @@ class TenantDelegator:
             
         return {
             **self.sanitize_tenant_data(tenant),
-            "features": self._get_tenant_features(tenant),
+
             "limits": self._get_tenant_limits(tenant)
         }
     
@@ -88,12 +88,7 @@ class TenantDelegator:
         slug = re.sub(r'[\s-]+', '-', slug).strip('-')
         return slug
     
-    def _get_tenant_features(self, tenant) -> List[str]:
-        """Get available features for tenant"""
-        if not tenant.settings:
-            return ["basic"]
-            
-        return tenant.settings.get("features", ["basic"])
+
     
     def _get_tenant_limits(self, tenant) -> Dict[str, Any]:
         """Get tenant limits and quotas"""

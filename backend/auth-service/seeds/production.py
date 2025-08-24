@@ -1,45 +1,40 @@
+#!/usr/bin/env python3
 """
-Production database seeds
-Minimal, secure seeds for production environment
+Production seed data for OpenBioCure Platform
+Clean RBAC-based system without old feature system
 """
-import os
-from secrets import token_urlsafe
-
-def generate_secure_password():
-    """Generate a secure random password for production"""
-    return token_urlsafe(32)
 
 PRODUCTION_USERS = [
     {
-        "email": os.getenv("PROD_ADMIN_EMAIL", "admin@openbiocure.com"),
-        "password": os.getenv("PROD_ADMIN_PASSWORD") or generate_secure_password(),
+        "email": "admin@openbiocure.com",
+        "password": "CHANGE_ME_IN_PRODUCTION",
         "name": "System Administrator",
-        "type": "organization_admin", 
-        "tenant_name": "OpenBioCure",
-        "features": ["full_access", "admin_panel", "user_management", "tenant_management", "system_admin"]
+        "type": "organization_admin",
+        "tenant_name": "OpenBioCure Production"
     }
 ]
 
 PRODUCTION_TENANTS = [
     {
-        "name": "OpenBioCure",
-        "slug": "openbiocure",
-        "type": "organization",
-        "description": "OpenBioCure main organization",
+        "name": "OpenBioCure Production",
+        "slug": "openbiocure-production",
+        "type": "enterprise",
+        "description": "Production environment for OpenBioCure",
         "settings": {
             "max_users": 10000,
-            "features": ["all"],
             "billing_plan": "enterprise"
         }
     }
 ]
 
-# Print generated passwords for admin reference
 def print_production_credentials():
-    """Print production credentials for secure storage"""
+    """Print production credentials for reference"""
+    print("\n🚨 PRODUCTION CREDENTIALS:")
+    print("=" * 50)
+    print("⚠️  IMPORTANT: Change these passwords immediately!")
+    print("=" * 50)
     for user in PRODUCTION_USERS:
-        if not os.getenv("PROD_ADMIN_PASSWORD"):
-            print(f"Generated password for {user['email']}: {user['password']}")
-            print("⚠️  IMPORTANT: Store this password securely and set PROD_ADMIN_PASSWORD environment variable")
-            print("🔒 Password will be hashed in database - this is your only chance to see it")
-            print("-" * 80)
+        print(f"Email: {user['email']}")
+        print(f"Password: {user['password']}")
+        print(f"Name: {user['name']}")
+        print("-" * 30)

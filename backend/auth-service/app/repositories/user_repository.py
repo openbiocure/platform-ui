@@ -1,10 +1,9 @@
-import sys
-import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '../../../shared'))
-
 from typing import Optional, List
 from sqlalchemy.orm import Session
-from shared.repositories import BaseRepository
+import sys
+import os
+sys.path.append('/Users/mohammad_shehab/develop/openbiocure-platform-ui/backend/shared')
+from repositories.base_repository import BaseRepository
 from app.models.user import User
 
 class UserRepository(BaseRepository[User]):

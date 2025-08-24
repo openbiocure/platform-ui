@@ -1,6 +1,7 @@
+#!/usr/bin/env python3
 """
-Development database seeds
-Simple passwords for easy development and testing
+Development seed data for OpenBioCure Platform
+Clean RBAC-based system without old feature system
 """
 
 DEVELOPMENT_USERS = [
@@ -9,48 +10,42 @@ DEVELOPMENT_USERS = [
         "password": "admin123",
         "name": "Admin User",
         "type": "organization_admin",
-        "tenant_name": "OpenBioCure",
-        "features": ["full_access", "admin_panel", "user_management", "tenant_management"]
+        "tenant_name": "OpenBioCure"
     },
     {
         "email": "researcher@openbiocure.com", 
         "password": "researcher123",
         "name": "Senior Researcher",
         "type": "organization_member",
-        "tenant_name": "OpenBioCure",
-        "features": ["research_tools", "ai_assistant", "data_analysis", "collaboration"]
+        "tenant_name": "OpenBioCure"
     },
     {
         "email": "demo@demo.com",
         "password": "demo123",
         "name": "Demo User", 
         "type": "individual",
-        "tenant_name": "Demo",
-        "features": ["basic_research", "ai_assistant_limited"]
+        "tenant_name": "Demo"
     },
     {
         "email": "test@test.com",
         "password": "test123456",
         "name": "Test User",
         "type": "individual", 
-        "tenant_name": "Test",
-        "features": ["basic_research"]
+        "tenant_name": "Test"
     },
     {
         "email": "scholar@university.edu",
         "password": "scholar123",
         "name": "Dr. Jane Scholar",
         "type": "organization_member",
-        "tenant_name": "University Research",
-        "features": ["research_tools", "publication_tools", "collaboration"]
+        "tenant_name": "University Research"
     },
     {
         "email": "student@university.edu",
         "password": "student123", 
         "name": "John Student",
         "type": "individual",
-        "tenant_name": "University Research",
-        "features": ["basic_research", "learning_tools"]
+        "tenant_name": "University Research"
     }
 ]
 
@@ -62,7 +57,6 @@ DEVELOPMENT_TENANTS = [
         "description": "Main OpenBioCure organization",
         "settings": {
             "max_users": 1000,
-            "features": ["all"],
             "billing_plan": "enterprise"
         }
     },
@@ -73,7 +67,6 @@ DEVELOPMENT_TENANTS = [
         "description": "Demo tenant for testing",
         "settings": {
             "max_users": 5,
-            "features": ["basic"],
             "billing_plan": "trial"
         }
     },
@@ -84,7 +77,6 @@ DEVELOPMENT_TENANTS = [
         "description": "Test tenant for automated testing",
         "settings": {
             "max_users": 10,
-            "features": ["basic"],
             "billing_plan": "trial"
         }
     },
@@ -95,7 +87,6 @@ DEVELOPMENT_TENANTS = [
         "description": "Academic research institution",
         "settings": {
             "max_users": 500,
-            "features": ["research", "collaboration", "publications"],
             "billing_plan": "academic"
         }
     }

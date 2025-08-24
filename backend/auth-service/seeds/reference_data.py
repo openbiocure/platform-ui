@@ -187,57 +187,7 @@ ROLES = [
     }
 ]
 
-# Feature Categories Reference Data
-FEATURE_CATEGORIES = [
-    {
-        "code": "research",
-        "name": "Research Tools",
-        "description": "Core research and analysis features",
-        "icon": "microscope",
-        "color": "#3B82F6",
-        "sort_order": 1
-    },
-    {
-        "code": "ai_tools",
-        "name": "AI & Machine Learning",
-        "description": "AI-powered analysis and insights",
-        "icon": "brain",
-        "color": "#8B5CF6", 
-        "sort_order": 2
-    },
-    {
-        "code": "collaboration",
-        "name": "Collaboration",
-        "description": "Team collaboration and sharing features",
-        "icon": "users",
-        "color": "#10B981",
-        "sort_order": 3
-    },
-    {
-        "code": "analytics",
-        "name": "Analytics & Reporting",
-        "description": "Data analytics and reporting tools",
-        "icon": "chart-bar",
-        "color": "#F59E0B",
-        "sort_order": 4
-    },
-    {
-        "code": "data_export",
-        "name": "Data Export",
-        "description": "Data export and integration features",
-        "icon": "download",
-        "color": "#6B7280",
-        "sort_order": 5
-    },
-    {
-        "code": "administration",
-        "name": "Administration",
-        "description": "Admin and management features",
-        "icon": "cog",
-        "color": "#EF4444",
-        "sort_order": 6
-    }
-]
+
 
 # Audit Event Types Reference Data
 AUDIT_EVENT_TYPES = [

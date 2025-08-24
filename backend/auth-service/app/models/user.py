@@ -17,7 +17,7 @@ class User(Base):
     username = Column(String, unique=True, index=True, nullable=False)
     full_name = Column(String, nullable=False)
     password_hash = Column(String, nullable=False)
-    user_type_id = Column(pg_UUID(as_uuid=True), ForeignKey("user_types.id"), nullable=False)
+    role_id = Column(pg_UUID(as_uuid=True), ForeignKey("roles.id"), nullable=False, index=True)
     tenant_id = Column(pg_UUID(as_uuid=True), ForeignKey("tenants.id"), nullable=False, index=True)
     is_active = Column(Boolean, default=True, nullable=False)
     email_verified = Column(Boolean, default=False, nullable=False)
@@ -26,9 +26,9 @@ class User(Base):
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     
     # Relationships
-    user_type = relationship("UserType")
+    role = relationship("Role", back_populates="users")
     tenant = relationship("Tenant", back_populates="users")
-    tenant_roles = relationship("TenantUser", back_populates="user")
+    project_memberships = relationship("UserProjectMembership", back_populates="user")
     
     def __repr__(self):
         return f"<User(id={self.id}, email={self.email}, username={self.username})>"
